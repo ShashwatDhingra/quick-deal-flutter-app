@@ -22,7 +22,7 @@ class LeaveBodyTile1 extends StatelessWidget {
                       padding: const EdgeInsets.all(24.0),
                       decoration: BoxDecoration(
                           color: dark ? CColors.darkContainer : CColors.primary,
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(50),
                               bottomRight: Radius.circular(50))),
                     )),

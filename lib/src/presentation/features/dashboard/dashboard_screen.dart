@@ -38,8 +38,13 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
   Widget build(BuildContext context) {
     var selectedIndex = ref.watch(intBottomNavBarIndex);
 
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) async {
+        if (didPop) {
+          return;
+        }
+
         final shouldClose = await showCupertinoDialog(
           context: context,
           builder: (context) => CupertinoAlertDialog(
@@ -58,7 +63,11 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
             ],
           ),
         );
-        return shouldClose ?? false;
+
+        if (shouldClose ?? false) {
+          // ignore: use_build_context_synchronously
+          Navigator.of(context).pop();
+        }
       },
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(

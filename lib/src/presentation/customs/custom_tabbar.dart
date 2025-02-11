@@ -6,6 +6,7 @@ import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import '../../core/utils/ui_utils/constants/colors.dart';
 
 
+// ignore: must_be_immutable
 class CustomTabbar extends StatefulWidget {
   CustomTabbar(
       {super.key,

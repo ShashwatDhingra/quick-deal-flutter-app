@@ -23,7 +23,7 @@ class AttendanceListCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12)),
         child: Column(children: [
           Row(children: [
-            CustomIconButton(
+            const CustomIconButton(
               assetSt: AssetsConsts.icCalendar,
               // transparentBackground: true,
             ),
