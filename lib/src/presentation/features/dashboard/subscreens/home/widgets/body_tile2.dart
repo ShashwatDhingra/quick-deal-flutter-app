@@ -1,11 +1,10 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
 import '../../../../../../core/utils/ui_utils/constants/assets.dart';
 import '../../../../../../core/utils/ui_utils/constants/colors.dart';
+import '../../../../../customs/see_all.dart';
 import '../../../states/home_state.dart';
 
 class BodyTile2 extends ConsumerWidget {
@@ -13,172 +12,198 @@ class BodyTile2 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final homeState = ref.watch(homeStateProvider);
-    final homeStateNotifier = ref.read(homeStateProvider.notifier);
-    var isDark = context.isDarkMode;
+    // final homeState = ref.watch(homeStateProvider);
+    // final homeStateNotifier = ref.read(homeStateProvider.notifier);
+    // var isDark = context.isDarkMode;
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
+      child: Column(
+        // margin: const EdgeInsets.all(12),
+        // padding: const EdgeInsets.all(5.0),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "New Properties",
+                style: TextStyle(fontSize: 19.sp),
+              ),
+              seeAll(
+                onPressed: () {},
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Expanded(
+            child: ListView.separated(
+                separatorBuilder: (context, index) {
+                  return SizedBox(
+                    width: 12.w,
+                  );
+                },
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return const SinglePropertyCard(
+                    imageUrl:
+                        "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
+                    title: "Luxury Apartment",
+                    type: "Rent",
+                    location: "456 Elm St, Town",
+                    bedrooms: 3,
+                    bathrooms: 2,
+                    area: 150,
+                    price: "3000",
+                  );
+                },
+                itemCount: 1),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class SinglePropertyCard extends StatelessWidget {
+  final String imageUrl;
+  final String title;
+  final String type;
+  final String location;
+  final int bedrooms;
+  final int bathrooms;
+  final double area;
+  final String price;
+
+  const SinglePropertyCard({
+    super.key,
+    this.imageUrl =
+        "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
+    this.title = "Villa the Pool",
+    this.type = "Sale",
+    this.location = "123 Main St, City",
+    this.bedrooms = 4,
+    this.bathrooms = 4,
+    this.area = 125,
+    this.price = "490000",
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-        width: double.infinity,
-        margin: const EdgeInsets.all(12),
-        padding: const EdgeInsets.all(18.0),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: isDark ? CColors.darkContainer : CColors.white),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+      width: double.infinity, // Ensures it takes the full available width
+      padding: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xff565992).withOpacity(0.2),
+            blurRadius: 10,
+            spreadRadius: 0,
+          ),
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Image
+          SizedBox(
+            width: 120, // Set fixed width for image
+            height: 120,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          const SizedBox(width: 12), // Add spacing between image and text
+
+          // Property Details
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Text(
+                  title,
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 4),
+
+                Text(
+                  type,
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 4),
+
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        Text('Today Appointment',
-                            style: Theme.of(context).textTheme.titleLarge),
-                        6.pw,
-                        if (homeState.appointmentList.isNotEmpty)
-                          Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4.0),
-                                color: isDark
-                                    ? CColors.darkContainer
-                                    : CColors.primary.withOpacity(0.1),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 2.0),
-                              child: Text(
-                                  homeState.appointmentList.length.toString())),
-                      ],
+                    const Icon(Icons.location_on_outlined,
+                        color: Colors.blue, size: 16),
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Text(
+                        location,
+                        style: const TextStyle(fontSize: 12),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    Text('Your Schedule for the day',
-                        style: Theme.of(context).textTheme.labelSmall),
                   ],
                 ),
-                const Spacer(),
-                IconButton(
-                  icon: const Icon(Icons.refresh),
-                  onPressed: () {
-                    homeStateNotifier.fetchAppointmentList();
-                  },
+                const SizedBox(height: 8),
+
+                // Bedrooms, Bathrooms, Area
+                Row(
+                  children: [
+                    _buildIconText(Icons.bed_rounded, bedrooms.toString()),
+                    _buildIconText(
+                        Icons.bathtub_outlined, bathrooms.toString()),
+                    _buildIconText(Icons.aspect_ratio_sharp, "$area SQ Ft"),
+                  ],
+                ),
+                const SizedBox(height: 8),
+
+                // Price
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Price",
+                      style: TextStyle(fontSize: 12, color: Colors.blue),
+                    ),
+                    Text(
+                      price,
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ],
             ),
-            homeState.isAppointmentListLoading
-                ? Expanded(
-                    child: Center(
-                      child: SizedBox(
-                          height: 30.h,
-                          width: 30.h,
-                          child: const CircularProgressIndicator(
-                            strokeWidth: 1,
-                          )),
-                    ),
-                  )
-                : homeState.appointmentList.isEmpty
-                    ? const Expanded(child: _EmptyTileWidget())
-                    : Expanded(child: _ListTileWidget(homeState: homeState))
-          ],
-        ));
-  }
-}
-
-class _EmptyTileWidget extends StatelessWidget {
-  const _EmptyTileWidget();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      16.ph,
-      Center(
-        child: Column(
-          children: [
-            Image.asset(
-              AssetsConsts.emptyAppointmentIllus,
-              height: 77.h,
-            )
-          ],
-        ),
-      ),
-      12.ph,
-      Center(
-        child: Text('No Meeting Available',
-            style: Theme.of(context).textTheme.titleLarge),
-      ),
-      Expanded(
-        child: Center(
-          child: Text(
-            'It looks like you don’t have any meetings scheduled at the moment.',
-            style: Theme.of(context).textTheme.bodySmall,
-            overflow: TextOverflow.fade,
-            textAlign: TextAlign.center,
           ),
-        ),
+        ],
       ),
-    ]);
+    );
   }
-}
 
-class _ListTileWidget extends StatelessWidget {
-  const _ListTileWidget({required this.homeState});
-  final HomeState homeState;
-
-  @override
-  Widget build(BuildContext context) {
-    var isDark = context.isDarkMode;
-
-    return ListView.separated(
-        separatorBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 87.w),
-            child: Divider(
-              color: Colors.grey.shade400,
-            ),
-          );
-        },
-        itemCount: homeState.appointmentList.length,
-        itemBuilder: (context, index) => Container(
-              padding: const EdgeInsets.all(14.0),
-              margin: const EdgeInsets.all(6.0),
-              decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.07),
-                  border: Border.all(color: Colors.grey.withOpacity(0.2)),
-                  borderRadius: BorderRadius.circular(8)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Row(
-                    children: [
-                      Text(homeState.appointmentList[index]["name"].toString(),
-                          style: Theme.of(context).textTheme.headlineSmall),
-                      const Spacer(),
-                      ImageIcon(
-                        const AssetImage(
-                          AssetsConsts.icClock,
-                        ),
-                        color: Colors.grey.withOpacity(0.4),
-                        size: 18,
-                      ),
-                      8.pw,
-                      Text(homeState.appointmentList[index]['in_time'] + ' - '),
-                      Text(homeState.appointmentList[index]['out_time'])
-                    ],
-                  ),
-                  8.ph,
-                  Container(
-                      width: 70.w,
-                      height: 25.h,
-                      decoration: BoxDecoration(
-                          color:
-                              isDark ? CColors.darkContainer : CColors.primary,
-                          borderRadius: BorderRadius.circular(18)),
-                      child: Center(
-                          child: Text('Start',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(color: Colors.white))))
-                ],
-              ),
-            ));
+  Widget _buildIconText(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(icon, color: Colors.blue, size: 16),
+        const SizedBox(width: 4),
+        Text(text, style: const TextStyle(fontSize: 12)),
+        const SizedBox(width: 8),
+      ],
+    );
   }
 }

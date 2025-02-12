@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
@@ -24,28 +22,35 @@ class HomeScreen extends StatelessWidget {
         shadowColor: Colors.grey.withOpacity(0.3),
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: CircleAvatar(
-            backgroundColor: isDark ? CColors.darkContainer : CColors.primary,
-            child: Icon(
-              Icons.person,
-              size: 26.sp,
-              color: Colors.white,
+          child: IconButton(
+            icon: Icon(
+              Icons.menu,
+              size: 24.sp,
+              color: Colors.black,
             ),
+            onPressed: () {},
           ),
         ),
         centerTitle: false,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('User',
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: isDark ? CColors.textWhite : Colors.black)),
-            Text(
-              'Software Development',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(color: isDark ? CColors.darkGrey : CColors.primary),
+            Text('  Current Location',
+                style: TextStyle(
+                    color: isDark ? CColors.textWhite : Colors.black,
+                    fontSize: 12.sp)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(Icons.location_on_outlined),
+                Text(
+                  'Delhi',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: isDark ? CColors.light : CColors.black),
+                )
+              ],
             )
           ],
         ),
@@ -54,15 +59,13 @@ class HomeScreen extends StatelessWidget {
             assetSt: AssetsConsts.icNotification,
           ),
           12.pw,
-          const CustomIconButton(assetSt: AssetsConsts.icMessage),
-          12.pw,
         ],
       ),
       body: const Column(
         children: [
-          Expanded(flex: 1, child: BodyTile1()),
-          Expanded(flex: 2, child: BodyTile2()),
-          Expanded(flex: 2, child: BodyTile3())
+          Expanded(flex: 4, child: BodyTile1()),
+          Expanded(flex: 4, child: BodyTile2()),
+          Expanded(flex: 6, child: BodyTile3())
         ],
       ),
     );

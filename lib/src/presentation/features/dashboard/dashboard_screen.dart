@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/utils/ui_utils/constants/assets.dart';
+import '../../../core/utils/ui_utils/constants/colors.dart';
 import 'states/dashboard_state.dart';
 import 'subscreens/attendance/attendance_screen.dart';
 import 'subscreens/expense/expense_screen.dart';
@@ -72,8 +73,8 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.black,
-          selectedItemColor: Colors.white,
+          backgroundColor: Colors.white,
+          selectedItemColor: CColors.primary,
           unselectedItemColor: Colors.grey,
           currentIndex: selectedIndex,
           onTap: (s) {
@@ -123,6 +124,9 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
               ref.read(intBottomNavBarIndex) == index
                   ? selectedIcon
                   : unselectedIcon,
+              color: ref.read(intBottomNavBarIndex) == index
+                  ? CColors.primary
+                  : Colors.grey,
               key: ValueKey<int>(index),
               height: 24,
             ),
@@ -133,7 +137,8 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
               width: 13,
               height: 2,
               decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(12)),
+                  color: CColors.primary,
+                  borderRadius: BorderRadius.circular(12)),
             ),
           // Just to add space
           if (ref.read(intBottomNavBarIndex) != index)

@@ -18,7 +18,7 @@ class OnboardingState {
         'Make Smart Decisions! Set clear timelines for projects and celebrate your achievements!',
         'Stay Balanced! Track your workload and maintain a healthy stress level with ease.',
         'Your Journey Starts Here! Earn achievement badges as you conquer your tasks. Let’s get started!',
-        'Increase your work management & career development radically'
+        'Increase your work management & careerdevelopment radically'
       ]});
 
   // Method to copy the state with update version
@@ -28,7 +28,7 @@ class OnboardingState {
         onBoardingMessageTitle: onBoardingMessageTitle,
         onBoardingMessageSubtitles: onBoardingMessageSubtitles);
   }
-}
+} 
 
 // We only use Notifier class to update the UI. Basically to call the method on State Class.
 class OnboardingStateNotifier extends StateNotifier<OnboardingState> {
@@ -37,6 +37,7 @@ class OnboardingStateNotifier extends StateNotifier<OnboardingState> {
   void updatePageIndex(int index) {
     state = state.copyWith(currentIndex: index);
   }
+  
 
   void skipToLastPage() {
     state =
