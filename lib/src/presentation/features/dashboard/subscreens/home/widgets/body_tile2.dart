@@ -7,19 +7,15 @@ import '../../../../../../core/utils/ui_utils/constants/colors.dart';
 import '../../../../../customs/see_all.dart';
 import '../../../states/home_state.dart';
 
+/// **2nd Tile - Horizontally Scrollable**
 class BodyTile2 extends ConsumerWidget {
   const BodyTile2({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final homeState = ref.watch(homeStateProvider);
-    // final homeStateNotifier = ref.read(homeStateProvider.notifier);
-    // var isDark = context.isDarkMode;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
       child: Column(
-        // margin: const EdgeInsets.all(12),
-        // padding: const EdgeInsets.all(5.0),
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -34,33 +30,28 @@ class BodyTile2 extends ConsumerWidget {
               ),
             ],
           ),
+          SizedBox(height: 10.h),
           SizedBox(
-            height: 10.h,
+            height: 200.h, // ListView ke liye fixed height
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return SinglePropertyCard(
+                  imageUrl:
+                      "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
+                  title: "Luxury Apartment",
+                  type: "Rent",
+                  location: "456 Elm St, Town",
+                  bedrooms: 3,
+                  bathrooms: 2,
+                  area: 150,
+                  price: "3000",
+                );
+              },
+            ),
           ),
-          Expanded(
-            child: ListView.separated(
-                separatorBuilder: (context, index) {
-                  return SizedBox(
-                    width: 12.w,
-                  );
-                },
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return const SinglePropertyCard(
-                    imageUrl:
-                        "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
-                    title: "Luxury Apartment",
-                    type: "Rent",
-                    location: "456 Elm St, Town",
-                    bedrooms: 3,
-                    bathrooms: 2,
-                    area: 150,
-                    price: "3000",
-                  );
-                },
-                itemCount: 1),
-          )
         ],
       ),
     );
