@@ -153,7 +153,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ? SizedBox()
                 : Padding(
                     padding: EdgeInsets.only(
-                        left: 15.w, right: 15, top: 15, bottom: 0),
+                      left: 15.w,
+                      right: 15,
+                      top: 15,
+                    ),
                     child: SizedBox(
                       height: isScrolled ? 35.h : 80.h,
                       child: TextFormField(
@@ -200,7 +203,10 @@ class BodyTile1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+      padding: EdgeInsets.only(
+        right: 10.w,
+        left: 10.w,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -210,7 +216,7 @@ class BodyTile1 extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           SizedBox(
-            height: 80.h, // ListView ke liye fixed height
+            height: 80.h,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               separatorBuilder: (context, index) => SizedBox(width: 10.w),
@@ -259,21 +265,29 @@ class BodyTile2 extends ConsumerWidget {
           ),
           SizedBox(height: 10.h),
           SizedBox(
-            height: 200.h, // ListView ke liye fixed height
+            height: 150.h, // ListView ke liye fixed height
+            width: double.infinity,
+
             child: ListView.builder(
+              shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemCount: 5,
               itemBuilder: (context, index) {
-                return SinglePropertyCard(
-                  imageUrl:
-                      "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
-                  title: "Luxury Apartment",
-                  type: "Rent",
-                  location: "456 Elm St, Town",
-                  bedrooms: 3,
-                  bathrooms: 2,
-                  area: 150,
-                  price: "3000",
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                      width: 400,
+                      child: SinglePropertyCard(
+                        imageUrl:
+                            "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
+                        title: "Luxury Apartment",
+                        type: "Rent",
+                        location: "456 Elm St, Town",
+                        bedrooms: 3,
+                        bathrooms: 2,
+                        area: 150,
+                        price: "3000",
+                      )),
                 );
               },
             ),
