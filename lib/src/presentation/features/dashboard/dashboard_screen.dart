@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
 import '../../../core/utils/ui_utils/constants/assets.dart';
 import '../../../core/utils/ui_utils/constants/colors.dart';
@@ -38,7 +39,7 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
   @override
   Widget build(BuildContext context) {
     var selectedIndex = ref.watch(intBottomNavBarIndex);
-
+    var isDark = context.isDarkMode;
     return PopScope(
       canPop: false,
       onPopInvoked: (bool didPop) async {
@@ -73,7 +74,7 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
+          backgroundColor: isDark ? CColors.black : Colors.white,
           selectedItemColor: CColors.primary,
           unselectedItemColor: Colors.grey,
           currentIndex: selectedIndex,
