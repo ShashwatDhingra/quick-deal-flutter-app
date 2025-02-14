@@ -5,6 +5,8 @@ import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/presentation/customs/custom_icon_button.dart';
 import 'package:quickdeal/src/presentation/customs/see_all.dart';
 
+import '../../../../../core/utils/ui_utils/constants/colors.dart';
+
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
@@ -52,7 +54,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             duration: const Duration(milliseconds: 300), // Smooth animation
             height: appBarHeight,
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            color: isDark ? Colors.black : Colors.white,
+            color: isDark ? CColors.black : Colors.white,
             child: Row(
               children: [
                 /// Menu Icon
@@ -62,7 +64,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     icon: Icon(
                       Icons.menu,
                       size: 24.sp,
-                      color: Colors.black,
+                      color: isDark ? CColors.white : Colors.black,
                     ),
                     onPressed: () {},
                   ),
@@ -150,8 +152,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: isScrolled
                 ? SizedBox()
                 : Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 00.h),
+                    padding: EdgeInsets.only(
+                        left: 15.w, right: 15, top: 15, bottom: 0),
                     child: SizedBox(
                       height: isScrolled ? 35.h : 80.h,
                       child: TextFormField(
@@ -357,15 +359,17 @@ class SinglePropertyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isDark = context.isDarkMode;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDark ? CColors.darkContainer : CColors.white,
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xff565992).withOpacity(0.2),
+            color: CColors.black.withOpacity(0.01),
             blurRadius: 10,
             spreadRadius: 0,
           ),
