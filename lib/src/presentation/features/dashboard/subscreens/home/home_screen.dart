@@ -5,6 +5,7 @@ import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/presentation/customs/custom_icon_button.dart';
 import 'package:quickdeal/src/presentation/customs/see_all.dart';
 
+import '../../../../../core/router/routes.dart';
 import '../../../../../core/utils/ui_utils/constants/colors.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -124,7 +125,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   borderSide: BorderSide.none),
                               fillColor: Colors.grey.withOpacity(0.10),
                               filled: true,
-                              suffixIcon: const Icon(Icons.filter_list),
+                              suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    print("click");
+                                    Navigator.pushNamed(
+                                        context, Routes.SearchScreen);
+                                  },
+                                  child: const Icon(Icons.filter_list)),
                               prefixIcon: const Icon(Icons.search),
                               hintText: "Search ",
                               hintStyle: TextStyle(
@@ -165,7 +172,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 borderSide: BorderSide.none),
                             fillColor: Colors.grey.withOpacity(0.10),
                             filled: true,
-                            suffixIcon: const Icon(Icons.filter_list),
+                            suffixIcon: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, Routes.SearchScreen);
+                                },
+                                child: const Icon(Icons.filter_list)),
                             prefixIcon: const Icon(Icons.search),
                             hintText: "Search ",
                             hintStyle:
@@ -381,7 +393,7 @@ class SinglePropertyCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: CColors.black.withOpacity(0.01),
+            color: CColors.black.withOpacity(0.2),
             blurRadius: 10,
             spreadRadius: 0,
           ),

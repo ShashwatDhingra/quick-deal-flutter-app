@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:quickdeal/src/core/router/routes.dart';
+import 'package:quickdeal/src/presentation/features/dashboard/subscreens/search/search_screen.dart';
 
 import '../../presentation/features/auth/ui/screens/signin_screen.dart';
 import '../../presentation/features/auth/ui/screens/signup_screen.dart';
@@ -80,20 +81,9 @@ class RouteGenerator {
       case Routes.notificationsScreen:
         return MaterialPageRoute(
             builder: (context) => const NotificationScreen());
-      // case Routes.resetPasswordConfirmView:
 
-      // case Routes.homeView:
-      //   return MaterialPageRoute(builder: (context) => HomeView(isPreviousLoginScreen: args.runtimeType == bool ? true : false));
-      // case Routes.resetPasswordView:
-      //   return MaterialPageRoute(
-      //       builder: (context) => ResetPasswordView(mail: args.toString()));
-      // case Routes.noteEditView:
-      //   args as Map<String, dynamic>;
-      //   return MaterialPageRoute(
-      //       builder: (context) => NoteEditView(
-      //             isEditing: args['isEditing'],
-      //             note: args['note'],
-      //           ));
+      case Routes.SearchScreen:
+        return MaterialPageRoute(builder: (context) => const SearchScreen());
 
       default:
         return _errorRoute();

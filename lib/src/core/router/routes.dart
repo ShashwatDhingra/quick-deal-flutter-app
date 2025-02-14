@@ -5,6 +5,10 @@ class Routes {
   // Onboarding View
   static const String onboardingScreen = '/onboarding-view';
 
+  
+  // Add User Screen
+  static const String SearchScreen = '/search-list-view';
+
   // Otp Screen
   static const String optScreen = '/opt-view';
   // Dashboard View
