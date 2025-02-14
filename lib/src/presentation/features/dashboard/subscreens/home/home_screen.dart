@@ -74,8 +74,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     : Expanded(
                         child: AnimatedOpacity(
                           duration: const Duration(milliseconds: 300),
-                          opacity: 0.0,
+                          opacity: 1,
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(

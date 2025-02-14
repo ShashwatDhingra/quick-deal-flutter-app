@@ -38,7 +38,7 @@ class CustomIconButton extends StatelessWidget {
                 : CColors.primary.withOpacity(0.07),
         radius: (width ?? height ?? size) /
             2, // Set radius based on width/height or size
-        child: Container(
+        child: SizedBox(
           width: width ?? size, // Use custom width or default size
           height: height ?? size, // Use custom height or default size
           child: _buildIcon(isDark), // Build the icon or image
