@@ -16,7 +16,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   bool isScrolled = false;
-  double appBarHeight = 80.0; // Initial height
   late ScrollController _scrollController;
 
   @override
@@ -52,7 +51,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           /// **Animated AppBar**
           AnimatedContainer(
             duration: const Duration(milliseconds: 300), // Smooth animation
-            height: appBarHeight,
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             color: isDark ? CColors.black : Colors.white,
             child: Row(
