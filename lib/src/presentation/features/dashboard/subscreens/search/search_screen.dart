@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:quickdeal/src/core/router/router.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
 import '../../../../../core/router/routes.dart';
+import '../../../../../core/utils/ui_utils/constants/assets.dart';
+import '../../../../customs/custom_icon_button.dart';
 import '../home/home_screen.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -16,8 +20,8 @@ class _SearchScreenState extends State<SearchScreen> {
   late DraggableScrollableController _draggableController;
   bool isScrolled = false;
   late ScrollController _scrollController;
-  double _sheetPosition = 0.86; // Initial position of the bottom sheet
-  double _opacity = 1.0; // Initial opacity of the blue container
+
+  double _opacity = 1.0;
 
   @override
   void initState() {
@@ -45,7 +49,6 @@ class _SearchScreenState extends State<SearchScreen> {
   void _updateSheetPosition() {
     final double currentPosition = _draggableController.size;
     setState(() {
-      _sheetPosition = currentPosition;
       // Calculate opacity based on the sheet's position
       // As the sheet moves down, opacity decreases (blue to transparent)
       _opacity = currentPosition / 0.86; // 0.86 is the initial size
@@ -67,14 +70,18 @@ class _SearchScreenState extends State<SearchScreen> {
           expand: false,
           builder: (context, scrollController) {
             return Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.transparent, // Bottom sheet background color
-                borderRadius: const BorderRadius.vertical(
+                borderRadius: BorderRadius.vertical(
                   top: Radius.circular(20),
                 ),
               ),
               child: Column(
                 children: [
+                  const Text("Properties"),
+                  SizedBox(
+                    height: 15.h,
+                  ),
                   Expanded(
                     child:
                         NotificationListener<DraggableScrollableNotification>(
@@ -122,9 +129,10 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
+  LatLng location =
+      const LatLng(51.509364, -0.128928); // Latitude and longitude
   @override
   Widget build(BuildContext context) {
-    //print("opps" + _opacity.toString());
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -142,19 +150,52 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
 
+            // FlutterMap (Map Content)
+            FlutterMap(
+              options: const MapOptions(
+                center:
+                    LatLng(51.509364, -0.128928), // Initial map center (London)
+                zoom: 13.0, // Initial zoom level
+              ),
+              children: [
+                TileLayer(
+                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  userAgentPackageName:
+                      'com.example.app', // Required for OpenStreetMap
+                ),
+                MarkerLayer(
+                  markers: [
+                    Marker(
+                      point:
+                          const LatLng(51.509364, -0.128928), // Marker position
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {});
+                        },
+                        child: const Icon(
+                          Icons.navigation,
+                          color: Colors.red,
+                          size: 35,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
             // Main Content (Column with Search Bar)
             Column(
               children: [
                 AnimatedOpacity(
                   duration: const Duration(milliseconds: 300),
-                  opacity:
-                      isScrolled ? 0.0 : 1.0, // Keep this for scroll behavior
+                  opacity: isScrolled ? 0.0 : 1.0,
                   child: Container(
                     color: Colors.white.withOpacity(
                         _opacity == 0.09302325581395349
                             ? 0
                             : _opacity), // Blue to transparent
-                    height: 100.h,
+                    height: 200.h,
                     child: Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
@@ -166,7 +207,9 @@ class _SearchScreenState extends State<SearchScreen> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(100),
                                   borderSide: BorderSide.none),
-                              fillColor: Colors.grey.withOpacity(0.10),
+                              fillColor: _opacity == 0.09302325581395349
+                                  ? Colors.white
+                                  : Colors.grey.withOpacity(0.10),
                               filled: true,
                               suffixIcon: GestureDetector(
                                   onTap: () {
@@ -180,8 +223,33 @@ class _SearchScreenState extends State<SearchScreen> {
                                   fontSize: 15.sp, color: Colors.grey),
                             ),
                           ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
                           Row(
-                            children: [],
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.withOpacity(0.10),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.filter_alt_outlined),
+                                          Text("All")
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
                           )
                         ],
                       ),
