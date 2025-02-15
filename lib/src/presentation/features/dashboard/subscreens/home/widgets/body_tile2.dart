@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
-import '../../../../../../core/utils/ui_utils/constants/assets.dart';
-import '../../../../../../core/utils/ui_utils/constants/colors.dart';
 import '../../../../../customs/see_all.dart';
-import '../../../states/home_state.dart';
 
 /// **2nd Tile - Horizontally Scrollable**
 class BodyTile2 extends ConsumerWidget {
@@ -38,7 +35,7 @@ class BodyTile2 extends ConsumerWidget {
               scrollDirection: Axis.horizontal,
               itemCount: 5,
               itemBuilder: (context, index) {
-                return SinglePropertyCard(
+                return const SinglePropertyCard(
                   imageUrl:
                       "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
                   title: "Luxury Apartment",

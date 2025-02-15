@@ -5,7 +5,7 @@ import 'package:quickdeal/src/core/router/router.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
 import '../../../../../core/router/routes.dart';
-import '../../../../customs/custom_icon_button.dart';
+import '../../../../../core/utils/ui_utils/constants/colors.dart';
 import '../home/home_screen.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -26,7 +26,6 @@ class _SearchScreenState extends State<SearchScreen>
   double _opacity = 1.0;
   int _selectedIndex = 0;
 
-  final LatLng _currentLocation = const LatLng(51.509364, -0.128928);
   final List<Map<String, double>> _dummyLatLngList = [
     {"lat": 28.7041, "lng": 77.1025},
     {"lat": 28.4595, "lng": 77.0266},
@@ -82,7 +81,7 @@ class _SearchScreenState extends State<SearchScreen>
           expand: false,
           builder: (context, scrollController) {
             return Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.transparent,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
               ),
@@ -105,7 +104,7 @@ class _SearchScreenState extends State<SearchScreen>
                       child: ListView.separated(
                         controller: scrollController,
                         shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
+                        physics: const ClampingScrollPhysics(),
                         separatorBuilder: (context, index) =>
                             SizedBox(height: 12.h),
                         itemCount: 15,
@@ -173,9 +172,9 @@ class _SearchScreenState extends State<SearchScreen>
             FlutterMap(
               mapController: _mapController,
               options: MapOptions(
-                center: LatLng(_dummyLatLngList[_selectedIndex]['lat']!,
+                initialCenter: LatLng(_dummyLatLngList[_selectedIndex]['lat']!,
                     _dummyLatLngList[_selectedIndex]['lng']!),
-                zoom: 14.5,
+                initialZoom: 14.5,
                 enableScrollWheel: true,
                 pinchMoveThreshold: 5.7,
               ),
@@ -185,12 +184,12 @@ class _SearchScreenState extends State<SearchScreen>
                         'https://tile.openstreetmap.org/{z}/{x}/{y}.png'),
                 MarkerLayer(
                   markers: [
-                    Marker(
+                    const Marker(
                       height: 40,
                       width: 40,
-                      point: const LatLng(28.7041, 77.102),
-                      child: const Icon(Icons.navigation,
-                          color: Colors.red, size: 40),
+                      point: LatLng(28.7041, 77.102),
+                      child:
+                          Icon(Icons.navigation, color: Colors.red, size: 40),
                     ),
                     ..._dummyLatLngList.map((latLng) => Marker(
                           height: 40,
@@ -246,32 +245,13 @@ class _SearchScreenState extends State<SearchScreen>
                   child: Container(
                     color: Colors.white.withOpacity(
                         _opacity == 0.09302325581395349 ? 0 : _opacity),
-                    height: 200.h,
+                    height: 110.h,
                     child: Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
                       child: Column(
                         children: [
-                          TextFormField(
-                            onChanged: (value) {},
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(100),
-                                  borderSide: BorderSide.none),
-                              fillColor: _opacity == 0.09302325581395349
-                                  ? Colors.white
-                                  : Colors.grey.withOpacity(0.10),
-                              filled: true,
-                              suffixIcon: GestureDetector(
-                                  onTap: () => Navigator.pushNamed(
-                                      context, Routes.SearchScreen),
-                                  child: const Icon(Icons.filter_list)),
-                              prefixIcon: const Icon(Icons.search),
-                              hintText: "Search",
-                              hintStyle: TextStyle(
-                                  fontSize: 15.sp, color: Colors.grey),
-                            ),
-                          ),
+                          customSearchBar(context),
                           SizedBox(height: 10.h),
                           _opacity == 0.09302325581395349
                               ? const SizedBox()
@@ -333,63 +313,90 @@ class _SearchScreenState extends State<SearchScreen>
                 ),
               ),
             ),
-            Column(
-              children: [
-                AnimatedOpacity(
-                  duration: const Duration(milliseconds: 300),
-                  opacity: _isScrolled ? 0.0 : 1.0,
-                  child: Container(
-                    color: Colors.white.withOpacity(
-                        _opacity == 0.09302325581395349 ? 0 : _opacity),
-                    height: 110.h,
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            onChanged: (value) {},
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(100),
-                                  borderSide: BorderSide.none),
-                              fillColor: _opacity == 0.09302325581395349
-                                  ? Colors.white
-                                  : Colors.grey.withOpacity(0.10),
-                              filled: true,
-                              suffixIcon: GestureDetector(
-                                  onTap: () => Navigator.pushNamed(
-                                      context, Routes.SearchScreen),
-                                  child: const Icon(Icons.filter_list)),
-                              prefixIcon: const Icon(Icons.search),
-                              hintText: "Search",
-                              hintStyle: TextStyle(
-                                  fontSize: 15.sp, color: Colors.grey),
-                            ),
-                          ),
-                          SizedBox(height: 10.h),
-                          _opacity == 0.09302325581395349
-                              ? const SizedBox()
-                              : Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    _buildFilterButton(
-                                        icon: Icons.filter_alt_outlined),
-                                    _buildFilterButton(text: "All"),
-                                    _buildFilterButton(text: "All"),
-                                    _buildFilterButton(text: "Custom"),
-                                  ],
-                                ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // Column(
+            //   children: [
+            //     AnimatedOpacity(
+            //       duration: const Duration(milliseconds: 300),
+            //       opacity: _isScrolled ? 0.0 : 1.0,
+            //       child: Container(
+            //         color: Colors.white.withOpacity(
+            //             _opacity == 0.09302325581395349 ? 0 : _opacity),
+            //         height: 110.h,
+            //         child: Padding(
+            //           padding:
+            //               EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+            //           child: Column(
+            //             children: [
+            //               customSearchBar(context),
+            //               SizedBox(height: 10.h),
+            //               _opacity == 0.09302325581395349
+            //                   ? const SizedBox()
+            //                   : Row(
+            //                       mainAxisAlignment:
+            //                           MainAxisAlignment.spaceAround,
+            //                       children: [
+            //                         _buildFilterButton(
+            //                             icon: Icons.filter_alt_outlined),
+            //                         _buildFilterButton(text: "All"),
+            //                         _buildFilterButton(text: "All"),
+            //                         _buildFilterButton(text: "Custom"),
+            //                       ],
+            //                     ),
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
+      ),
+    );
+  }
+
+  TextFormField customSearchBar(BuildContext context) {
+    return TextFormField(
+      onChanged: (value) {},
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(100),
+            borderSide: BorderSide.none),
+        fillColor: _opacity == 0.09302325581395349
+            ? Colors.white
+            : Colors.grey.withOpacity(0.10),
+        filled: true,
+        suffixIcon: SizedBox(
+          width: 125.w,
+          // color: Colors.amber,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(onPressed: () {}, icon: Icon(Icons.refresh_sharp)),
+              IconButton(
+                  onPressed: () => _openBottomSheet,
+                  icon: Icon(Icons.crop_rotate_outlined)),
+              IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
+            ],
+          ),
+        ),
+        prefixIcon: SizedBox(
+          width: 40,
+          child: Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_sharp,
+                    color: CColors.primary,
+                  )),
+            ],
+          ),
+        ),
+        hintText: "Search",
+        hintStyle: TextStyle(fontSize: 15.sp, color: Colors.grey),
       ),
     );
   }
@@ -403,7 +410,7 @@ class _SearchScreenState extends State<SearchScreen>
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 8.h),
           child: Center(
             child: Row(
               children: [

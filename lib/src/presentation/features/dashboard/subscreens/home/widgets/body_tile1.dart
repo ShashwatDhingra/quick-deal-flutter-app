@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quickdeal/src/core/utils/ui_utils/constants/colors.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
 import '../../../../../../core/utils/ui_utils/constants/assets.dart';

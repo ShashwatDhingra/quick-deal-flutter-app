@@ -71,7 +71,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
                 /// Location Widget (Fade out on Scroll)
                 isScrolled
-                    ? SizedBox()
+                    ? const SizedBox()
                     : Expanded(
                         child: AnimatedOpacity(
                           duration: const Duration(milliseconds: 300),
@@ -127,9 +127,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               filled: true,
                               suffixIcon: GestureDetector(
                                   onTap: () {
-                                    print("click");
                                     Navigator.pushNamed(
-                                        context, Routes.SearchScreen);
+                                        context, Routes.searchScreen);
                                   },
                                   child: const Icon(Icons.filter_list)),
                               prefixIcon: const Icon(Icons.search),
@@ -155,7 +154,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             duration: const Duration(milliseconds: 300),
             opacity: isScrolled ? 0.0 : 1.0,
             child: isScrolled
-                ? SizedBox()
+                ? const SizedBox()
                 : Padding(
                     padding: EdgeInsets.only(
                       left: 15.w,
@@ -175,7 +174,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             suffixIcon: GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(
-                                      context, Routes.SearchScreen);
+                                      context, Routes.searchScreen);
                                 },
                                 child: const Icon(Icons.filter_list)),
                             prefixIcon: const Icon(Icons.search),
@@ -191,8 +190,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           Expanded(
             child: SingleChildScrollView(
               controller: _scrollController,
-              child: Column(
-                children: const [
+              child: const Column(
+                children: [
                   BodyTile1(), // Horizontal Scrollable
                   BodyTile2(), // Horizontal Scrollable
                   BodyTile3(), // Vertical Scrollable
@@ -283,8 +282,8 @@ class BodyTile2 extends ConsumerWidget {
               scrollDirection: Axis.horizontal,
               itemCount: 5,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
+                return const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: SizedBox(
                       width: 400,
                       child: SinglePropertyCard(
@@ -302,8 +301,6 @@ class BodyTile2 extends ConsumerWidget {
               },
             ),
           ),
-        
-        
         ],
       ),
     );
@@ -341,7 +338,7 @@ class BodyTile3 extends StatelessWidget {
             separatorBuilder: (context, index) => SizedBox(height: 12.h),
             itemCount: 5,
             itemBuilder: (context, index) {
-              return SinglePropertyCard(
+              return const SinglePropertyCard(
                 imageUrl:
                     "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
                 title: "Luxury Apartment",

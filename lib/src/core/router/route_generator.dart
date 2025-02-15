@@ -82,7 +82,7 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (context) => const NotificationScreen());
 
-      case Routes.SearchScreen:
+      case Routes.searchScreen:
         return MaterialPageRoute(builder: (context) => const SearchScreen());
 
       default:
