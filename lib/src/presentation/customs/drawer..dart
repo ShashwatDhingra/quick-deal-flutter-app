@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/constants/assets.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
+import '../../core/router/routes.dart';
 import '../../core/utils/ui_utils/constants/colors.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -52,8 +53,9 @@ class CustomDrawer extends StatelessWidget {
                 _buildListTile(Icons.business_outlined, 'Propeties', () {}),
                 _buildListTile(
                     Icons.follow_the_signs_outlined, 'Followup', () {}),
-                _buildListTile(
-                    Icons.analytics_outlined, 'Carm DashBoard', () {}),
+                _buildListTile(Icons.analytics_outlined, 'CRM DashBoard', () {
+                  Navigator.pushNamed(context, Routes.analyticScreen);
+                }),
                 _buildListTile(Icons.info_outline_rounded, 'About Us', () {}),
                 _buildListTile(Icons.info, 'Terms & Conditions', () {}),
                 _buildListTile(Icons.info, 'Help', () {}),

@@ -38,4 +38,7 @@ class Routes {
 
   // Home View
   static const String homeScreen = '/home-view';
+
+  /// Drawer Router
+  static const String analyticScreen = '/analytics-view';
 }

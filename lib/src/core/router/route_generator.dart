@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:quickdeal/src/core/router/routes.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/search/search_screen.dart';
 
+import '../../presentation/features/analytics._screen.dart';
 import '../../presentation/features/auth/ui/screens/signin_screen.dart';
 import '../../presentation/features/auth/ui/screens/signup_screen.dart';
 import '../../presentation/features/dashboard/dashboard_screen.dart';
@@ -84,6 +85,10 @@ class RouteGenerator {
 
       case Routes.searchScreen:
         return MaterialPageRoute(builder: (context) => const SearchScreen());
+
+      // Analytics Screen
+      case Routes.analyticScreen:
+        return MaterialPageRoute(builder: (context) => const AnalyticsScreen());
 
       default:
         return _errorRoute();
