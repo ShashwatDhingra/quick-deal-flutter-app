@@ -3,10 +3,13 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:quickdeal/src/core/router/router.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
+import 'package:quickdeal/src/core/utils/ui_utils/helpers/helper_functions.dart';
 
-import '../../../../../core/router/routes.dart';
+import '../../../../../core/utils/ui_utils/constants/app_constant.dart';
 import '../../../../../core/utils/ui_utils/constants/colors.dart';
 import '../home/home_screen.dart';
+import 'widgets/custom_searchBar.dart';
+import 'widgets/filter_button.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -62,22 +65,24 @@ class _SearchScreenState extends State<SearchScreen>
 
   void _updateSheetPosition() {
     setState(() {
-      _opacity = _draggableController.size / 0.86;
+      _opacity = _draggableController.size / MapConstants.initialChildSize;
     });
   }
 
   void _openBottomSheet(BuildContext context) {
+    var isDark = context.isDarkMode;
     showModalBottomSheet(
       context: context,
+      shape: ContinuousRectangleBorder(),
       isScrollControlled: true,
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? CColors.black : Colors.white,
       barrierColor: Colors.transparent,
       builder: (context) {
         return DraggableScrollableSheet(
           controller: _draggableController,
-          initialChildSize: 0.86,
-          minChildSize: 0.08,
-          maxChildSize: 0.86,
+          initialChildSize: MapConstants.initialChildSize,
+          minChildSize: MapConstants.minChildSize,
+          maxChildSize: MapConstants.maxChildSize,
           expand: false,
           builder: (context, scrollController) {
             return Container(
@@ -93,8 +98,9 @@ class _SearchScreenState extends State<SearchScreen>
                     child:
                         NotificationListener<DraggableScrollableNotification>(
                       onNotification: (notification) {
-                        if (notification.extent <= 0.08) {
-                          _draggableController.animateTo(0.08,
+                        if (notification.extent <= MapConstants.minChildSize) {
+                          _draggableController.animateTo(
+                              MapConstants.minChildSize,
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.easeOut);
                           return true;
@@ -141,7 +147,7 @@ class _SearchScreenState extends State<SearchScreen>
     final zoomTween = Tween<double>(begin: _mapController.zoom, end: destZoom);
 
     final controller = AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this);
+        duration: MapConstants.animationDuration, vsync: this);
     final animation =
         CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn);
 
@@ -164,6 +170,7 @@ class _SearchScreenState extends State<SearchScreen>
 
   @override
   Widget build(BuildContext context) {
+    var isDark = context.isDarkMode;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -174,14 +181,12 @@ class _SearchScreenState extends State<SearchScreen>
               options: MapOptions(
                 initialCenter: LatLng(_dummyLatLngList[_selectedIndex]['lat']!,
                     _dummyLatLngList[_selectedIndex]['lng']!),
-                initialZoom: 14.5,
+                initialZoom: MapConstants.initialZoom,
                 enableScrollWheel: true,
                 pinchMoveThreshold: 5.7,
               ),
               children: [
-                TileLayer(
-                    urlTemplate:
-                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png'),
+                TileLayer(urlTemplate: MapConstants.mapTileUrl),
                 MarkerLayer(
                   markers: [
                     const Marker(
@@ -243,15 +248,27 @@ class _SearchScreenState extends State<SearchScreen>
                   duration: const Duration(milliseconds: 300),
                   opacity: _isScrolled ? 0.0 : 1.0,
                   child: Container(
-                    color: Colors.white.withOpacity(
-                        _opacity == 0.09302325581395349 ? 0 : _opacity),
+                    color: isDark
+                        ? CColors.black.withOpacity(
+                            _opacity == 0.09302325581395349 ? 0 : _opacity)
+                        : Colors.white.withOpacity(
+                            _opacity == 0.09302325581395349 ? 0 : _opacity),
                     height: 110.h,
                     child: Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
                       child: Column(
                         children: [
-                          customSearchBar(context),
+                          CustomSearchBar(
+                            onChanged: (value) {},
+                            onBackPressed: () {
+                              Navigator.pop(context);
+                            },
+                            onRefreshPressed: () {},
+                            onRotatePressed: () => _openBottomSheet(context),
+                            onMorePressed: () {},
+                            opacity: _opacity,
+                          ),
                           SizedBox(height: 10.h),
                           _opacity == 0.09302325581395349
                               ? const SizedBox()
@@ -259,11 +276,11 @@ class _SearchScreenState extends State<SearchScreen>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    _buildFilterButton(
+                                    buildFilterButton(
                                         icon: Icons.filter_alt_outlined),
-                                    _buildFilterButton(text: "All"),
-                                    _buildFilterButton(text: "All"),
-                                    _buildFilterButton(text: "Custom"),
+                                    buildFilterButton(text: "All"),
+                                    buildFilterButton(text: "All"),
+                                    buildFilterButton(text: "Custom"),
                                   ],
                                 ),
                         ],
@@ -279,7 +296,7 @@ class _SearchScreenState extends State<SearchScreen>
               right: 0,
               child: SizedBox(
                 height: 150.h,
-                width: MediaQuery.of(context).size.width * 0.8,
+                width: HelperFunctions.screenWidth(context) * 0.8,
                 child: PageView.builder(
                   physics: const ClampingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
@@ -313,112 +330,7 @@ class _SearchScreenState extends State<SearchScreen>
                 ),
               ),
             ),
-            // Column(
-            //   children: [
-            //     AnimatedOpacity(
-            //       duration: const Duration(milliseconds: 300),
-            //       opacity: _isScrolled ? 0.0 : 1.0,
-            //       child: Container(
-            //         color: Colors.white.withOpacity(
-            //             _opacity == 0.09302325581395349 ? 0 : _opacity),
-            //         height: 110.h,
-            //         child: Padding(
-            //           padding:
-            //               EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-            //           child: Column(
-            //             children: [
-            //               customSearchBar(context),
-            //               SizedBox(height: 10.h),
-            //               _opacity == 0.09302325581395349
-            //                   ? const SizedBox()
-            //                   : Row(
-            //                       mainAxisAlignment:
-            //                           MainAxisAlignment.spaceAround,
-            //                       children: [
-            //                         _buildFilterButton(
-            //                             icon: Icons.filter_alt_outlined),
-            //                         _buildFilterButton(text: "All"),
-            //                         _buildFilterButton(text: "All"),
-            //                         _buildFilterButton(text: "Custom"),
-            //                       ],
-            //                     ),
-            //             ],
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
           ],
-        ),
-      ),
-    );
-  }
-
-  TextFormField customSearchBar(BuildContext context) {
-    return TextFormField(
-      onChanged: (value) {},
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100),
-            borderSide: BorderSide.none),
-        fillColor: _opacity == 0.09302325581395349
-            ? Colors.white
-            : Colors.grey.withOpacity(0.10),
-        filled: true,
-        suffixIcon: SizedBox(
-          width: 125.w,
-          // color: Colors.amber,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.refresh_sharp)),
-              IconButton(
-                  onPressed: () => _openBottomSheet,
-                  icon: Icon(Icons.crop_rotate_outlined)),
-              IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
-            ],
-          ),
-        ),
-        prefixIcon: SizedBox(
-          width: 40,
-          child: Row(
-            children: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_sharp,
-                    color: CColors.primary,
-                  )),
-            ],
-          ),
-        ),
-        hintText: "Search",
-        hintStyle: TextStyle(fontSize: 15.sp, color: Colors.grey),
-      ),
-    );
-  }
-
-  Widget _buildFilterButton({IconData? icon, String? text}) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.10),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 8.h),
-          child: Center(
-            child: Row(
-              children: [
-                if (icon != null) Icon(icon),
-                if (text != null) Text(text),
-              ],
-            ),
-          ),
         ),
       ),
     );

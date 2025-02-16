@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
+import 'package:quickdeal/src/presentation/features/dashboard/subscreens/search/search_screen.dart';
 
 import '../../../core/utils/ui_utils/constants/assets.dart';
 import '../../../core/utils/ui_utils/constants/colors.dart';
 import 'states/dashboard_state.dart';
-import 'subscreens/attendance/attendance_screen.dart';
+
 import 'subscreens/expense/expense_screen.dart';
 import 'subscreens/home/home_screen.dart';
 import 'subscreens/leave/leave_screen.dart';
@@ -31,7 +32,7 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
 
   final screens = [
     const HomeScreen(),
-    const AttendanceScreen(),
+    const SearchScreen(),
     const ExpenseScreen(),
     const LeaveScreen(),
   ];
@@ -80,40 +81,45 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
           currentIndex: selectedIndex,
           onTap: (s) {
             ref.read(intBottomNavBarIndex.notifier).state = s;
-            _pageController.animateToPage(s,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut);
+            _pageController
+                .jumpToPage(s); // Use jumpToPage instead of animateToPage
           },
           items: [
             _buildNavItem(
-                selectedIcon: AssetsConsts.filledNavBar1,
-                unselectedIcon: AssetsConsts.outlinedNavBar1,
+                selectedIcon: CupertinoIcons.house_fill,
+                unselectedIcon: CupertinoIcons.home,
                 index: 0),
             _buildNavItem(
-                selectedIcon: AssetsConsts.filledNavBar2,
-                unselectedIcon: AssetsConsts.outlinedNavBar2,
+                selectedIcon: CupertinoIcons.search_circle,
+                unselectedIcon: CupertinoIcons.search,
                 index: 1),
             _buildNavItem(
-                selectedIcon: AssetsConsts.filledNavBar3,
-                unselectedIcon: AssetsConsts.outlinedNavBar3,
+                selectedIcon: CupertinoIcons.archivebox_fill,
+                unselectedIcon: CupertinoIcons.archivebox,
                 index: 2),
             _buildNavItem(
-                selectedIcon: AssetsConsts.filledNavBar4,
-                unselectedIcon: AssetsConsts.outlinedNavBar4,
+                selectedIcon: CupertinoIcons.profile_circled,
+                unselectedIcon: CupertinoIcons.person_crop_circle_fill,
                 index: 3),
           ],
         ),
-        body: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
-          child: screens[selectedIndex],
+        body: PageView(
+          controller: _pageController, // Connect the PageController
+          physics:
+              const NeverScrollableScrollPhysics(), // Disable swiping between pages
+          onPageChanged: (index) {
+            ref.read(intBottomNavBarIndex.notifier).state =
+                index; // Update the selected index
+          },
+          children: screens,
         ),
       ),
     );
   }
 
   BottomNavigationBarItem _buildNavItem(
-      {required String selectedIcon,
-      required String unselectedIcon,
+      {required IconData selectedIcon,
+      required IconData unselectedIcon,
       required int index}) {
     return BottomNavigationBarItem(
       icon: Column(
@@ -121,7 +127,7 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
         children: [
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
-            child: Image.asset(
+            child: Icon(
               ref.read(intBottomNavBarIndex) == index
                   ? selectedIcon
                   : unselectedIcon,
@@ -129,7 +135,7 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
                   ? CColors.primary
                   : Colors.grey,
               key: ValueKey<int>(index),
-              height: 24,
+              //height: 24,
             ),
           ),
           if (ref.read(intBottomNavBarIndex) == index)
