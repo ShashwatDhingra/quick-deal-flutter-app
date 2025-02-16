@@ -47,7 +47,8 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
           return;
         }
 
-        final shouldClose = await showCupertinoDialog(
+        final shouldClose = await 
+        showCupertinoDialog(
           context: context,
           builder: (context) => CupertinoAlertDialog(
             title: const Text('Exit App'),

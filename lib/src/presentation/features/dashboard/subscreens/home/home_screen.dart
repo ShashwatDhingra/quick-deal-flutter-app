@@ -8,6 +8,7 @@ import 'package:quickdeal/src/presentation/features/dashboard/subscreens/home/wi
 
 import '../../../../../core/router/routes.dart';
 import '../../../../../core/utils/ui_utils/constants/colors.dart';
+import '../../../../customs/drawer..dart';
 import 'widgets/body_tile2.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -44,11 +45,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     super.dispose();
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     var isDark = context.isDarkMode;
 
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: CustomDrawer(),
       body: Column(
         children: [
           /// **Animated AppBar**
@@ -67,7 +71,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       size: 24.sp,
                       color: isDark ? CColors.white : Colors.black,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      _scaffoldKey.currentState?.openDrawer();
+                    },
                   ),
                 ),
 

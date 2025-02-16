@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickdeal/src/core/utils/ui_utils/theme/widget_themes/drawer_theme.dart';
 
 import '../constants/colors.dart';
 import 'widget_themes/appbar_theme.dart';
@@ -39,6 +40,7 @@ class CAppTheme {
     textButtonTheme: CTextButtonTheme.lightTextButtonTheme,
     progressIndicatorTheme: CProgressIndicatorTheme.lightProgressIndicatorTheme,
     splashFactory: NoSplash.splashFactory,
+    drawerTheme: CDrawerTheme.lightDrawerTheme,
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -62,5 +64,6 @@ class CAppTheme {
     textButtonTheme: CTextButtonTheme.darkTextButtonTheme,
     progressIndicatorTheme: CProgressIndicatorTheme.darkProgressIndicatorTheme,
     splashFactory: NoSplash.splashFactory,
+    drawerTheme: CDrawerTheme.darkDrawerTheme,
   );
 }
