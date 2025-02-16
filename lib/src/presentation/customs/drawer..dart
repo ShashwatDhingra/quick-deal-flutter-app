@@ -1,8 +1,8 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/constants/assets.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
+import 'package:quickdeal/src/core/utils/ui_utils/helper.dart';
 
 import '../../core/router/routes.dart';
 
@@ -96,7 +96,15 @@ class CustomDrawer extends StatelessWidget {
                     ),
                     CupertinoDialogAction(
                       isDestructiveAction: true,
-                      onPressed: () => Navigator.of(context).pop(true),
+                      onPressed: () async {
+                        if (await AuthPrefHelper.clearToken()) {
+                          context.pushNamedAndRemoveUntil(
+                              Routes.onboardingScreen,
+                              predicate: (route) => false);
+                        } else {
+                          "Some Error Occured".showErrorToast();
+                        }
+                      },
                       child: const Text('Yes'),
                     ),
                   ],

@@ -1,5 +1,5 @@
 class ApiEndpionts {
-  static const _baseUrl = 'https://organotes.onrender.com';
+  static const _baseUrl = 'https://quick-deal.onrender.com/api/v1';
 
   // Confirm Mail
   static const confirmEmailUrl = '$_baseUrl/auth/confirm-mail';
@@ -22,19 +22,4 @@ class ApiEndpionts {
 
   // Reset Password
   static const resetPasswordUrl = '$_baseUrl/auth/reset-password';
-
-  // Add Note
-  static const addNoteUrl = '$_baseUrl/notes/add';
-
-  // Add Note(s)
-  static const addNotesUrl = '$_baseUrl/notes/add-all';
-
-  // Get Notes
-  static const getNotesUrl = '$_baseUrl/notes/';
-
-  // Update Note
-  static const updateNoteUrl = '$_baseUrl/notes/update';
-
-  // Delete Note
-  static const deleteNoteUrl = '$_baseUrl/notes/delete';
 }

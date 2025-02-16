@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quickdeal/src/core/utils/ui_utils/constants/colors.dart';
 
 class CustomTextformField extends StatelessWidget {
   final TextEditingController cont;
-
   final String? isEnabled;
   final InputDecoration decoration;
-  final dynamic validator;
+  final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final bool? obscureText;
   final int maxLine;
+
   const CustomTextformField({
     super.key,
     required this.cont,
@@ -25,15 +26,84 @@ class CustomTextformField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       maxLines: maxLine,
-      validator: validator,
+      validator: (keyboardType == TextInputType.emailAddress)
+          ? emailValidator
+          : (keyboardType == TextInputType.visiblePassword)
+              ? passwordValidator
+              : validator,
       obscureText: obscureText!,
       keyboardType: keyboardType,
       controller: cont,
       enabled: isEnabled == '1' ? false : true,
-      decoration: decoration,
+      decoration: decoration.copyWith(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: const BorderSide(
+            color: Colors.grey,
+            width: 1.5,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: const BorderSide(
+            color: CColors.primary,
+            width: 2.0,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: const BorderSide(
+            color: Colors.red,
+            width: 1.5,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: const BorderSide(
+            color: Colors.red,
+            width: 2.0,
+          ),
+        ),
+      ),
       inputFormatters: keyboardType == TextInputType.phone
           ? [LengthLimitingTextInputFormatter(10)]
           : [],
     );
   }
+}
+
+String? emailValidator(String? value) {
+  // Check if the email is empty
+  if (value == null || value.isEmpty) {
+    return 'Please enter an email address';
+  }
+
+  // Regular expression for validating an email
+  String emailPattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+  RegExp regExp = RegExp(emailPattern);
+
+  if (!regExp.hasMatch(value)) {
+    return 'Please enter a valid email address';
+  }
+
+  return null; // Return null if validation is successful
+}
+
+String? passwordValidator(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Password is required';
+  }
+  // if (value.length < 6) {
+  //   return 'Password must be at least 6 characters long';
+  // }
+  // if (!RegExp(r'[A-Z]').hasMatch(value)) {
+  //   return 'Password must contain at least one uppercase letter';
+  // }
+  // if (!RegExp(r'[a-z]').hasMatch(value)) {
+  //   return 'Password must contain at least one lowercase letter';
+  // }
+  // if (!RegExp(r'[0-9]').hasMatch(value)) {
+  //   return 'Password must contain at least one number';
+  // }
+  return null;
 }

@@ -1,12 +1,17 @@
+import 'package:dio/dio.dart';
+import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
+
 class AppException implements Exception {
   final String _message;
   final String _prefix;
 
   AppException(this._message, this._prefix);
 
+  String get message => _message; // ✅ Add this getter
+
   @override
   String toString() {
-    return '$_prefix$_message';
+    return '$_prefix: $_message';
   }
 }
 
@@ -33,18 +38,42 @@ class InvalidInputException extends AppException {
 }
 
 //** To show the Error on UI **//
-void handleError(Exception e, Function(String) callBack) {
+void handleError(dynamic e) {
   String errorMessage;
 
-  if (e is FetchDataException) {
+  if (e is AppException) {
+    // Handle custom exceptions (UnauthorizedException, BadRequestException, etc.)
     errorMessage = e.toString();
-  } else if (e is BadRequestException) {
-    errorMessage = e.toString();
-  } else if (e is UnauthorizedException) {
-    errorMessage = e.toString();
+  } else if (e is DioException) {
+    // Handle DioError (API-specific errors)
+    if (e.response != null) {
+      final statusCode = e.response!.statusCode ?? 500;
+      final message = e.response!.data["error"] ?? "Unknown error";
+      errorMessage = _getDioErrorMessage(statusCode, message);
+    } else {
+      errorMessage =
+          "No response from server. Check you Internet or Try again !";
+    }
   } else {
-    errorMessage = 'An unexpected error occurred: $e';
+    // General error
+    errorMessage = "An unexpected error occurred: $e";
   }
 
-  callBack(errorMessage);
+  // Show the error message
+  errorMessage.showErrorToast();
+}
+
+String _getDioErrorMessage(int statusCode, String message) {
+  switch (statusCode) {
+    case 400:
+      return "Bad Request: $message";
+    case 401:
+      return "Unauthorized:\n$message";
+    case 404:
+      return "Not Found: $message";
+    case 500:
+      return "Internal Server Error: $message";
+    default:
+      return "Error: $message";
+  }
 }

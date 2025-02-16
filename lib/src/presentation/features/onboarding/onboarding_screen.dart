@@ -25,7 +25,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2),
+      duration: 2.seconds,
     )..repeat(reverse: true); // Repeats animation back and forth
 
     _animation = Tween<double>(begin: -10.0, end: 10.0).animate(
@@ -83,6 +83,25 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                     ),
                   ),
                 ),
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 14.0),
+                    child: Align(
+                        alignment: Alignment.topRight,
+                        child: GestureDetector(
+                          onTap: () {
+                            onboardingNotifier.skipToLastPage();
+                          },
+                          child: Text('Skip',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold)),
+                        )),
+                  ),
+                )
               ],
             ),
           ),

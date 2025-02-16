@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
+import 'package:quickdeal/src/core/utils/ui_utils/helper.dart';
 
 import '../../../core/router/routes.dart';
 
@@ -10,7 +10,14 @@ class SplashState {
 
   Future<void> loadApp() async {
     await Future.delayed(3.seconds).then(
-      (value) {
+      (value) async {
+        // Checking for User
+        if (await AuthPrefHelper.isUserLogin()) {
+          context.pushNamedAndRemoveUntil(Routes.dashboardScreen,
+              predicate: (route) => false);
+          return;
+        }
+        
         context.pushNamedAndRemoveUntil(Routes.onboardingScreen,
             predicate: (route) => false);
       },

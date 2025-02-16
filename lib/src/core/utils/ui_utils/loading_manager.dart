@@ -7,13 +7,13 @@ class LoadingManager {
 
   LoadingManager._internal();
 
-  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
-  GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
+  static GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
 
-  OverlayEntry? _overlayEntry;
+  static OverlayEntry? _overlayEntry;
 
-  void showLoading() {
+  static void showLoading() {
     if (_overlayEntry != null) return; // Prevent duplicate loaders
 
     _overlayEntry = OverlayEntry(
@@ -21,13 +21,15 @@ class LoadingManager {
         absorbing: true, // Prevent user interactions
         child: Stack(
           children: [
-             Opacity(
+            Opacity(
               opacity: 0.5,
               child: ModalBarrier(color: Colors.black, dismissible: false),
             ),
             Center(
                 // child: LottieBuilder.asset('assets/animations/loading1.json'),
-                child: CircularProgressIndicator()),
+                child: CircularProgressIndicator(
+              strokeWidth: 1,
+            )),
           ],
         ),
       ),
@@ -36,7 +38,7 @@ class LoadingManager {
     _navigatorKey.currentState?.overlay?.insert(_overlayEntry!);
   }
 
-  void hideLoading() {
+  static void hideLoading() {
     _overlayEntry?.remove();
     _overlayEntry = null;
   }

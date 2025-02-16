@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quickdeal/src/core/utils/ui_utils/helper.dart';
 import 'src/core/injections/locator.dart';
 import 'src/core/router/route_generator.dart';
 import 'src/core/utils/ui_utils/display.dart';
@@ -22,9 +23,10 @@ class HRNext extends StatelessWidget {
     // WidgetsBinding.instance.addPostFrameCallback((_) async {
     ScreenUtilService.init(context);
     // });
+    PrefHelper.initSharedPref();
 
     return MaterialApp(
-      navigatorKey: LoadingManager().navigatorKey,
+      navigatorKey: LoadingManager.navigatorKey,
       themeMode: ThemeMode.system,
       theme: CAppTheme.lightTheme,
       darkTheme: CAppTheme.darkTheme,

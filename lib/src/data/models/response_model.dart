@@ -2,14 +2,14 @@
 import 'dart:convert';
 
 class ResponseModel {
-  final bool? status;
+  final bool? success;
   final int? statusCode;
   final String? message;
   final String? error;
-  final String? data;
+  final dynamic data;
 
   ResponseModel({
-    required this.status,
+    required this.success,
     required this.statusCode,
     required this.message,
     required this.error,
@@ -18,7 +18,7 @@ class ResponseModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'status': status,
+      'success': success,
       'statusCode': statusCode,
       'message': message,
       'error': error,
@@ -28,7 +28,7 @@ class ResponseModel {
 
   factory ResponseModel.fromMap(Map<String, dynamic> map) {
     return ResponseModel(
-        status: map['status'] ?? false,
+        success: map['success'] ?? false,
         statusCode: map['statusCode'] ?? 500,
         message: map['message'],
         error: map['error'],
@@ -38,17 +38,17 @@ class ResponseModel {
   String toJson() => json.encode(toMap());
 
   factory ResponseModel.fromJson(String source) =>
-      ResponseModel.fromMap(json.decode(source) as Map<String, dynamic>);
+      ResponseModel.fromMap(source as Map<String, dynamic>);
 
   ResponseModel copyWith({
-    bool? status,
+    bool? success,
     int? statusCode,
     String? message,
     String? error,
     String? data,
   }) {
     return ResponseModel(
-      status: status ?? this.status,
+      success: success ?? this.success,
       statusCode: statusCode ?? this.statusCode,
       message: message ?? this.message,
       error: error ?? this.error,
@@ -58,7 +58,7 @@ class ResponseModel {
 
   ResponseModel copyWithInstance(ResponseModel response) {
     return ResponseModel(
-      status: response.status ?? false,
+      success: response.success ?? false,
       statusCode: response.statusCode ?? 500,
       message: response.message ?? message,
       error: response.error ?? error,

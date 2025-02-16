@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefHelper {
-  static const String isSyncEnabled = 'is_sync_enabled';
+  static const String token = 'TOKEN';
 
   static SharedPreferences? _pref;
 
@@ -27,11 +27,11 @@ class PrefHelper {
     }
   }
 
-  Future<bool> setString(String key, String value) async {
+  static Future<bool> setString(String key, String value) async {
     return await _pref!.setString(key, value);
   }
 
-  String? getString(String key) {
+  static String? getString(String key) {
     if (_pref!.containsKey(key)) {
       return _pref!.getString(key)!;
     } else {
@@ -39,19 +39,34 @@ class PrefHelper {
     }
   }
 
-  Future<bool> setBool(String key, bool value) async {
+  static Future<bool> setBool(String key, bool value) async {
     return _pref!.setBool(key, value);
   }
 
-  bool? getBool(String key) {
+  static bool? getBool(String key) {
     return _pref!.getBool(key);
   }
 
-  Future<bool> getSyncToCloudPreference() async {
-    return getBool(PrefHelper.isSyncEnabled) ?? false;
+  static Future<bool> clearRecord(String key) async {
+    return await _pref!.remove(PrefHelper.token);
+  }
+}
+
+class AuthPrefHelper {
+  static Future<bool> saveUserToken(String token) async {
+    return PrefHelper.setString(PrefHelper.token, token);
   }
 
-  Future<void> setSyncToCloudPreference(bool value) async {
-    setBool(PrefHelper.isSyncEnabled, value);
+  static Future<String?> getUserToken() async {
+    return PrefHelper.getString(PrefHelper.token) ?? null;
+  }
+
+  static Future<bool> isUserLogin() async {
+    final token = PrefHelper.getString(PrefHelper.token);
+    return (token == null || token.isEmpty) ? false : true;
+  }
+
+  static Future<bool> clearToken() async {
+    return PrefHelper.clearRecord(PrefHelper.token);
   }
 }

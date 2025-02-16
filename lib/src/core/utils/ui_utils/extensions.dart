@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/display.dart';
 
 extension MySizedBox on num {
@@ -124,5 +125,27 @@ extension DeepMerge on Map {
 extension ThemeModeExtensions on BuildContext {
   bool get isDarkMode {
     return Theme.of(this).brightness == Brightness.dark;
+  }
+}
+
+extension UIExtensions on String {
+  void showErrorToast() {
+    Fluttertoast.showToast(
+      msg: this,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+    );
+  }
+
+  void showToast() {
+    Fluttertoast.showToast(
+      msg: this,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+    );
   }
 }
