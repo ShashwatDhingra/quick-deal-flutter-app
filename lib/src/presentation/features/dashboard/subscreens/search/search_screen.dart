@@ -8,7 +8,7 @@ import 'package:quickdeal/src/core/utils/ui_utils/helpers/helper_functions.dart'
 import '../../../../../core/utils/ui_utils/constants/app_constant.dart';
 import '../../../../../core/utils/ui_utils/constants/colors.dart';
 import '../home/home_screen.dart';
-import 'widgets/custom_searchBar.dart';
+import 'widgets/custom_searchbar.dart';
 import 'widgets/filter_button.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -73,7 +73,7 @@ class _SearchScreenState extends State<SearchScreen>
     var isDark = context.isDarkMode;
     showModalBottomSheet(
       context: context,
-      shape: ContinuousRectangleBorder(),
+      shape: const ContinuousRectangleBorder(),
       isScrollControlled: true,
       backgroundColor: isDark ? CColors.black : Colors.white,
       barrierColor: Colors.transparent,
@@ -179,6 +179,7 @@ class _SearchScreenState extends State<SearchScreen>
             FlutterMap(
               mapController: _mapController,
               options: MapOptions(
+                backgroundColor: isDark ? CColors.black : Colors.white,
                 initialCenter: LatLng(_dummyLatLngList[_selectedIndex]['lat']!,
                     _dummyLatLngList[_selectedIndex]['lng']!),
                 initialZoom: MapConstants.initialZoom,

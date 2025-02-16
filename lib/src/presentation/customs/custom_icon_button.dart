@@ -11,9 +11,9 @@ class CustomIconButton extends StatelessWidget {
     this.color = CColors.primary,
     this.onTap,
     this.transparentBackground = false,
-    this.defaultIcon, // New parameter for default icon
-    this.width, // New parameter for width
-    this.height, // New parameter for height
+    this.defaultIcon,
+    this.width,
+    this.height,
   });
 
   final String assetSt;
@@ -21,9 +21,9 @@ class CustomIconButton extends StatelessWidget {
   final Color color;
   final VoidCallback? onTap;
   final bool transparentBackground;
-  final IconData? defaultIcon; // Default icon if image is not provided
-  final double? width; // Custom width
-  final double? height; // Custom height
+  final IconData? defaultIcon;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +36,11 @@ class CustomIconButton extends StatelessWidget {
             : isDark
                 ? CColors.darkContainer
                 : CColors.primary.withOpacity(0.07),
-        radius: (width ?? height ?? size) /
-            2, // Set radius based on width/height or size
+        radius: (width ?? height ?? size) / 2,
         child: SizedBox(
-          width: width ?? size, // Use custom width or default size
-          height: height ?? size, // Use custom height or default size
-          child: _buildIcon(isDark), // Build the icon or image
+          width: width ?? size,
+          height: height ?? size,
+          child: _buildIcon(isDark),
         ),
       ),
     );
@@ -49,21 +48,18 @@ class CustomIconButton extends StatelessWidget {
 
   Widget _buildIcon(bool isDark) {
     if (assetSt.isNotEmpty) {
-      // If assetSt is provided, display the image
       return ImageIcon(
         AssetImage(assetSt),
         size: size,
         color: isDark ? CColors.white : CColors.primary,
       );
     } else if (defaultIcon != null) {
-      // If defaultIcon is provided, display the default icon
       return Icon(
         defaultIcon,
         size: size,
         color: isDark ? CColors.white : CColors.primary,
       );
     } else {
-      // If neither is provided, return an empty container
       return Container();
     }
   }

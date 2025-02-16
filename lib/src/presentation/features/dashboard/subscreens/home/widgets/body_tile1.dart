@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
-import '../../../../../../core/utils/ui_utils/constants/assets.dart';
 import '../../../../../customs/custom_icon_button.dart';
 
 /// **1st Tile - Horizontally Scrollable**
+// ignore: must_be_immutable
 class BodyTile1 extends StatelessWidget {
-  const BodyTile1({super.key});
+  BodyTile1({super.key});
+  List<Map<String, dynamic>> propertyTypes = [
+    {"name": "Flats", "icon": Icons.apartment},
+    {"name": "Apartment", "icon": Icons.business},
+    {"name": "Plots", "icon": Icons.map},
+    {"name": "Shop", "icon": Icons.store},
+    {"name": "Villa", "icon": Icons.home},
+    {"name": "Office", "icon": Icons.work},
+    {"name": "Farmhouse", "icon": Icons.agriculture},
+    {"name": "Warehouse", "icon": Icons.warehouse},
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+      padding: EdgeInsets.only(
+        right: 10.w,
+        left: 10.w,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -21,19 +34,21 @@ class BodyTile1 extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           SizedBox(
-            height: 80.h, // ListView ke liye fixed height
+            height: 80.h,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              separatorBuilder: (context, index) => SizedBox(width: 10.w),
-              itemCount: 5,
+              separatorBuilder: (context, index) => SizedBox(width: 15.w),
+              itemCount: propertyTypes.length,
               itemBuilder: (context, index) {
-                return const Column(
+                return Column(
                   children: [
                     CustomIconButton(
-                      width: 60,
-                      assetSt: AssetsConsts.icNotification,
+                      width: 60.w,
+                      height: 60.h,
+                      assetSt: "",
+                      defaultIcon: propertyTypes[index]['icon'],
                     ),
-                    Text("Rent"),
+                    Text(propertyTypes[index]['name']),
                   ],
                 );
               },

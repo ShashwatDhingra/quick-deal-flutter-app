@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/search/search_screen.dart';
 
-import '../../../core/utils/ui_utils/constants/assets.dart';
 import '../../../core/utils/ui_utils/constants/colors.dart';
 import 'states/dashboard_state.dart';
 
