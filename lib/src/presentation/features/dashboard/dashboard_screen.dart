@@ -9,7 +9,7 @@ import 'states/dashboard_state.dart';
 
 import 'subscreens/expense/expense_screen.dart';
 import 'subscreens/home/home_screen.dart';
-import 'subscreens/leave/leave_screen.dart';
+import 'subscreens/profile/profile_screen.dart';
 
 class Dashboard extends ConsumerStatefulWidget {
   const Dashboard({super.key});
@@ -33,7 +33,8 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
     const HomeScreen(),
     const SearchScreen(),
     const ExpenseScreen(),
-    const LeaveScreen(),
+    const ProfileScreen()
+    //const LeaveScreen(),
   ];
 
   @override
@@ -47,8 +48,7 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
           return;
         }
 
-        final shouldClose = await 
-        showCupertinoDialog(
+        final shouldClose = await showCupertinoDialog(
           context: context,
           builder: (context) => CupertinoAlertDialog(
             title: const Text('Exit App'),

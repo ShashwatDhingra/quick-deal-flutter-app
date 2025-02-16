@@ -1,12 +1,14 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/constants/assets.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
 import '../../core/router/routes.dart';
-import '../../core/utils/ui_utils/constants/colors.dart';
 
 class CustomDrawer extends StatelessWidget {
+  const CustomDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
     var dark = context.isDarkMode;
@@ -31,7 +33,7 @@ class CustomDrawer extends StatelessWidget {
 
           // User Name
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               'John Doe', // Replace with dynamic username
               style: TextStyle(
