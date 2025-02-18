@@ -1,21 +1,31 @@
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/presentation/features/auth/states/signin_state.dart';
+import 'package:quickdeal/src/presentation/features/auth/ui/screens/signup_screen.dart';
+import 'package:quickdeal/src/presentation/features/auth/ui/widget/pin_sheet.dart';
 import 'package:quickdeal/src/presentation/features/auth/ui/widget/success.dart';
-import 'package:quickdeal/src/presentation/features/auth/ui/widget/verify_email.dart';
+import 'package:quickdeal/src/presentation/features/auth/ui/widget/reset_password.dart';
 import 'package:quickdeal/src/presentation/features/onboarding/onboarding.dart';
 
 import '../../../../../core/router/routes.dart';
+import '../../../../../data/models/user_model.dart';
 import '../../../../customs/custom_checkbox.dart';
 import '../../../../customs/custom_elevated_button.dart';
 import '../../../../customs/custom_outline_button.dart';
 import '../../../../customs/custom_textformfield.dart';
+import '../../../../global/user_provider.dart';
 import '../widget/forget_password.dart';
 
-class SigninScreen extends ConsumerWidget {
+class SigninScreen extends ConsumerStatefulWidget {
   SigninScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SigninScreen> createState() => _SigninScreenState();
+}
+
+class _SigninScreenState extends ConsumerState<SigninScreen>
+    with TickerProviderStateMixin {
+  @override
+  Widget build(BuildContext context) {
     var dark = context.isDarkMode;
     final signinState = ref.watch(signinStateProvider);
     final signinNotifier = ref.read(signinStateProvider.notifier);
@@ -40,7 +50,7 @@ class SigninScreen extends ConsumerWidget {
                   ),
                   child: SingleChildScrollView(
                     child: Form(
-                      key: signinNotifier.formKey,
+                      key: signinNotifier.signinFormKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -91,59 +101,7 @@ class SigninScreen extends ConsumerWidget {
                                     context: context,
                                     isScrollControlled: true,
                                     builder: (context) {
-                                      return ForgetPasswordScreen(
-                                        onPress: () {
-                                          context.pop(context);
-                                          showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            context: context,
-                                            builder: (context) {
-                                              return VerifyEmail(
-                                                title: "Forgot  Password!",
-                                                subtitle:
-                                                    "A reset code has been sent to Tonald@work.com, check your email to continue the password reset process.",
-                                                onPress: () {
-                                                  context.pop(context);
-                                                  showModalBottomSheet(
-                                                    context: context,
-                                                    isScrollControlled: true,
-                                                    builder: (context) {
-                                                      return VerifyEmail(
-                                                        title:
-                                                            "Set a New Password!",
-                                                        subtitle:
-                                                            "Please set a new password to secure your Work Mate account.",
-                                                        onPress: () {
-                                                          context.pop(context);
-
-                                                          showModalBottomSheet(
-                                                            context: context,
-                                                            isScrollControlled:
-                                                                true,
-                                                            builder: (context) {
-                                                              return SuccessScreen(
-                                                                title:
-                                                                    "Password Has Been created",
-                                                                subtitle:
-                                                                    "To log in to your account, click the Sign in button and enter your email along with your new password.",
-                                                                onPress: () {
-                                                                  context.pushNamed(
-                                                                      Routes
-                                                                          .signinScreen);
-                                                                },
-                                                              );
-                                                            },
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                              );
-                                            },
-                                          );
-                                        },
-                                      );
+                                      return ForgetPasswordScreen();
                                     },
                                   );
                                 },
@@ -159,7 +117,7 @@ class SigninScreen extends ConsumerWidget {
                           MElevatedButton(
                             text: "Sign In",
                             onPress: () async {
-                              final response = await signinNotifier.login();
+                              final response = await signinNotifier.login(ref);
                               if (response) {
                                 context.pushNamedAndRemoveUntil(
                                     Routes.dashboardScreen,
@@ -208,11 +166,37 @@ class SigninScreen extends ConsumerWidget {
                             children: [
                               Text(
                                 "Dont't have an account?  ",
-                                style: Theme.of(context).textTheme.titleMedium,
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
                               TextButton(
                                   onPressed: () {
                                     context.pop();
+                                    final bottomSheetController =
+                                        AnimationController(
+                                      vsync: this,
+                                      duration:
+                                          const Duration(milliseconds: 700),
+                                    );
+
+                                    showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      context: context,
+                                      transitionAnimationController:
+                                          bottomSheetController,
+                                      builder: (context) {
+                                        return PinSheet(isSignup: true);
+                                        // return FractionallySizedBox(
+                                        //   heightFactor: 0.8,
+                                        //   child: AnimatedBuilder(
+                                        //     animation: bottomSheetController,
+                                        //     builder: (context, child) {
+                                        //       return child!;
+                                        //     },
+                                        //     child: SignupScreen(),
+                                        //   ),
+                                        // );
+                                      },
+                                    );
                                   },
                                   child: const Text(
                                     "Sign Up Here",

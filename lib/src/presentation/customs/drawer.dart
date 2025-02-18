@@ -1,17 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/constants/assets.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/helper.dart';
+import 'package:quickdeal/src/presentation/features/onboarding/onboarding_state.dart';
 
 import '../../core/router/routes.dart';
+import '../global/user_provider.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends ConsumerWidget {
   const CustomDrawer({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     var dark = context.isDarkMode;
+    final user = ref.watch(userProvider);
+    final onboardingNotifier = ref.read(onboardingStateProvider.notifier);
     return Drawer(
       child: Column(
         children: [
@@ -21,9 +26,8 @@ class CustomDrawer extends StatelessWidget {
             child: Center(
               child: Image.asset(
                 dark
-                    ? AssetsConsts.hrNextDarkLogo
-                    : AssetsConsts
-                        .hrNextLightLogo, // Replace with your logo asset
+                    ? AssetsConsts.lightLogo
+                    : AssetsConsts.darkLogo, // Replace with your logo asset
 
                 width: 150,
                 height: 150,
@@ -35,7 +39,7 @@ class CustomDrawer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
-              'John Doe', // Replace with dynamic username
+              user?.name ?? '', // Replace with dynamic username
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
@@ -98,6 +102,12 @@ class CustomDrawer extends StatelessWidget {
                       isDestructiveAction: true,
                       onPressed: () async {
                         if (await AuthPrefHelper.clearToken()) {
+                          // Clear User Global Provider
+                          ref.read(userProvider.notifier).clearUser();
+
+                          // Jump onto the first page of onboarding screen
+                          onboardingNotifier.jumpToFirstPage();
+
                           context.pushNamedAndRemoveUntil(
                               Routes.onboardingScreen,
                               predicate: (route) => false);

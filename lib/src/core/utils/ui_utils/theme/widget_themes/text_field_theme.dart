@@ -21,15 +21,15 @@ class CTextFormFieldTheme {
         const TextStyle().copyWith(color: CColors.black.withOpacity(0.8)),
     border: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(Sizes.inputFieldRadius),
-      borderSide: const BorderSide(width: 1, color: CColors.grey),
+      borderSide: const BorderSide(width: 1, color: CColors.black),
     ),
     enabledBorder: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(Sizes.inputFieldRadius),
-      borderSide: const BorderSide(width: 1, color: CColors.grey),
+      borderSide: const BorderSide(width: 1, color: CColors.black),
     ),
     focusedBorder: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(Sizes.inputFieldRadius),
-      borderSide: const BorderSide(width: 1, color: CColors.dark),
+      borderSide: const BorderSide(width: 1, color: CColors.primary),
     ),
     errorBorder: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(Sizes.inputFieldRadius),
@@ -37,7 +37,7 @@ class CTextFormFieldTheme {
     ),
     focusedErrorBorder: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(Sizes.inputFieldRadius),
-      borderSide: const BorderSide(width: 2, color: CColors.white),
+      borderSide: const BorderSide(width: 2, color: CColors.primary),
     ),
   );
 
@@ -57,15 +57,15 @@ class CTextFormFieldTheme {
         const TextStyle().copyWith(color: CColors.white.withOpacity(0.8)),
     border: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(Sizes.inputFieldRadius),
-      borderSide: const BorderSide(width: 1, color: CColors.darkGrey),
+      borderSide: const BorderSide(width: 1, color: CColors.white),
     ),
     enabledBorder: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(Sizes.inputFieldRadius),
-      borderSide: const BorderSide(width: 1, color: CColors.darkGrey),
+      borderSide: const BorderSide(width: 1, color: CColors.white),
     ),
     focusedBorder: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(Sizes.inputFieldRadius),
-      borderSide: const BorderSide(width: 1, color: CColors.white),
+      borderSide: const BorderSide(width: 1, color: CColors.primary),
     ),
     errorBorder: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(Sizes.inputFieldRadius),
@@ -73,7 +73,7 @@ class CTextFormFieldTheme {
     ),
     focusedErrorBorder: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(Sizes.inputFieldRadius),
-      borderSide: const BorderSide(width: 2, color: CColors.white),
+      borderSide: const BorderSide(width: 2, color: CColors.primary),
     ),
   );
 }

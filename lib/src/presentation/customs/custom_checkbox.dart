@@ -12,13 +12,13 @@ class CustomCheckbox extends StatelessWidget {
     super.key,
     required this.isChecked,
     required this.onChanged,
-    this.size = 24.0,
+    this.size = 20.0,
   });
 
   @override
   Widget build(BuildContext context) {
     // final uncheckedColor = Theme.of(context).scaffoldBackgroundColor;
-    final dark =context.isDarkMode;
+    final dark = context.isDarkMode;
     return GestureDetector(
       onTap: () {
         onChanged(!isChecked);

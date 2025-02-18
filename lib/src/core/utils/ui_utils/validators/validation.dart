@@ -44,11 +44,6 @@ class CValidator {
       return 'Password must contain at least one number.';
     }
 
-    // Check for special characters
-    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return 'Password must contain at least one special character.';
-    }
-
     return null;
   }
 

@@ -9,20 +9,20 @@ import '../network_service/network_api_services.dart';
 class AuthRepository {
   final BaseApiService apiService = NetworkApiService();
 
-  Future<ResponseModel> confirmMail(Map<String, String> data) async {
+  Future<ResponseModel> confirmMail(String email) async {
     try {
       ResponseModel response =
-          await apiService.post(ApiEndpionts.confirmEmailUrl, data);
+          await apiService.post(ApiEndpionts.confirmEmailUrl, {'email': email});
       return response;
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<ResponseModel> verifyConfirmMailPin(Map<String, String> data) async {
+  Future<ResponseModel> verifyConfirmMailPin(String email, int pin) async {
     try {
-      ResponseModel response =
-          await apiService.post(ApiEndpionts.verifyConfirmMailPinUrl, data);
+      ResponseModel response = await apiService.post(
+          ApiEndpionts.verifyConfirmMailPinUrl, {'email': email, 'pin': pin});
       return response;
     } catch (e) {
       rethrow;
@@ -31,13 +31,11 @@ class AuthRepository {
 
   Future<ResponseModel?> login(String email, String password) async {
     try {
-      ResponseModel response = await apiService.post(
-          'https://quick-deal.onrender.com/api/v1/auth/login',
-          {"email": email, "password": password});
+      ResponseModel response = await apiService
+          .post(ApiEndpionts.loginUrl, {"email": email, "password": password});
 
       // Saving the TOKEN of user
       if (response.success ?? false) {
-        response.message?.showToast();
         if (!await AuthPrefHelper.saveUserToken(response.data['token'])) {
           "Something went wrong".showErrorToast();
           return null;
@@ -49,40 +47,56 @@ class AuthRepository {
     }
   }
 
-  Future<ResponseModel> signup(Map<String, String> data) async {
+  Future<ResponseModel?> signup(
+      {required String name,
+      required String email,
+      required String password}) async {
     try {
-      ResponseModel response =
-          await apiService.post(ApiEndpionts.signupUrl, data);
+      ResponseModel response = await apiService.post(ApiEndpionts.signupUrl, {
+        'name': name,
+        'email': email,
+        'password': password,
+      });
+
+      // Saving the TOKEN of user
+      if (response.success ?? false) {
+        if (!await AuthPrefHelper.saveUserToken(response.data['token'])) {
+          "Something went wrong".showErrorToast();
+          return null;
+        }
+      }
       return response;
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<ResponseModel> forgetPassword(Map<String, String> data) async {
+  Future<ResponseModel> forgetPassword(String email) async {
     try {
-      ResponseModel resopnse =
-          await apiService.post(ApiEndpionts.forgetPasswordUrl, data);
+      ResponseModel resopnse = await apiService
+          .post(ApiEndpionts.forgetPasswordUrl, {"email": email});
       return resopnse;
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<ResponseModel> verifyResetPasswordPin(Map<String, String> data) async {
+  Future<ResponseModel> verifyResetPasswordPin(String email, int pin) async {
     try {
-      ResponseModel resopnse =
-          await apiService.post(ApiEndpionts.verifyResetPinUrl, data);
+      ResponseModel resopnse = await apiService
+          .post(ApiEndpionts.verifyResetPinUrl, {"email": email, "pin": pin});
       return resopnse;
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<ResponseModel> resetPassword(Map<String, String> data) async {
+  Future<ResponseModel> resetPassword(String email, String password) async {
     try {
-      ResponseModel resopnse =
-          await apiService.post(ApiEndpionts.resetPasswordUrl, data);
+      print(email + 'adsf');
+      ResponseModel resopnse = await apiService.post(
+          ApiEndpionts.resetPasswordUrl,
+          {"email": email, "password": password});
       return resopnse;
     } catch (e) {
       rethrow;

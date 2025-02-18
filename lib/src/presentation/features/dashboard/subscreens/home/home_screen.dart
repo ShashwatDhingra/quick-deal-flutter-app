@@ -8,7 +8,7 @@ import 'package:quickdeal/src/presentation/features/dashboard/subscreens/home/wi
 
 import '../../../../../core/router/routes.dart';
 import '../../../../../core/utils/ui_utils/constants/colors.dart';
-import '../../../../customs/drawer..dart';
+import '../../../../customs/drawer.dart';
 import 'widgets/body_tile2.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {

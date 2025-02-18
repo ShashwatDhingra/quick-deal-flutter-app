@@ -1,4 +1,3 @@
-
 import '../../../../../customs/circular_container.dart';
 import '../profile.dart';
 
@@ -7,8 +6,9 @@ class ProfileIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = context.isDarkMode;
     return CircularImage(
-      image: AssetsConsts.hrNextDarkLogo,
+      image: isDark ? AssetsConsts.lightLogo : AssetsConsts.darkLogo,
       width: 100.w,
       height: 100.h,
       isNetworkImage: false,

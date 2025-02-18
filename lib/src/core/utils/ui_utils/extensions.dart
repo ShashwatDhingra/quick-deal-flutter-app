@@ -132,7 +132,7 @@ extension UIExtensions on String {
   void showErrorToast() {
     Fluttertoast.showToast(
       msg: this,
-      toastLength: Toast.LENGTH_SHORT,
+      toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       backgroundColor: Colors.red,
       textColor: Colors.white,
@@ -142,7 +142,7 @@ extension UIExtensions on String {
   void showToast() {
     Fluttertoast.showToast(
       msg: this,
-      toastLength: Toast.LENGTH_SHORT,
+      toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       backgroundColor: Colors.black,
       textColor: Colors.white,

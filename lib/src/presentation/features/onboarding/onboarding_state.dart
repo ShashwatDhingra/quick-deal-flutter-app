@@ -28,7 +28,7 @@ class OnboardingState {
         onBoardingMessageTitle: onBoardingMessageTitle,
         onBoardingMessageSubtitles: onBoardingMessageSubtitles);
   }
-} 
+}
 
 // We only use Notifier class to update the UI. Basically to call the method on State Class.
 class OnboardingStateNotifier extends StateNotifier<OnboardingState> {
@@ -37,11 +37,14 @@ class OnboardingStateNotifier extends StateNotifier<OnboardingState> {
   void updatePageIndex(int index) {
     state = state.copyWith(currentIndex: index);
   }
-  
 
   void skipToLastPage() {
     state =
         state.copyWith(currentIndex: state.onBoardingMessageTitle.length - 1);
+  }
+
+  void jumpToFirstPage() {
+    state = state.copyWith(currentIndex: 0);
   }
 
   void nextPage() {

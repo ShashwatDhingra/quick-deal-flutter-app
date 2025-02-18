@@ -12,8 +12,8 @@ class AssetsConsts {
   static const String illusPath = '$baseAsset/images/illustrations';
 
   // Icons
-  static const hrNextLightLogo = '$iconsPath/ic_hr_next_dark.png';
-  static const hrNextDarkLogo = '$iconsPath/ic_hr_next_light.png';
+  static const lightLogo = '$iconsPath/ic_quickdeal_light.png';
+  static const darkLogo = '$iconsPath/ic_quickdeal_dark.png';
   static const filledNavBar1 = '$iconsPath/filled_navbar1.png';
   static const filledNavBar2 = '$iconsPath/filled_navbar2.png';
   static const filledNavBar3 = '$iconsPath/filled_navbar3.png';
