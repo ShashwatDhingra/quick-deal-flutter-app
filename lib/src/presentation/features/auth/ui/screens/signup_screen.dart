@@ -47,9 +47,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        dark
-                            ? AssetsConsts.darkLogo
-                            : AssetsConsts.lightLogo,
+                        dark ? AssetsConsts.darkLogo : AssetsConsts.lightLogo,
                         height: 50,
                       ),
                       const Text(Texts.signupTitle),
@@ -77,7 +75,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                               )),
                         ),
                       ),
-                      24.ph,
+                      24.hBox,
 
                       // Name TextField
                       CustomTextformField(
@@ -99,7 +97,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                           ),
                         ),
                       ),
-                      24.ph,
+                      24.hBox,
                       CustomTextformField(
                         cont: signupState.passwordController,
                         isEnabled: signupState.isEmailConfirmed,
@@ -214,7 +212,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                         height: Sizes.lg,
                       ),
                       if (!signupState.isEmailConfirmed)
-                        MElevatedButton(
+                        CustomElevatedButton(
                           text: 'Verify Email',
                           onPress: () async {
                             final response = await signupNotifier.confirmMail();
@@ -231,7 +229,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                           },
                         ),
                       if (signupState.isEmailConfirmed)
-                        MElevatedButton(
+                        CustomElevatedButton(
                           text: Texts.signUp,
                           onPress: () async {
                             final response = await signupNotifier.signup(ref);

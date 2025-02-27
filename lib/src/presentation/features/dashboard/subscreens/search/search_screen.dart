@@ -94,7 +94,7 @@ class _SearchScreenState extends State<SearchScreen>
                 children: [
                   const Text("Properties"),
                   SizedBox(height: 15.h),
-                  15.h.ph,
+                  15.h.hBox,
                   Expanded(
                     child:
                         NotificationListener<DraggableScrollableNotification>(

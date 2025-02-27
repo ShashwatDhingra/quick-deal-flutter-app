@@ -143,7 +143,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                                 },
                               )),
                         ),
-                      6.ph,
+                      6.hBox,
                       Center(
                         child: AnimatedSwitcher(
                           duration: const Duration(milliseconds: 700),
@@ -230,7 +230,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                     ],
                   ),
                   const Spacer(), // Push buttons to the bottom
-                  MElevatedButton(
+                  CustomElevatedButton(
                     text: onboardingState.currentIndex != 3
                         ? 'Next'
                         : Texts.signIn,

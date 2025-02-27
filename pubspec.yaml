@@ -59,6 +59,9 @@ dependencies:
   cached_network_image: ^3.4.1
   shimmer: ^3.0.0
   jwt_decoder: ^2.0.1
+  image_picker: ^1.1.2
+  google_places_flutter: ^2.0.9
+  geocoding: ^3.0.0
 
 
 

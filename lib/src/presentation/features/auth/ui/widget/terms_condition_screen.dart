@@ -28,17 +28,17 @@ class TermsConditionScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                MElevatedButton(
+                CustomElevatedButton(
                   text: "i Agree",
                   onPress: () {
-                     context.pop();
+                    context.pop();
                   },
                 ),
                 const SizedBox(height: 12),
                 MOutlinedButton(
                   text: "Decline",
                   onPress: () {
-                   context.pop();
+                    context.pop();
                   },
                 )
               ],

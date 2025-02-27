@@ -3,8 +3,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/display.dart';
 
 extension MySizedBox on num {
-  SizedBox get ph => SizedBox(height: toDouble());
-  SizedBox get pw => SizedBox(width: toDouble());
+  SizedBox get hBox => SizedBox(height: toDouble());
+  SizedBox get vBox => SizedBox(width: toDouble());
 }
 
 // For resposive ui w for width and h for height sp for font size

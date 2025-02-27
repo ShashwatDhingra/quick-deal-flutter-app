@@ -3,8 +3,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../core/utils/ui_utils/helpers/helper_functions.dart';
 
-class MElevatedButton extends StatelessWidget {
-  const MElevatedButton({
+class CustomElevatedButton extends StatelessWidget {
+  const CustomElevatedButton({
     super.key,
     required this.text,
     required this.onPress,

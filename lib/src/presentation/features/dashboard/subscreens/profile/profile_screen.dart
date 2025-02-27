@@ -1,3 +1,4 @@
+import 'package:quickdeal/src/presentation/global/user_provider.dart';
 
 import 'profile.dart';
 
@@ -12,6 +13,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     var dark = context.isDarkMode;
+    final user = ref.watch(userProvider);
 
     return Scaffold(
       body: SizedBox(
@@ -22,18 +24,18 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               children: [
-                (Sizes.xl * 5).ph,
+                (Sizes.xl * 5).hBox,
                 const ProfileIcon(),
-                Sizes.md.ph,
-                Text("John Doe",
+                Sizes.md.hBox,
+                Text(user?.name ?? '-- name --',
                     style:
                         Theme.of(context).textTheme.headlineMedium!.copyWith()),
-                Sizes.xs.ph,
+                Sizes.xs.hBox,
                 Text(
-                  "Johndoe@gmail.com",
+                  user?.email ?? '-- email --',
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(),
                 ),
-                Sizes.lg.ph,
+                Sizes.lg.hBox,
                 //Edit Profile button
                 SizedBox(
                     width: double.infinity,
@@ -50,7 +52,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               ));
                         },
                         child: const Text("Edit Profile"))),
-                Sizes.sm.ph,
+                Sizes.sm.hBox,
                 ListView.separated(
                   separatorBuilder: (context, index) {
                     return Padding(
@@ -116,7 +118,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                   color: dark ? CColors.white : CColors.primary,
                                 ),
                               ),
-                              Sizes.xl.pw,
+                              Sizes.xl.vBox,
                               Text(
                                 iconAndTitle[index]["title"],
                                 style: iconAndTitle[index]["title"] == "Logout"

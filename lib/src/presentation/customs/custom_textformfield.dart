@@ -9,23 +9,29 @@ class CustomTextformField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final bool? obscureText;
-  final int maxLine;
+  final int maxLines;
+  final int minLines;
+  final String? labelText;
+  final void Function(String)?  onChanged;
 
-  const CustomTextformField({
-    super.key,
-    required this.cont,
-    this.isEnabled,
-    this.decoration = const InputDecoration(),
-    this.obscureText = false,
-    this.validator,
-    this.keyboardType = TextInputType.text,
-    this.maxLine = 1,
-  });
+  const CustomTextformField(
+      {super.key,
+      required this.cont,
+      this.isEnabled,
+      this.decoration = const InputDecoration(),
+      this.obscureText = false,
+      this.validator,
+      this.keyboardType = TextInputType.text,
+      this.maxLines = 1,
+      this.minLines = 1,
+      this.labelText, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      maxLines: maxLine,
+      minLines: minLines,
+      maxLines: maxLines,
+      onChanged: onChanged,
       validator: (keyboardType == TextInputType.emailAddress)
           ? emailValidator
           : (keyboardType == TextInputType.visiblePassword)
@@ -36,6 +42,8 @@ class CustomTextformField extends StatelessWidget {
       controller: cont,
       enabled: isEnabled ?? true,
       decoration: decoration.copyWith(
+        alignLabelWithHint: true,
+        label: labelText == null ? null : Text(labelText!),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
           borderSide: const BorderSide(
@@ -67,7 +75,9 @@ class CustomTextformField extends StatelessWidget {
       ),
       inputFormatters: keyboardType == TextInputType.phone
           ? [LengthLimitingTextInputFormatter(10)]
-          : [],
+          : keyboardType == TextInputType.number
+              ? [FilteringTextInputFormatter.digitsOnly]
+              : [],
     );
   }
 }

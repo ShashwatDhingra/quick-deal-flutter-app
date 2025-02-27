@@ -40,7 +40,7 @@ class PinSheet extends ConsumerWidget {
             "Confirm Pin",
             style: Theme.of(context).textTheme.headlineMedium,
           ),
-          Sizes.lg.ph,
+          Sizes.lg.hBox,
           Text(
             isSignup
                 ? "A code has been sent. Check your email to continue the signup process."
@@ -87,7 +87,7 @@ class PinSheet extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 24),
-          MElevatedButton(
+          CustomElevatedButton(
             text: "Submit",
             onPress: () async {
               final response = isSignup

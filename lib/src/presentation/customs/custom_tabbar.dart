@@ -1,10 +1,8 @@
-
 // ignore: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
 import '../../core/utils/ui_utils/constants/colors.dart';
-
 
 // ignore: must_be_immutable
 class CustomTabbar extends StatefulWidget {
@@ -59,7 +57,7 @@ class _CustomTabbarState extends State<CustomTabbar> {
                                 : dark
                                     ? CColors.darkGrey
                                     : Colors.black)),
-                    6.0.pw,
+                    6.0.vBox,
                     widget.listLengths == null
                         ? const SizedBox()
                         : CircleAvatar(

@@ -55,7 +55,9 @@ class CustomDrawer extends ConsumerWidget {
               padding: EdgeInsets.zero,
               children: [
                 _buildListTile(Icons.home, 'Lead', () {}),
-                _buildListTile(Icons.add, 'Add Property', () {}),
+                _buildListTile(Icons.add, 'Add Property', () {
+                  context.pushNamed(Routes.addPropertyScreen);
+                }),
                 _buildListTile(Icons.business_outlined, 'Propeties', () {}),
                 _buildListTile(
                     Icons.follow_the_signs_outlined, 'Followup', () {}),

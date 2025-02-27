@@ -106,7 +106,7 @@ class ExpenseBodyTile1 extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              6.ph,
+                              6.hBox,
                               Expanded(
                                 flex: 2,
                                 child: Row(children: [
@@ -142,14 +142,14 @@ class ExpenseBodyTile1 extends StatelessWidget {
                                               AssetsConsts.icCard,
                                               height: 16.h,
                                             ),
-                                            4.pw,
+                                            4.vBox,
                                             Text('Total',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleSmall)
                                           ]),
                                         ),
-                                        6.ph,
+                                        6.hBox,
                                         Expanded(
                                           child: Text(
                                             '\$1010',
@@ -161,7 +161,7 @@ class ExpenseBodyTile1 extends StatelessWidget {
                                       ],
                                     ),
                                   )),
-                                  12.pw,
+                                  12.vBox,
                                   Expanded(
                                       child: Container(
                                     padding: const EdgeInsets.all(8.0),
@@ -194,14 +194,14 @@ class ExpenseBodyTile1 extends StatelessWidget {
                                               AssetsConsts.icDot,
                                               height: 16.h,
                                             ),
-                                            4.pw,
+                                            4.vBox,
                                             Text('Review',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleSmall)
                                           ]),
                                         ),
-                                        6.ph,
+                                        6.hBox,
                                         Expanded(
                                           child: Text(
                                             '\$455',
@@ -213,7 +213,7 @@ class ExpenseBodyTile1 extends StatelessWidget {
                                       ],
                                     ),
                                   )),
-                                  12.pw,
+                                  12.vBox,
                                   Expanded(
                                       child: Container(
                                     padding: const EdgeInsets.all(8.0),
@@ -247,14 +247,14 @@ class ExpenseBodyTile1 extends StatelessWidget {
                                               height: 16.h,
                                               color: Colors.green,
                                             ),
-                                            4.pw,
+                                            4.vBox,
                                             Text('Approved',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleSmall)
                                           ]),
                                         ),
-                                        6.ph,
+                                        6.hBox,
                                         Expanded(
                                           child: Text(
                                             '\$555',

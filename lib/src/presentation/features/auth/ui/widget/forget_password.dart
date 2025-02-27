@@ -51,7 +51,7 @@ class ForgetPasswordScreen extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: Sizes.lg),
-                MElevatedButton(
+                CustomElevatedButton(
                   text: "Send verification code",
                   onPress: () async {
                     final response =

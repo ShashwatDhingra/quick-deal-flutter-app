@@ -39,7 +39,7 @@ class ResetPassword extends ConsumerWidget {
               "Set a New Password!",
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            Sizes.lg.ph,
+            Sizes.lg.hBox,
             const Text(
               "Please set a new password.",
             ),
@@ -81,7 +81,7 @@ class ResetPassword extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 24),
-            MElevatedButton(
+            CustomElevatedButton(
               text: "Submit",
               onPress: () async {
                 final response = await signinNotifier.resetPassword();

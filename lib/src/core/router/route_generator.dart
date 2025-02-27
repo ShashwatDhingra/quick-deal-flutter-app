@@ -8,6 +8,7 @@ import '../../presentation/features/auth/ui/screens/signup_screen.dart';
 import '../../presentation/features/dashboard/dashboard_screen.dart';
 import '../../presentation/features/notification/notification_screen.dart';
 import '../../presentation/features/onboarding/onboarding_screen.dart';
+import '../../presentation/features/property/ui/screens/add_property.dart';
 import '../../presentation/features/splashScreen/ui/splash_screen.dart';
 import 'router.dart';
 
@@ -89,6 +90,10 @@ class RouteGenerator {
       // Analytics Screen
       case Routes.analyticScreen:
         return MaterialPageRoute(builder: (context) => const AnalyticsScreen());
+
+      // Add Property
+      case Routes.addPropertyScreen:
+        return MaterialPageRoute(builder: (context) => AddPropertyScreen());
 
       default:
         return _errorRoute();

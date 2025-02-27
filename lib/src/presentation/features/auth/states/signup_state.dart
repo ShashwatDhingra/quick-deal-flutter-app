@@ -102,6 +102,7 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
           await state.authRepo.confirmMail(state.emailController.text);
       if (response.success ?? false) {
         response.message?.showToast();
+        "hello".showToast();
       }
       return response.success ?? false;
     } catch (e) {

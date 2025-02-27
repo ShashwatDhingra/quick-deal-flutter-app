@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
@@ -42,7 +40,7 @@ class ExpenseListCard extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             )
           ]),
-          12.ph,
+          12.hBox,
           Container(
               padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(

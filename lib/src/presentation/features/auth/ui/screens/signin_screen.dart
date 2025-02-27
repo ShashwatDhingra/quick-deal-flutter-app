@@ -114,7 +114,7 @@ class _SigninScreenState extends ConsumerState<SigninScreen>
                           const SizedBox(
                             height: Sizes.lg,
                           ),
-                          MElevatedButton(
+                          CustomElevatedButton(
                             text: "Sign In",
                             onPress: () async {
                               final response = await signinNotifier.login(ref);
