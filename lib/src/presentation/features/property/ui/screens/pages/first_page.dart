@@ -41,6 +41,7 @@ class FirstPage extends ConsumerWidget {
             ),
             16.hBox,
             CustomSelectField(
+              isMultiSelect: false,
               options: const [
                 'Commercial',
                 'Office',
@@ -50,21 +51,22 @@ class FirstPage extends ConsumerWidget {
                 'Studio',
                 'Villa'
               ],
-              selectedValues: firstPageState.propertyTypeList,
+              selectedValue: firstPageState.propertyCategory,
               labelText: 'Type of Property',
-              onChanged: (values) {
-                firstPageNotifier.updatePropertyTypeList(values);
+              onChanged: (value) {
+                firstPageNotifier.updatePropertyTypeList(value);
               },
               validator: (val) {
                 if (val == null || val.isEmpty) {
                   return 'Please select at least one Type';
                 }
+                return null;
               },
             ),
             16.hBox,
             CustomSelectField(
               options: const ['Rent', 'Sale'],
-              selectedValues: firstPageState.statusList,
+              selectedValue: firstPageState.statusList,
               labelText: 'Status',
               onChanged: (values) {
                 firstPageNotifier.updateStatusTypeList(values);
@@ -73,6 +75,7 @@ class FirstPage extends ConsumerWidget {
                 if (val == null || val.isEmpty) {
                   return 'Please select at least one Option';
                 }
+                return null;
               },
             ),
             16.hBox,

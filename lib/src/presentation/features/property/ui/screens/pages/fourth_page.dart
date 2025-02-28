@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/presentation/customs/custom_textformfield.dart';
@@ -18,44 +17,11 @@ class FourthPage extends ConsumerStatefulWidget {
 }
 
 class _FourthPageState extends ConsumerState<FourthPage> {
-  Position? _currentPosition;
-  bool _locationPermissionGranted = false;
-
   @override
   void initState() {
     super.initState();
-    _getCurrentLocation();
-  }
-
-  Future<void> _getCurrentLocation() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      setState(() {
-        _locationPermissionGranted = false;
-      });
-      return;
-    }
-
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      setState(() {
-        _locationPermissionGranted = false;
-      });
-      return;
-    }
-
-    if (permission == LocationPermission.whileInUse ||
-        permission == LocationPermission.always) {
-      Position position = await Geolocator.getCurrentPosition();
-      setState(() {
-        _currentPosition = position;
-        _locationPermissionGranted = true;
-      });
-    }
+    final fourthPageNotifier = ref.read(fourthPageStateProvider.notifier);
+    fourthPageNotifier.getCurrentLocation();
   }
 
   @override
@@ -71,13 +37,12 @@ class _FourthPageState extends ConsumerState<FourthPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              8.hBox,
-              Text('Address', style: Theme.of(context).textTheme.titleLarge),
               12.hBox,
               const Align(
                   alignment: Alignment.centerLeft, child: Text('Map Details')),
               16.hBox,
-              _locationPermissionGranted && _currentPosition != null
+              fourthPageState.locationPermissionGranted &&
+                      fourthPageState.currentPosition != null
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(1000),
                       child: CircleAvatar(
@@ -91,8 +56,9 @@ class _FourthPageState extends ConsumerState<FourthPage> {
                                   backgroundColor:
                                       isDark ? CColors.black : Colors.white,
                                   initialCenter: LatLng(
-                                      _currentPosition!.latitude,
-                                      _currentPosition!.longitude),
+                                    fourthPageState.currentPosition!.latitude,
+                                    fourthPageState.currentPosition!.longitude,
+                                  ),
                                   initialZoom: MapConstants.initialZoom,
                                 ),
                                 children: [
@@ -104,8 +70,11 @@ class _FourthPageState extends ConsumerState<FourthPage> {
                                         width: 80.0,
                                         height: 80.0,
                                         point: LatLng(
-                                            _currentPosition!.latitude,
-                                            _currentPosition!.longitude),
+                                          fourthPageState
+                                              .currentPosition!.latitude,
+                                          fourthPageState
+                                              .currentPosition!.longitude,
+                                        ),
                                         child: const Icon(Icons.location_pin,
                                             color: Colors.red, size: 40),
                                       ),
@@ -129,7 +98,7 @@ class _FourthPageState extends ConsumerState<FourthPage> {
                       ),
                     )
                   : GestureDetector(
-                      onTap: _getCurrentLocation,
+                      onTap: fourthPageNotifier.getCurrentLocation,
                       child: CircleAvatar(
                         radius: 100,
                         backgroundColor: Colors.grey.shade300,
@@ -139,16 +108,11 @@ class _FourthPageState extends ConsumerState<FourthPage> {
                     ),
               12.hBox,
               GestureDetector(
-                onTap: () {
-                  _getCurrentLocation();
-                },
+                onTap: fourthPageNotifier.getCurrentLocation,
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.location_on_outlined,
-                      color: Colors.grey,
-                    ),
+                    Icon(Icons.location_on_outlined, color: Colors.grey),
                     Text('Select Current Location'),
                   ],
                 ),
@@ -158,9 +122,7 @@ class _FourthPageState extends ConsumerState<FourthPage> {
                 children: [
                   Expanded(
                     child: CustomTextformField(
-                      cont: TextEditingController(
-                        text: _currentPosition?.latitude.toString() ?? '',
-                      ),
+                      cont: fourthPageState.latController,
                       labelText: 'Latitude',
                       keyboardType: TextInputType.number,
                     ),
@@ -168,9 +130,7 @@ class _FourthPageState extends ConsumerState<FourthPage> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: CustomTextformField(
-                      cont: TextEditingController(
-                        text: _currentPosition?.longitude.toString() ?? '',
-                      ),
+                      cont: fourthPageState.lngController,
                       labelText: 'Longitude',
                       keyboardType: TextInputType.number,
                     ),
@@ -183,16 +143,23 @@ class _FourthPageState extends ConsumerState<FourthPage> {
                   child: Text('Location Details')),
               12.hBox,
               CustomTextformField(
-                  cont: TextEditingController(), labelText: 'Address'),
+                  cont: fourthPageState.addressController,
+                  validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return 'Please select at least one Option';
+                    }
+                    return null;
+                  },
+                  labelText: 'Address'),
               16.hBox,
               CustomTextformField(
-                  cont: TextEditingController(), labelText: 'State'),
+                  cont: fourthPageState.stateController, labelText: 'State'),
               16.hBox,
               CustomTextformField(
-                  cont: TextEditingController(), labelText: 'City'),
+                  cont: fourthPageState.cityController, labelText: 'City'),
               16.hBox,
               CustomTextformField(
-                  cont: TextEditingController(),
+                  cont: fourthPageState.pinCodeController,
                   labelText: 'Pin Code',
                   keyboardType: TextInputType.number),
             ],

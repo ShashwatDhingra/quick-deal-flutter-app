@@ -7,7 +7,7 @@ class FirstPageState {
   final TextEditingController priceController;
   final TextEditingController rentIncController;
 
-  final List<String> propertyTypeList;
+  final String propertyCategory;
   final List<String> statusList;
 
   FirstPageState({
@@ -15,14 +15,14 @@ class FirstPageState {
     TextEditingController? contentController,
     TextEditingController? priceController,
     TextEditingController? rentIncController,
-    List<String>? propertyTypeList,
+    String? propertyCategory,
     List<String>? statusList,
   })  : propertyTitleController =
             propertyTitleController ?? TextEditingController(),
         contentController = contentController ?? TextEditingController(),
         priceController = priceController ?? TextEditingController(),
         rentIncController = rentIncController ?? TextEditingController(),
-        propertyTypeList = propertyTypeList ?? [],
+        propertyCategory = propertyCategory ?? '',
         statusList = statusList ?? [];
 
   FirstPageState copyWith({
@@ -30,7 +30,7 @@ class FirstPageState {
     TextEditingController? contentController,
     TextEditingController? priceController,
     TextEditingController? rentIncController,
-    List<String>? propertyTypeList,
+    String? propertyCategory,
     List<String>? statusList,
   }) {
     return FirstPageState(
@@ -39,7 +39,7 @@ class FirstPageState {
       contentController: contentController ?? this.contentController,
       priceController: priceController ?? this.priceController,
       rentIncController: rentIncController ?? this.rentIncController,
-      propertyTypeList: propertyTypeList ?? this.propertyTypeList,
+      propertyCategory: propertyCategory ?? this.propertyCategory,
       statusList: statusList ?? this.statusList,
     );
   }
@@ -59,8 +59,8 @@ class FirstPageStateNotifier extends StateNotifier<FirstPageState> {
     return true;
   }
 
-  void updatePropertyTypeList(List<String> newList) {
-    state = state.copyWith(propertyTypeList: [...newList]);
+  void updatePropertyTypeList(String newValue) {
+    state = state.copyWith(propertyCategory: newValue);
   }
 
   void updateStatusTypeList(List<String> newList) {
@@ -73,7 +73,7 @@ class FirstPageStateNotifier extends StateNotifier<FirstPageState> {
     state.propertyTitleController.clear();
     state.rentIncController.clear();
     state.statusList.clear();
-    state.propertyTypeList.clear();
+    state.copyWith(propertyCategory: '');
   }
 }
 

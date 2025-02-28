@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
+import 'package:quickdeal/src/core/utils/ui_utils/loading_manager.dart';
+import 'package:quickdeal/src/data/models/property_mode.dart';
+import 'package:quickdeal/src/data/repository/property_repository.dart';
 import 'package:quickdeal/src/presentation/features/property/states/first_page_state.dart';
+import 'package:quickdeal/src/presentation/features/property/states/fourth_page_state.dart';
 import 'package:quickdeal/src/presentation/features/property/states/second_page_state.dart';
 import 'package:quickdeal/src/presentation/features/property/states/thrid_page_state.dart';
 
+import '../../../../data/api_exception.dart';
 import '../ui/screens/pages/first_page.dart';
 import '../ui/screens/pages/fourth_page.dart';
 import '../ui/screens/pages/second_page.dart';
@@ -12,6 +18,7 @@ import '../ui/screens/pages/third_page.dart';
 class AddPropertyState {
   final int currentPage;
   final List<Widget> pages;
+  final PropertyRepository propertyRepository = PropertyRepository();
 
   AddPropertyState({
     PageController? pageController,
@@ -54,10 +61,7 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
     final firstPageNotifier = ref.read(firstPageStateProvider.notifier);
     final secondPageNotifier = ref.read(secondPageStateProvider.notifier);
     final thirdPageNotifier = ref.read(thirdPageStateProvider.notifier);
-
-    if ((state.currentPage + 1) == state.pages.length) {
-      return false;
-    }
+    final fourthPageNotifier = ref.read(fourthPageStateProvider.notifier);
 
     // Checking for FirstPage Conditions
     if ((state.currentPage == 0) && firstPageNotifier.canNextPage()) {
@@ -69,8 +73,15 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
       return true;
     }
 
+    // Checking for ThirdPage Condition
     if ((state.currentPage == 2) && thirdPageNotifier.canNextPage()) {
       return true;
+    }
+
+    // Checking for LastPage Condition.
+    if ((state.currentPage + 1) == state.pages.length) {
+      if (fourthPageNotifier.canNextPage()) {}
+      return false;
     }
 
     return false;
@@ -104,7 +115,36 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
 
   void clearState() {
     final firstPageNotifier = ref.read(firstPageStateProvider.notifier);
+    final secondPageNotifier = ref.read(secondPageStateProvider.notifier);
+    final thirdPageNotifier = ref.read(thirdPageStateProvider.notifier);
+    final fourthPageNotifier = ref.read(fourthPageStateProvider.notifier);
+
     firstPageNotifier.clearAllControllers();
+    secondPageNotifier.clearAllControllers();
+    thirdPageNotifier.clearAllControllers();
+    fourthPageNotifier.clearAllControllers();
+  }
+
+  Future<bool> addProperty(WidgetRef ref) async {
+    final firstPageState = ref.read(firstPageStateProvider);
+    final secondPageState = ref.read(secondPageStateProvider);
+    final thirdPageState = ref.read(thirdPageStateProvider);
+    final fourthPageState = ref.read(fourthPageStateProvider);
+    try {
+      LoadingManager.showLoading();
+      final response = await state.propertyRepository.addProperty(Property(title: firstPageState.propertyTitleController.text, category: firstPageState.propertyCategory, price: double.parse(firstPageState.priceController.text), location: Location(address: '', city: '', state: '', pincode: 121001)));
+      if (response?.success ?? false) {
+        response?.message?.showToast();
+        clearState();
+      }
+      return response?.success ?? false;
+    } catch (e) {
+      //! Error handling
+      handleError(e); // handled showing error toast itself.
+      return false;
+    } finally {
+      LoadingManager.hideLoading();
+    }
   }
 }
 

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 
 class FourthPageState {
+  final Position? currentPosition;
+  final bool locationPermissionGranted;
   final TextEditingController latController;
   final TextEditingController lngController;
   final TextEditingController addressController;
@@ -10,55 +13,52 @@ class FourthPageState {
   final TextEditingController pinCodeController;
 
   FourthPageState({
-    TextEditingController? bedroomNoController,
-    TextEditingController? bathroomNoController,
-    TextEditingController? areaSizeController,
-    TextEditingController? twoWheelerParkingController,
-    TextEditingController? fourWheelerParkingController,
-    TextEditingController? yearBuildController,
-  })  : latController =
-            bedroomNoController ?? TextEditingController(text: '0'),
-        lngController =
-            bathroomNoController ?? TextEditingController(text: '0'),
-        addressController = areaSizeController ?? TextEditingController(),
-        stateController =
-            twoWheelerParkingController ?? TextEditingController(text: '0'),
-        cityController =
-            fourWheelerParkingController ?? TextEditingController(text: '0'),
-        pinCodeController = yearBuildController ?? TextEditingController();
+    this.currentPosition,
+    this.locationPermissionGranted = false,
+    TextEditingController? latController,
+    TextEditingController? lngController,
+    TextEditingController? addressController,
+    TextEditingController? stateController,
+    TextEditingController? cityController,
+    TextEditingController? pinCodeController,
+  })  : latController = latController ?? TextEditingController(),
+        lngController = lngController ?? TextEditingController(),
+        addressController = addressController ?? TextEditingController(),
+        stateController = stateController ?? TextEditingController(),
+        cityController = cityController ?? TextEditingController(),
+        pinCodeController = pinCodeController ?? TextEditingController();
 
   FourthPageState copyWith({
-    TextEditingController? bedroomNoController,
-    TextEditingController? bathroomNoController,
-    TextEditingController? areaSizeController,
-    TextEditingController? twoWheelerParkingController,
-    TextEditingController? fourWheelerParkingController,
-    TextEditingController? yearBuildController,
+    Position? currentPosition,
+    bool? locationPermissionGranted,
+    TextEditingController? latController,
+    TextEditingController? lngController,
+    TextEditingController? addressController,
+    TextEditingController? stateController,
+    TextEditingController? cityController,
+    TextEditingController? pinCodeController,
   }) {
     return FourthPageState(
-        bedroomNoController: bedroomNoController ?? this.latController,
-        bathroomNoController: bathroomNoController ?? this.lngController,
-        areaSizeController: areaSizeController ?? this.addressController,
-        twoWheelerParkingController:
-            twoWheelerParkingController ?? this.stateController,
-        fourWheelerParkingController:
-            fourWheelerParkingController ?? this.cityController,
-        yearBuildController: yearBuildController ?? this.pinCodeController);
+      currentPosition: currentPosition ?? this.currentPosition,
+      locationPermissionGranted:
+          locationPermissionGranted ?? this.locationPermissionGranted,
+      latController: latController ?? this.latController,
+      lngController: lngController ?? this.lngController,
+      addressController: addressController ?? this.addressController,
+      stateController: stateController ?? this.stateController,
+      cityController: cityController ?? this.cityController,
+      pinCodeController: pinCodeController ?? this.pinCodeController,
+    );
   }
 }
 
 class FourthPageStateNotifier extends StateNotifier<FourthPageState> {
   final fourthPageFormKey = GlobalKey<FormState>();
+
   FourthPageStateNotifier() : super(FourthPageState());
 
   bool canNextPage() {
-    if (fourthPageFormKey.currentState == null) {
-      return false; // Avoid null issue
-    }
-    if (!fourthPageFormKey.currentState!.validate()) {
-      return false;
-    }
-    return true;
+    return fourthPageFormKey.currentState?.validate() ?? false;
   }
 
   void clearAllControllers() {
@@ -68,6 +68,35 @@ class FourthPageStateNotifier extends StateNotifier<FourthPageState> {
     state.stateController.clear();
     state.cityController.clear();
     state.pinCodeController.clear();
+  }
+
+  Future<void> getCurrentLocation() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      state = state.copyWith(locationPermissionGranted: false);
+      return;
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      state = state.copyWith(locationPermissionGranted: false);
+      return;
+    }
+
+    if (permission == LocationPermission.whileInUse ||
+        permission == LocationPermission.always) {
+      Position position = await Geolocator.getCurrentPosition();
+      state = state.copyWith(
+        currentPosition: position,
+        locationPermissionGranted: true,
+      );
+      state.latController.text = position.latitude.toString();
+      state.lngController.text = position.longitude.toString();
+    }
   }
 }
 

@@ -51,7 +51,7 @@ class _AddPropertyScreenState extends ConsumerState<AddPropertyScreen> {
         appBar: AppBar(
           title: const Text('Add Property'),
           elevation: 2,
-          shadowColor: Colors.grey.withOpacity(0.7),
+          // shadowColor: Colors.grey.withOpacity(0.7),
           backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         ),
         body: Column(

@@ -49,7 +49,7 @@ class ThirdPage extends ConsumerWidget {
                 'Wifi',
                 'Windows Covering'
               ],
-              selectedValues: thridPageState.featureList,
+              selectedValue: thridPageState.featureList,
               labelText: 'Features',
               onChanged: (values) {
                 thridPageNotifier.updateFeatureList(values);
@@ -92,7 +92,7 @@ class ThirdPage extends ConsumerWidget {
                 'Wooden Fence',
                 'Security Guard',
               ],
-              selectedValues: thridPageState.securityFeatureList,
+              selectedValue: thridPageState.securityFeatureList,
               labelText: 'Security Features',
               onChanged: (values) {
                 thridPageNotifier.updateSecurityFeatureList(values);
@@ -104,7 +104,7 @@ class ThirdPage extends ConsumerWidget {
                 'Swimming Pool',
                 'ClubHouse',
               ],
-              selectedValues: thridPageState.amenetiesList,
+              selectedValue: thridPageState.amenetiesList,
               labelText: 'Ameneties',
               onChanged: (values) {
                 thridPageNotifier.updateAmenetiesList(values);
