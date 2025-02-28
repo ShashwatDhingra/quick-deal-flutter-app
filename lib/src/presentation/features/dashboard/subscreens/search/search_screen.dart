@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:quickdeal/src/core/router/router.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
-import 'package:quickdeal/src/core/utils/ui_utils/helpers/helper_functions.dart';
-
+import 'package:quickdeal/src/presentation/features/dashboard/subscreens/home/home_screen.dart';
+import '../../../../../core/router/routes.dart';
 import '../../../../../core/utils/ui_utils/constants/app_constant.dart';
 import '../../../../../core/utils/ui_utils/constants/colors.dart';
-import '../home/home_screen.dart';
 import 'widgets/custom_searchbar.dart';
 import 'widgets/filter_button.dart';
 
@@ -116,7 +114,8 @@ class _SearchScreenState extends State<SearchScreen>
                             SizedBox(height: 12.h),
                         itemCount: 15,
                         itemBuilder: (context, index) {
-                          return const SinglePropertyCard(
+                          return SinglePropertyCard(
+                            onTap: () {},
                             imageUrl:
                                 "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
                             title: "Luxury Apartment",
@@ -171,168 +170,83 @@ class _SearchScreenState extends State<SearchScreen>
 
   @override
   Widget build(BuildContext context) {
-    var isDark = context.isDarkMode;
     return Scaffold(
-      backgroundColor: Colors.black,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Stack(
-          children: [
-            FlutterMap(
-              mapController: _mapController,
-              options: MapOptions(
-                backgroundColor: isDark ? CColors.black : Colors.white,
-                initialCenter: LatLng(_dummyLatLngList[_selectedIndex]['lat']!,
-                    _dummyLatLngList[_selectedIndex]['lng']!),
-                initialZoom: MapConstants.initialZoom,
-                enableScrollWheel: true,
-                pinchMoveThreshold: 5.7,
-              ),
-              children: [
-                TileLayer(urlTemplate: MapConstants.mapTileUrl),
-                MarkerLayer(
-                  markers: [
-                    const Marker(
-                      height: 40,
-                      width: 40,
-                      point: LatLng(28.7041, 77.102),
-                      child:
-                          Icon(Icons.navigation, color: Colors.red, size: 40),
-                    ),
-                    ..._dummyLatLngList.map((latLng) => Marker(
-                          height: 40,
-                          width: 40,
-                          point: LatLng(latLng['lat']!, latLng['lng']!),
-                          child: GestureDetector(
-                            onTap: () {
-                              _pageController.animateToPage(
-                                _dummyLatLngList.indexOf(latLng),
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.easeInOut,
-                              );
-                              setState(() {
-                                _selectedIndex =
-                                    _dummyLatLngList.indexOf(latLng);
-                                _animatedMapMove(
-                                    LatLng(latLng['lat']!, latLng['lng']!),
-                                    11.5);
-                              });
-                            },
-                            child: AnimatedScale(
-                              duration: const Duration(milliseconds: 500),
-                              scale: _selectedIndex ==
-                                      _dummyLatLngList.indexOf(latLng)
-                                  ? 1
-                                  : 0.7,
-                              child: AnimatedOpacity(
-                                duration: const Duration(milliseconds: 500),
-                                opacity: _selectedIndex ==
-                                        _dummyLatLngList.indexOf(latLng)
-                                    ? 1
-                                    : 0.5,
-                                child: Icon(
-                                  Icons.location_on,
-                                  color: latLng['lat'] == null
-                                      ? Colors.red
-                                      : Colors.green,
-                                  size: 45,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )),
-                  ],
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                AnimatedOpacity(
-                  duration: const Duration(milliseconds: 300),
-                  opacity: _isScrolled ? 0.0 : 1.0,
-                  child: Container(
-                    color: isDark
-                        ? CColors.black.withOpacity(
-                            _opacity == 0.09302325581395349 ? 0 : _opacity)
-                        : Colors.white.withOpacity(
-                            _opacity == 0.09302325581395349 ? 0 : _opacity),
-                    height: 110.h,
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-                      child: Column(
-                        children: [
-                          CustomSearchBar(
-                            onChanged: (value) {},
-                            onBackPressed: () {
-                              Navigator.pop(context);
-                            },
-                            onRefreshPressed: () {},
-                            onRotatePressed: () => _openBottomSheet(context),
-                            onMorePressed: () {},
-                            opacity: _opacity,
-                          ),
-                          SizedBox(height: 10.h),
-                          _opacity == 0.09302325581395349
-                              ? const SizedBox()
-                              : Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    buildFilterButton(
-                                        icon: Icons.filter_alt_outlined),
-                                    buildFilterButton(text: "All"),
-                                    buildFilterButton(text: "All"),
-                                    buildFilterButton(text: "Custom"),
-                                  ],
-                                ),
-                        ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Expanded(
+                flex: 3,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      CustomSearchBar(
+                        onChanged: (value) {},
+                        onBackPressed: () {},
                       ),
-                    ),
+                      // 10.vBox,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: List.generate(
+                            4,
+                            (index) => buildFilterButton(
+                                icon: Icons.filter_alt_outlined,
+                                text: index == 0 ? null : "All")),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-            Positioned(
-              bottom: 120.h,
-              left: 0,
-              right: 0,
-              child: SizedBox(
-                height: 150.h,
-                width: HelperFunctions.screenWidth(context) * 0.8,
-                child: PageView.builder(
-                  physics: const ClampingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _dummyLatLngList.length,
-                  controller: _pageController,
-                  onPageChanged: (value) {
-                    setState(() {
-                      _selectedIndex = value;
-                      _animatedMapMove(
-                          LatLng(_dummyLatLngList[value]['lat']!,
-                              _dummyLatLngList[value]['lng']!),
-                          11.5);
-                    });
-                  },
-                  itemBuilder: (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: SinglePropertyCard(
-                        imageUrl:
-                            "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
-                        title: "Luxury Apartment",
-                        type: "Rent",
-                        location: "456 Elm St, Town",
-                        bedrooms: 3,
-                        bathrooms: 2,
-                        area: 150,
-                        price: "3000",
+              ),
+              Expanded(
+                flex: 17,
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return SingleChildScrollView(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minHeight: constraints.maxHeight,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("29 Results",
+                                style: TextStyle(fontSize: 20.h)),
+                            Text("Showing Newest Results",
+                                style: TextStyle(fontSize: 10.h)),
+                            // 10.vBox,
+                            ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              separatorBuilder: (_, __) =>
+                                  SizedBox(height: 12.h),
+                              itemCount: 15,
+                              itemBuilder: (_, index) => SinglePropertyCard(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, Routes.propertyDetailScreen);
+                                },
+                                imageUrl:
+                                    "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
+                                title: "Luxury Apartment",
+                                type: "Rent",
+                                location: "456 Elm St, Town",
+                                bedrooms: 3,
+                                bathrooms: 2,
+                                area: 150,
+                                price: "3000",
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

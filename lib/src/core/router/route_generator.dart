@@ -6,6 +6,7 @@ import '../../presentation/features/analytics._screen.dart';
 import '../../presentation/features/auth/ui/screens/signin_screen.dart';
 import '../../presentation/features/auth/ui/screens/signup_screen.dart';
 import '../../presentation/features/dashboard/dashboard_screen.dart';
+import '../../presentation/features/dashboard/subscreens/detail/detail_screen.dart';
 import '../../presentation/features/notification/notification_screen.dart';
 import '../../presentation/features/onboarding/onboarding_screen.dart';
 import '../../presentation/features/property/ui/screens/add_property.dart';
@@ -94,6 +95,12 @@ class RouteGenerator {
       // Add Property
       case Routes.addPropertyScreen:
         return MaterialPageRoute(builder: (context) => AddPropertyScreen());
+
+      // Properties Detail
+
+      case Routes.propertyDetailScreen:
+        return MaterialPageRoute(
+            builder: (context) => const PropetyDetailScreen());
 
       default:
         return _errorRoute();
