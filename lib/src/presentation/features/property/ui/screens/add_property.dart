@@ -17,6 +17,13 @@ class _AddPropertyScreenState extends ConsumerState<AddPropertyScreen> {
   Widget build(BuildContext context) {
     final addPropertyState = ref.watch(addPropertyStateProvider);
     final addPropertyNotifier = ref.read(addPropertyStateProvider.notifier);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (addPropertyState.isFormCompleted) {
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+      }
+    });
     return PopScope(
       onPopInvoked: (didPop) async {
         if (didPop) return;
@@ -120,9 +127,6 @@ class _AddPropertyScreenState extends ConsumerState<AddPropertyScreen> {
                                 size: 30),
                         onPressed: () async {
                           addPropertyNotifier.goToNextPage();
-                          if (addPropertyState.isFormCompleted) {
-                            context.pop();
-                          }
                         }),
                   ),
                 ],

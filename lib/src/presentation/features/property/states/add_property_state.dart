@@ -33,7 +33,7 @@ class AddPropertyState {
               const ThirdPage(),
               const FourthPage(),
             ],
-        isFormCompleted = false;
+        isFormCompleted = isFormCompleted ?? false;
 
   // CopyWith Method
   AddPropertyState copyWith(
@@ -128,7 +128,7 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
     secondPageNotifier.clearAllControllers();
     thirdPageNotifier.clearAllControllers();
     fourthPageNotifier.clearAllControllers();
-    state.copyWith(currentPage: 0, isFormCompleted: false);
+    state = state.copyWith(currentPage: 0, isFormCompleted: false);
   }
 
   Future<bool> addProperty() async {
@@ -152,7 +152,7 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
                   lng: double.parse(fourthPageState.lngController.text)))));
       if (response?.success ?? false) {
         response?.message?.showToast();
-        state.copyWith(isFormCompleted: true);
+        state = state.copyWith(isFormCompleted: true);
         clearState();
       }
       return response?.success ?? false;

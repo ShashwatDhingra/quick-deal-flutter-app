@@ -11,8 +11,9 @@ class CustomTextformField extends StatelessWidget {
   final bool? obscureText;
   final int maxLines;
   final int minLines;
+  final int? maxText;
   final String? labelText;
-  final void Function(String)?  onChanged;
+  final void Function(String)? onChanged;
 
   const CustomTextformField(
       {super.key,
@@ -24,11 +25,14 @@ class CustomTextformField extends StatelessWidget {
       this.keyboardType = TextInputType.text,
       this.maxLines = 1,
       this.minLines = 1,
-      this.labelText, this.onChanged});
+      this.maxText,
+      this.labelText,
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLength: maxText,
       minLines: minLines,
       maxLines: maxLines,
       onChanged: onChanged,
