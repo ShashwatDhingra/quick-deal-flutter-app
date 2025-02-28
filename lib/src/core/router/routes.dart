@@ -41,4 +41,6 @@ class Routes {
 
   /// Drawer Router
   static const String analyticScreen = '/analytics-view';
+  //Properties detail page
+  static const String propertyDetailScreen = '/property-detail-view';
 }
