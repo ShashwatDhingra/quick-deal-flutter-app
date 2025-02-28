@@ -200,14 +200,6 @@ class _CustomSelectFieldState extends State<CustomSelectField> {
                             style: const TextStyle(color: Colors.black)),
               ),
             ),
-            if (state.hasError)
-              Padding(
-                padding: const EdgeInsets.only(top: 5, left: 10),
-                child: Text(
-                  state.errorText!,
-                  style: const TextStyle(color: Colors.red, fontSize: 12),
-                ),
-              ),
           ],
         );
       },

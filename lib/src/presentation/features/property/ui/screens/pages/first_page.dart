@@ -85,6 +85,12 @@ class FirstPage extends ConsumerWidget {
               cont: firstPageState.priceController,
               keyboardType: TextInputType.number,
               labelText: 'Price',
+              validator: (val) {
+                if (val == null || val.isEmpty) {
+                  return 'Please enter the Price.';
+                }
+                return null;
+              },
             ),
             16.hBox,
             CustomTextformField(

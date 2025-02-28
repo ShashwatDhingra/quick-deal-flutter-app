@@ -182,10 +182,10 @@ class _SearchScreenState extends State<SearchScreen>
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      CustomSearchBar(
-                        onChanged: (value) {},
-                        onBackPressed: () {},
-                      ),
+                      // CustomSearchBar(
+                      //   onChanged: (value) {},
+                      //   onBackPressed: () {},
+                      // ),
                       // 10.vBox,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

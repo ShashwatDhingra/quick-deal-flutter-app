@@ -118,7 +118,12 @@ class _AddPropertyScreenState extends ConsumerState<AddPropertyScreen> {
                               )
                             : const Icon(Icons.arrow_forward_ios_rounded,
                                 size: 30),
-                        onPressed: addPropertyNotifier.goToNextPage),
+                        onPressed: () async {
+                          addPropertyNotifier.goToNextPage();
+                          if (addPropertyState.isFormCompleted) {
+                            context.pop();
+                          }
+                        }),
                   ),
                 ],
               ),

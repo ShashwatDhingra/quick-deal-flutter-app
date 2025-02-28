@@ -72,13 +72,10 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
             flex: 4,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Hero(
-                tag: 'img1',
-                child: Image.network(
-                    width: double.infinity,
-                    "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
-                    fit: BoxFit.cover),
-              ),
+              child: Image.network(
+                  width: double.infinity,
+                  "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
+                  fit: BoxFit.cover),
             ),
           ),
           Expanded(
