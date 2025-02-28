@@ -260,12 +260,15 @@ class SinglePropertyCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              width: 120,
-              height: 120,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(imageUrl, fit: BoxFit.cover),
+            Hero(
+              tag: 'img1',
+              child: SizedBox(
+                width: 120,
+                height: 120,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(imageUrl, fit: BoxFit.cover),
+                ),
               ),
             ),
             const SizedBox(width: 12),

@@ -72,10 +72,13 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
             flex: 4,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                  width: double.infinity,
-                  "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
-                  fit: BoxFit.cover),
+              child: Hero(
+                tag: 'img1',
+                child: Image.network(
+                    width: double.infinity,
+                    "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
+                    fit: BoxFit.cover),
+              ),
             ),
           ),
           Expanded(
@@ -97,7 +100,7 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                       style: TextStyle(
                           fontSize: 15.sp, fontWeight: FontWeight.bold),
                     ),
-                    10.vBox,
+                    10.hBox,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -117,7 +120,7 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                         ),
                       ],
                     ),
-                    10.vBox,
+                    10.hBox,
 
                     SizedBox(
                       height: 50.h,
@@ -139,7 +142,7 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                       ),
                     ),
 
-                    20.vBox,
+                    20.hBox,
                     // Deail List
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -154,7 +157,7 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                         )
                       ],
                     ),
-                    20.vBox,
+                    20.hBox,
                     Container(
                       height: 200.h,
                       decoration: BoxDecoration(
@@ -197,7 +200,7 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                       ),
                     ),
 
-                    20.vBox,
+                    20.hBox,
                     // Deail List
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -212,7 +215,7 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                         )
                       ],
                     ),
-                    20.vBox,
+                    20.hBox,
                     SizedBox(
                       height: 80.h,
                       child: ListView.separated(
@@ -236,7 +239,7 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                       ),
                     ),
 
-                    20.vBox,
+                    20.hBox,
                     // Description
 
                     ValueListenableBuilder<bool>(
@@ -256,7 +259,7 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                                 )
                               ],
                             ),
-                            10.vBox,
+                            10.hBox,
                             Text(
                               value
                                   ? "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout..."
@@ -267,7 +270,7 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                       },
                     ),
 
-                    20.vBox,
+                    20.hBox,
                     // Address
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -282,7 +285,7 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                         )
                       ],
                     ),
-                    10.vBox,
+                    10.hBox,
                     const Text(
                         "Pillor No  69, Sector 31 haryana faridabad 121003 ")
                   ],
