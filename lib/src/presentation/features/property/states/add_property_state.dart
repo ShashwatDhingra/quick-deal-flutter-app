@@ -153,6 +153,8 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
       if (response?.success ?? false) {
         response?.message?.showToast();
         state = state.copyWith(isFormCompleted: true);
+        // Just a delay for the UI Issue.
+        await Future.delayed(1.seconds);
         clearState();
       }
       return response?.success ?? false;
