@@ -178,6 +178,7 @@ class _FourthPageState extends ConsumerState<FourthPage> {
                 cont: fourthPageState.pinCodeController,
                 labelText: 'Pin Code',
                 keyboardType: TextInputType.number,
+                maxText: 6,
                 validator: (val) {
                   if (val == null || val.isEmpty) {
                     return 'Please select at least one Option';
