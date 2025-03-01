@@ -1,9 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quickdeal/src/core/utils/ui_utils/constants/colors.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
 import 'package:quickdeal/src/presentation/features/property/states/add_property_state.dart';
-import 'package:quickdeal/src/presentation/features/property/states/first_page_state.dart';
 
 class AddPropertyScreen extends ConsumerStatefulWidget {
   const AddPropertyScreen({super.key});
@@ -43,6 +39,7 @@ class _AddPropertyScreenState extends ConsumerState<AddPropertyScreen> {
 
         if (exitConfirmed == true) {
           addPropertyNotifier.clearState();
+          // ignore: use_build_context_synchronously
           Navigator.of(context).pop(); // Close the screen
         }
       },
@@ -72,7 +69,7 @@ class _AddPropertyScreenState extends ConsumerState<AddPropertyScreen> {
                 children: [
                   Expanded(
                     child: IconButton(
-                      icon: Icon(Icons.arrow_back_ios_rounded, size: 30),
+                      icon: const Icon(Icons.arrow_back_ios_rounded, size: 30),
                       onPressed: addPropertyNotifier.canPreviousPage()
                           ? addPropertyNotifier.goToPrevioudPage
                           : null,
@@ -93,7 +90,7 @@ class _AddPropertyScreenState extends ConsumerState<AddPropertyScreen> {
                           ),
                           // Animated Progress Indicator
                           AnimatedContainer(
-                            duration: Duration(milliseconds: 300),
+                            duration: const Duration(milliseconds: 300),
                             height: 4,
                             width: (100 / addPropertyState.pages.length) *
                                 (addPropertyState.currentPage +

@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/constants/colors.dart';
 
@@ -55,7 +53,7 @@ class _CustomSelectFieldState extends State<CustomSelectField> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
+                  const Text(
                     "Select Options",
                     style: TextStyle(
                       fontSize: 18,

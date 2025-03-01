@@ -40,7 +40,7 @@ class BodyTile2 extends ConsumerWidget {
               itemCount: 5,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                       width: 400,
                       child: SinglePropertyCard(

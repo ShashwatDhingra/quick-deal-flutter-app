@@ -116,7 +116,7 @@ class _MapScreenState extends State<MapScreen> {
           actions: [
             IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.done,
                   color: CColors.primary,
                 ))
@@ -144,7 +144,7 @@ class _MapScreenState extends State<MapScreen> {
                               mapController: mapController,
                               options: MapOptions(
                                 center: _selectedLocation ??
-                                    LatLng(28.7041, 77.1025),
+                                    const LatLng(28.7041, 77.1025),
                                 zoom: 14,
                                 onPositionChanged: (position, hasGesture) {
                                   if (hasGesture) {
@@ -165,7 +165,7 @@ class _MapScreenState extends State<MapScreen> {
                               ],
                             ),
                           )
-                        : Center(
+                        : const Center(
                             child: CircularProgressIndicator(
                             strokeWidth: 0.7,
                           )),
@@ -184,7 +184,7 @@ class _MapScreenState extends State<MapScreen> {
               Text(
                 _selectedAddress,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
 
               const SizedBox(height: 16.0),

@@ -23,7 +23,7 @@ Widget buildFilterButton(
                   icon,
                   color: iconColor,
                 ),
-              if (text != null) Text(" " + text),
+              if (text != null) Text(" $text"),
             ],
           ),
         ),

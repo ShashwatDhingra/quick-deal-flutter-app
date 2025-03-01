@@ -42,12 +42,12 @@ class _SecondPageState extends ConsumerState<SecondPage> {
                             ? secondPageNotifier.pickImages
                             : null,
                         child: Container(
-                            margin: EdgeInsets.all(4.0),
+                            margin: const EdgeInsets.all(4.0),
                             decoration: BoxDecoration(
                                 border:
                                     Border.all(width: 0.7, color: Colors.grey),
                                 borderRadius: BorderRadius.circular(6.0)),
-                            child: Icon(Icons.add)),
+                            child: const Icon(Icons.add)),
                       ),
                     ],
                   )),

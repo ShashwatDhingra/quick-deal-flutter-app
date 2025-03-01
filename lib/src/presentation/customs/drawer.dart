@@ -54,7 +54,9 @@ class CustomDrawer extends ConsumerWidget {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                _buildListTile(Icons.home, 'Lead', () {}),
+                _buildListTile(Icons.home, 'Lead', () {
+                  context.pushNamed(Routes.leadScreen);
+                }),
                 _buildListTile(Icons.add, 'Add Property', () {
                   context.pushNamed(Routes.addPropertyScreen);
                 }),
@@ -110,6 +112,7 @@ class CustomDrawer extends ConsumerWidget {
                           // Jump onto the first page of onboarding screen
                           onboardingNotifier.jumpToFirstPage();
 
+                          // ignore: use_build_context_synchronously
                           context.pushNamedAndRemoveUntil(
                               Routes.onboardingScreen,
                               predicate: (route) => false);

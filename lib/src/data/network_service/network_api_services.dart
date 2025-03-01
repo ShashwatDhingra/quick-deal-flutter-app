@@ -112,7 +112,7 @@ class NetworkApiService extends BaseApiService {
           decodedResponse.error ?? 'API endpoint not found');
     } else {
       throw FetchDataException(
-          'Error: ${statusCode} - ${decodedResponse.error ?? 'Unknown error'}');
+          'Error: $statusCode - ${decodedResponse.error ?? 'Unknown error'}');
     }
   }
 }

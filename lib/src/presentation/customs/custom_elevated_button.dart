@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../core/utils/ui_utils/constants/colors.dart';
 import '../../core/utils/ui_utils/helpers/helper_functions.dart';
 
 class CustomElevatedButton extends StatelessWidget {
@@ -10,6 +11,7 @@ class CustomElevatedButton extends StatelessWidget {
     required this.onPress,
     this.isLoading = false,
     this.height = 48.0,
+    this.buttonColor = CColors.primary,
   });
 
   final String text;
@@ -17,6 +19,7 @@ class CustomElevatedButton extends StatelessWidget {
 
   final bool isLoading;
   final double height;
+  final Color buttonColor;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +30,10 @@ class CustomElevatedButton extends StatelessWidget {
       height: height,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+          backgroundColor: buttonColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(36.0),
+            
           ),
           padding: const EdgeInsets.all(12.0),
           minimumSize: Size(scWidth * 0.9, 48),

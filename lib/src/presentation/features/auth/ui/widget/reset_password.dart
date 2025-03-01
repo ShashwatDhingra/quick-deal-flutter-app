@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/core/router/routes.dart';
 import 'package:quickdeal/src/presentation/features/auth/states/signin_state.dart';
 import 'package:quickdeal/src/presentation/features/auth/ui/widget/success.dart';
-import '../../../../../core/utils/ui_utils/constants/colors.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import '../../../../../core/utils/ui_utils/constants/sizes.dart';
 import '../../../../../core/utils/ui_utils/constants/text_strings.dart';
@@ -19,7 +18,7 @@ class ResetPassword extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final signinState = ref.watch(signinStateProvider);
     final signinNotifier = ref.read(signinStateProvider.notifier);
-    var dark = context.isDarkMode;
+   // var dark = context.isDarkMode;
     final bottomInset = MediaQuery.of(context).viewInsets.bottom;
 
     return SingleChildScrollView(
@@ -87,9 +86,11 @@ class ResetPassword extends ConsumerWidget {
                 final response = await signinNotifier.resetPassword();
 
                 if (response) {
+                  // ignore: use_build_context_synchronously
                   context.pop(context);
 
                   showModalBottomSheet(
+                    // ignore: use_build_context_synchronously
                     context: context,
                     isScrollControlled: true,
                     builder: (context) {

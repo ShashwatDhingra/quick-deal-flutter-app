@@ -44,4 +44,8 @@ class Routes {
   static const String addPropertyScreen = '/add-property-screen';
   //Properties detail page
   static const String propertyDetailScreen = '/property-detail-view';
+  // Lead  view page
+  static const String leadScreen = '/lead-lead-view';
+  // Create Lead Form page
+  static const String createLeadFormScreen = '/create-lead-form-screen';
 }
