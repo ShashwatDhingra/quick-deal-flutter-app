@@ -259,7 +259,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                               builder: (context, child) {
                                 return child!;
                               },
-                              child: SigninScreen(),
+                              child: const SigninScreen(),
                             ),
                           );
                         },
@@ -296,7 +296,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                               builder: (context, child) {
                                 return child!;
                               },
-                              child: SignupScreen(),
+                              child: const SignupScreen(),
                             ),
                           );
                         },

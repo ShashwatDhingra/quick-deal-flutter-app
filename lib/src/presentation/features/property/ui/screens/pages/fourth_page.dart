@@ -85,7 +85,7 @@ class _FourthPageState extends ConsumerState<FourthPage> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                context.push(MapScreen());
+                                context.push(const MapScreen());
                               },
                               child: Container(
                                 color: Colors.transparent,

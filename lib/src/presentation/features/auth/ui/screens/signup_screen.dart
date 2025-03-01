@@ -10,16 +10,14 @@ import '../../../../../core/utils/ui_utils/constants/assets.dart';
 import '../../../../../core/utils/ui_utils/constants/colors.dart';
 import '../../../../../core/utils/ui_utils/constants/sizes.dart';
 import '../../../../../core/utils/ui_utils/constants/text_strings.dart';
-import '../../../../../data/models/user_model.dart';
 import '../../../../customs/custom_checkbox.dart';
 
 import '../../../../customs/custom_elevated_button.dart';
 import '../../../../customs/custom_textformfield.dart';
-import '../../../../global/user_provider.dart';
 import '../widget/terms_condition_screen.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
-  SignupScreen({super.key});
+  const SignupScreen({super.key});
 
   @override
   ConsumerState<SignupScreen> createState() => _SignupScreenState();
@@ -220,6 +218,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                             if (response) {
                               showModalBottomSheet(
                                 useSafeArea: true,
+                                // ignore: use_build_context_synchronously
                                 context: context,
                                 builder: (context) {
                                   return PinSheet(isSignup: true);
@@ -235,6 +234,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                             final response = await signupNotifier.signup(ref);
 
                             if (response) {
+                              // ignore: use_build_context_synchronously
                               context.pushNamedAndRemoveUntil(
                                   Routes.dashboardScreen,
                                   predicate: (route) => false);
@@ -275,7 +275,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
                                         builder: (context, child) {
                                           return child!;
                                         },
-                                        child: SigninScreen(),
+                                        child: const SigninScreen(),
                                       ),
                                     );
                                   },

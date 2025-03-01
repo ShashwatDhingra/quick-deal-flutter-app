@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/presentation/features/auth/states/signin_state.dart';
 import 'package:quickdeal/src/presentation/features/auth/ui/widget/pin_sheet.dart';
-import 'package:quickdeal/src/presentation/features/auth/ui/widget/reset_password.dart';
 
 import '../../../../../core/utils/ui_utils/constants/sizes.dart';
 import '../../../../../core/utils/ui_utils/constants/text_strings.dart';
@@ -57,9 +56,11 @@ class ForgetPasswordScreen extends ConsumerWidget {
                     final response =
                         await signinNotifier.sendVerificationCode();
                     if (response) {
+                      // ignore: use_build_context_synchronously
                       context.pop();
                       showModalBottomSheet(
                         isScrollControlled: true,
+                        // ignore: use_build_context_synchronously
                         context: context,
                         builder: (context) {
                           return PinSheet(isSignup: false);

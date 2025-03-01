@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:quickdeal/src/core/router/routes.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/search/search_screen.dart';
+import 'package:quickdeal/src/presentation/features/lead/lead_screen.dart';
 
 import '../../presentation/features/analytics._screen.dart';
 import '../../presentation/features/auth/ui/screens/signin_screen.dart';
 import '../../presentation/features/auth/ui/screens/signup_screen.dart';
 import '../../presentation/features/dashboard/dashboard_screen.dart';
 import '../../presentation/features/dashboard/subscreens/detail/detail_screen.dart';
+import '../../presentation/features/lead/lead_form_screen.dart';
 import '../../presentation/features/notification/notification_screen.dart';
 import '../../presentation/features/onboarding/onboarding_screen.dart';
 import '../../presentation/features/property/ui/screens/add_property.dart';
@@ -41,7 +43,7 @@ class RouteGenerator {
       case Routes.signinScreen:
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              SigninScreen(),
+              const SigninScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(0.0, 1.0); // Start from bottom
             const end = Offset.zero; // End at current position
@@ -61,7 +63,7 @@ class RouteGenerator {
       case Routes.signupScreen:
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              SignupScreen(),
+              const SignupScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(0.0, 1.0); // Start from bottom
             const end = Offset.zero; // End at current position
@@ -94,13 +96,22 @@ class RouteGenerator {
 
       // Add Property
       case Routes.addPropertyScreen:
-        return MaterialPageRoute(builder: (context) => AddPropertyScreen());
+        return MaterialPageRoute(
+            builder: (context) => const AddPropertyScreen());
 
       // Properties Detail
 
       case Routes.propertyDetailScreen:
         return MaterialPageRoute(
             builder: (context) => const PropetyDetailScreen());
+
+      // Lead List Screen
+      case Routes.leadScreen:
+        return MaterialPageRoute(builder: (context) => const LeadScreen());
+
+      // Create Lead From Screen
+      case Routes.createLeadFormScreen:
+        return MaterialPageRoute(builder: (context) => const LeadFormScreen());
 
       default:
         return _errorRoute();

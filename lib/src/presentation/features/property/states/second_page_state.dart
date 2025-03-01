@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
@@ -31,17 +30,15 @@ class SecondPageStateNotifier extends StateNotifier<SecondPageState> {
   }
 
   Future<void> pickImages() async {
-    final List<XFile>? pickedImages = await _picker.pickMultiImage();
-    if (pickedImages != null) {
-      final int availableSlots = maxImages - state.selectedImages.length;
-      final newImages = [
-        ...state.selectedImages,
-        ...pickedImages.take(availableSlots)
-      ];
+    final List<XFile> pickedImages = await _picker.pickMultiImage();
+    final int availableSlots = maxImages - state.selectedImages.length;
+    final newImages = [
+      ...state.selectedImages,
+      ...pickedImages.take(availableSlots)
+    ];
 
-      state = state.copyWith(selectedImages: newImages);
+    state = state.copyWith(selectedImages: newImages);
     }
-  }
 
   void removeImage(int index) {
     if (index >= 0 && index < state.selectedImages.length) {

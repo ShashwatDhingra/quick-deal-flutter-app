@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/helper.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
 
@@ -21,10 +19,12 @@ class SplashState {
           // Load data of user in global provider.
           final userDetail = await loadUserDetail();
           ref.read(userProvider.notifier).setUser(User.fromJson(userDetail));
+          // ignore: use_build_context_synchronously
           return context.pushNamedAndRemoveUntil(Routes.dashboardScreen,
               predicate: (route) => false);
         }
 
+        // ignore: use_build_context_synchronously
         context.pushNamedAndRemoveUntil(Routes.onboardingScreen,
             predicate: (route) => false);
       },

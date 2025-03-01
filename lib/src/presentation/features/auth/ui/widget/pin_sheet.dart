@@ -7,10 +7,9 @@ import 'package:quickdeal/src/presentation/features/auth/ui/widget/reset_passwor
 import '../../../../../core/utils/ui_utils/constants/colors.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import '../../../../../core/utils/ui_utils/constants/sizes.dart';
-import '../../../../../core/utils/ui_utils/constants/text_strings.dart';
 import '../../../../customs/custom_elevated_button.dart';
-import '../../../../customs/custom_textformfield.dart';
 
+// ignore: must_be_immutable
 class PinSheet extends ConsumerWidget {
   PinSheet({super.key, required this.isSignup});
 
@@ -95,11 +94,13 @@ class PinSheet extends ConsumerWidget {
                   : await signinNotifier.verifyPin();
 
               if (response) {
+                // ignore: use_build_context_synchronously
                 context.pop();
 
                 if (isSignup) return;
 
                 showModalBottomSheet(
+                  // ignore: use_build_context_synchronously
                   context: context,
                   isScrollControlled: true,
                   builder: (context) {
@@ -121,7 +122,7 @@ class PinSheet extends ConsumerWidget {
     required BuildContext context,
     Color borderColor = CColors.primary, // Customizable border color
   }) {
-    var dark = context.isDarkMode;
+   // var dark = context.isDarkMode;
 
     return SizedBox(
       height: 85,

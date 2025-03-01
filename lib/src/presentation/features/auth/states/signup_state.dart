@@ -1,12 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:quickdeal/src/core/router/router.dart';
-import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/loading_manager.dart';
 import 'package:quickdeal/src/data/api_exception.dart';
 import 'package:quickdeal/src/data/repository/auth_repository.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
-import 'package:riverpod/riverpod.dart';
 
 import '../../../../data/models/user_model.dart';
 import '../../../global/user_provider.dart';
@@ -75,7 +71,7 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
           password: state.passwordController.text);
       if (response?.success ?? false) {
         // Getting detail from jwt.
-        final detail = await JwtDecoder.decode(response?.data['token'] ?? '');
+        final detail = JwtDecoder.decode(response?.data['token'] ?? '');
 
         // Filling the User Global Provider
         ref.read(userProvider.notifier).setUser(User.fromJson(detail));
@@ -123,7 +119,7 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
       final response = await state.authRepo
           .verifyConfirmMailPin(state.emailController.text, generatePin());
       if (response.success ?? false) {
-        final email = state.emailController.text;
+       // final email = state.emailController.text;
         state = state.copyWith(
           isEmailConfirmed: true,
         );
@@ -155,11 +151,9 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
     state.passwordController.clear();
     state.nameController.clear();
     state.cnfrmPassController.clear();
-    state.pinControllers.forEach(
-      (ctrls) {
+    for (var ctrls in state.pinControllers) {
         ctrls.clear();
-      },
-    );
+      }
   }
 }
 

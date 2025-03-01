@@ -1,22 +1,16 @@
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/presentation/features/auth/states/signin_state.dart';
-import 'package:quickdeal/src/presentation/features/auth/ui/screens/signup_screen.dart';
 import 'package:quickdeal/src/presentation/features/auth/ui/widget/pin_sheet.dart';
-import 'package:quickdeal/src/presentation/features/auth/ui/widget/success.dart';
-import 'package:quickdeal/src/presentation/features/auth/ui/widget/reset_password.dart';
 import 'package:quickdeal/src/presentation/features/onboarding/onboarding.dart';
 
 import '../../../../../core/router/routes.dart';
-import '../../../../../data/models/user_model.dart';
-import '../../../../customs/custom_checkbox.dart';
 import '../../../../customs/custom_elevated_button.dart';
 import '../../../../customs/custom_outline_button.dart';
 import '../../../../customs/custom_textformfield.dart';
-import '../../../../global/user_provider.dart';
 import '../widget/forget_password.dart';
 
 class SigninScreen extends ConsumerStatefulWidget {
-  SigninScreen({super.key});
+  const SigninScreen({super.key});
 
   @override
   ConsumerState<SigninScreen> createState() => _SigninScreenState();
@@ -101,7 +95,7 @@ class _SigninScreenState extends ConsumerState<SigninScreen>
                                     context: context,
                                     isScrollControlled: true,
                                     builder: (context) {
-                                      return ForgetPasswordScreen();
+                                      return const ForgetPasswordScreen();
                                     },
                                   );
                                 },
@@ -119,6 +113,7 @@ class _SigninScreenState extends ConsumerState<SigninScreen>
                             onPress: () async {
                               final response = await signinNotifier.login(ref);
                               if (response) {
+                                // ignore: use_build_context_synchronously
                                 context.pushNamedAndRemoveUntil(
                                     Routes.dashboardScreen,
                                     predicate: (route) => false);

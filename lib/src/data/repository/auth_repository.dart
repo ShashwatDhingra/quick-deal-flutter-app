@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/helper.dart';
 
@@ -93,7 +94,9 @@ class AuthRepository {
 
   Future<ResponseModel> resetPassword(String email, String password) async {
     try {
-      print(email + 'adsf');
+      if (kDebugMode) {
+        print('${email}adsf');
+      }
       ResponseModel resopnse = await apiService.post(
           ApiEndpionts.resetPasswordUrl,
           {"email": email, "password": password});

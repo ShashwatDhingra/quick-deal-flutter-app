@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
-import '../../../../../core/utils/ui_utils/constants/colors.dart';
 import '../../../../../core/utils/ui_utils/constants/sizes.dart';
-import '../../../../customs/custom_elevated_button.dart';
-import '../../../../customs/custom_outline_button.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({
