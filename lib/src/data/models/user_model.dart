@@ -23,11 +23,7 @@ class User {
 
   // Convert a User instance to a JSON object
   Map<String, dynamic> toJson() {
-    return {
-      'email': email,
-      'name': name,
-      'role': role,
-    };
+    return {'email': email, 'name': name, 'role': role, 'id': id};
   }
 
   // CopyWith method to update only specific fields

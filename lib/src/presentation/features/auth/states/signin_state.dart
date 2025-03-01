@@ -149,8 +149,8 @@ class SigninStateNotifier extends StateNotifier<SigninState> {
     state.newPassCtrl.clear();
     state.cnfrmNewPassCtrl.clear();
     for (var ctrls in state.pinControllers) {
-        ctrls.clear();
-      }
+      ctrls.clear();
+    }
   }
 }
 
