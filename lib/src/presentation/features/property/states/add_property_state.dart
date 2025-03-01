@@ -19,29 +19,32 @@ class AddPropertyState {
   final int currentPage;
   final List<Widget> pages;
   final PropertyRepository propertyRepository = PropertyRepository();
+  final bool isFormCompleted;
 
-  AddPropertyState({
-    PageController? pageController,
-    this.currentPage = 0,
-    List<Widget>? pages,
-  }) : pages = pages ??
+  AddPropertyState(
+      {PageController? pageController,
+      this.currentPage = 0,
+      List<Widget>? pages,
+      bool? isFormCompleted})
+      : pages = pages ??
             [
               const FirstPage(),
               const SecondPage(),
               const ThirdPage(),
               const FourthPage(),
-            ];
+            ],
+        isFormCompleted = false;
 
   // CopyWith Method
-  AddPropertyState copyWith({
-    PageController? pageController,
-    int? currentPage,
-    List<Widget>? pages,
-  }) {
+  AddPropertyState copyWith(
+      {PageController? pageController,
+      int? currentPage,
+      List<Widget>? pages,
+      bool? isFormCompleted}) {
     return AddPropertyState(
-      currentPage: currentPage ?? this.currentPage,
-      pages: pages ?? this.pages,
-    );
+        currentPage: currentPage ?? this.currentPage,
+        pages: pages ?? this.pages,
+        isFormCompleted: isFormCompleted ?? this.isFormCompleted);
   }
 }
 
@@ -80,7 +83,9 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
 
     // Checking for LastPage Condition.
     if ((state.currentPage + 1) == state.pages.length) {
-      if (fourthPageNotifier.canNextPage()) {}
+      if (fourthPageNotifier.canNextPage()) {
+        addProperty();
+      }
       return false;
     }
 
@@ -123,18 +128,31 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
     secondPageNotifier.clearAllControllers();
     thirdPageNotifier.clearAllControllers();
     fourthPageNotifier.clearAllControllers();
+    state.copyWith(currentPage: 0, isFormCompleted: false);
   }
 
-  Future<bool> addProperty(WidgetRef ref) async {
+  Future<bool> addProperty() async {
     final firstPageState = ref.read(firstPageStateProvider);
     final secondPageState = ref.read(secondPageStateProvider);
     final thirdPageState = ref.read(thirdPageStateProvider);
     final fourthPageState = ref.read(fourthPageStateProvider);
     try {
       LoadingManager.showLoading();
-      final response = await state.propertyRepository.addProperty(Property(title: firstPageState.propertyTitleController.text, category: firstPageState.propertyCategory, price: double.parse(firstPageState.priceController.text), location: Location(address: '', city: '', state: '', pincode: 121001)));
+      final response = await state.propertyRepository.addProperty(Property(
+          title: firstPageState.propertyTitleController.text,
+          category: firstPageState.propertyCategory,
+          price: double.parse(firstPageState.priceController.text),
+          location: Location(
+              address: fourthPageState.addressController.text,
+              city: fourthPageState.cityController.text,
+              state: fourthPageState.stateController.text,
+              pincode: int.parse(fourthPageState.pinCodeController.text),
+              coordinates: Coordinates(
+                  lat: double.parse(fourthPageState.latController.text),
+                  lng: double.parse(fourthPageState.lngController.text)))));
       if (response?.success ?? false) {
         response?.message?.showToast();
+        state.copyWith(isFormCompleted: true);
         clearState();
       }
       return response?.success ?? false;

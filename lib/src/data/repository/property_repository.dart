@@ -10,18 +10,11 @@ import '../network_service/network_api_services.dart';
 class PropertyRepository {
   final BaseApiService apiService = NetworkApiService();
 
-  Future<ResponseModel?> addProperty(
-      Property property) async {
+  Future<ResponseModel?> addProperty(Property property) async {
+    print(property.toJson());
     try {
-      ResponseModel response = await apiService.post(ApiEndpionts.signupUrl, property.toJson());
-
-      // Saving the TOKEN of user
-      if (response.success ?? false) {
-        if (!await AuthPrefHelper.saveUserToken(response.data['token'])) {
-          "Something went wrong".showErrorToast();
-          return null;
-        }
-      }
+      ResponseModel response =
+          await apiService.post(ApiEndpionts.addPropertyUrl, property.toJson());
       return response;
     } catch (e) {
       rethrow;

@@ -153,15 +153,38 @@ class _FourthPageState extends ConsumerState<FourthPage> {
                   labelText: 'Address'),
               16.hBox,
               CustomTextformField(
-                  cont: fourthPageState.stateController, labelText: 'State'),
+                cont: fourthPageState.stateController,
+                labelText: 'State',
+                validator: (val) {
+                  if (val == null || val.isEmpty) {
+                    return 'Please select at least one Option';
+                  }
+                  return null;
+                },
+              ),
               16.hBox,
               CustomTextformField(
-                  cont: fourthPageState.cityController, labelText: 'City'),
+                cont: fourthPageState.cityController,
+                labelText: 'City',
+                validator: (val) {
+                  if (val == null || val.isEmpty) {
+                    return 'Please select at least one Option';
+                  }
+                  return null;
+                },
+              ),
               16.hBox,
               CustomTextformField(
-                  cont: fourthPageState.pinCodeController,
-                  labelText: 'Pin Code',
-                  keyboardType: TextInputType.number),
+                cont: fourthPageState.pinCodeController,
+                labelText: 'Pin Code',
+                keyboardType: TextInputType.number,
+                validator: (val) {
+                  if (val == null || val.isEmpty) {
+                    return 'Please select at least one Option';
+                  }
+                  return null;
+                },
+              ),
             ],
           ),
         ),
