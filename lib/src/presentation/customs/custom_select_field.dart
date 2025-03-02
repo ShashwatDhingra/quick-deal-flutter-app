@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/constants/colors.dart';
+import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
 class CustomSelectField extends StatefulWidget {
   final List<String> options;
@@ -144,6 +145,8 @@ class _CustomSelectFieldState extends State<CustomSelectField> {
 
   @override
   Widget build(BuildContext context) {
+    var isDark = context.isDarkMode;
+
     return FormField<dynamic>(
       initialValue: selectedItems,
       validator: widget.validator,
@@ -195,7 +198,9 @@ class _CustomSelectFieldState extends State<CustomSelectField> {
                                 .toList(),
                           )
                         : Text(selectedItems,
-                            style: const TextStyle(color: Colors.black)),
+                            style: TextStyle(
+                                color:
+                                    isDark ? CColors.textWhite : Colors.black)),
               ),
             ),
           ],

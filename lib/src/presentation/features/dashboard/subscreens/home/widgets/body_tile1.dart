@@ -8,14 +8,16 @@ import '../../../../../customs/custom_icon_button.dart';
 class BodyTile1 extends StatelessWidget {
   BodyTile1({super.key});
   List<Map<String, dynamic>> propertyTypes = [
-    {"name": "Flats", "icon": Icons.apartment},
-    {"name": "Apartment", "icon": Icons.business},
-    {"name": "Plots", "icon": Icons.map},
-    {"name": "Shop", "icon": Icons.store},
-    {"name": "Villa", "icon": Icons.home},
+    {"name": "Commercial", "icon": Icons.business},
     {"name": "Office", "icon": Icons.work},
-    {"name": "Farmhouse", "icon": Icons.agriculture},
-    {"name": "Warehouse", "icon": Icons.warehouse},
+    {"name": "Shop", "icon": Icons.store},
+    {"name": "Residential", "icon": Icons.home},
+    {"name": "Apartment", "icon": Icons.apartment},
+    {
+      "name": "Studio",
+      "icon": Icons.apartment
+    }, // Assuming studio is similar to apartment
+    {"name": "Villa", "icon": Icons.villa}, // Assuming you have a villa icon
   ];
 
   @override
@@ -54,8 +56,6 @@ class BodyTile1 extends StatelessWidget {
               },
             ),
           ),
-      
-      
         ],
       ),
     );

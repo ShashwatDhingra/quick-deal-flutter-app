@@ -3,21 +3,23 @@ import 'package:quickdeal/src/presentation/features/lead/states/lead_state.dart'
 
 import '../../../core/router/routes.dart';
 import '../../customs/custom_icon_button.dart';
+import 'states/followup_state.dart';
 import 'widgets/lead_filter.dart';
 
-class LeadScreen extends ConsumerWidget {
-  const LeadScreen({super.key});
+class FollowupScreen extends ConsumerWidget {
+  const FollowupScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Future.microtask(() => ref.read(leadStateProvider.notifier).fetchLeads());
+    Future.microtask(
+        () => ref.read(followupStateProvider.notifier).fetchFollowup());
 
-    final leadState = ref.watch(leadStateProvider);
+    final followupState = ref.watch(followupStateProvider);
     var isDark = context.isDarkMode;
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Lead"),
+          title: const Text("Follow-Up"),
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -26,7 +28,7 @@ class LeadScreen extends ConsumerWidget {
                 height: 50.h,
                 assetSt: "",
                 onTap: () {
-                  context.pushNamed(Routes.createLeadFormScreen);
+                  context.pushNamed(Routes.searchScreen);
                 },
                 defaultIcon: Icons.add,
               ),
@@ -86,9 +88,9 @@ class LeadScreen extends ConsumerWidget {
                         return 15.hBox;
                       },
                       shrinkWrap: true,
-                      itemCount: leadState.leadList.length,
+                      itemCount: followupState.leadList.length,
                       itemBuilder: (context, index) {
-                        if (index == leadState.leadList) {
+                        if (index == followupState.leadList[index]) {
                           return Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: ElevatedButton(

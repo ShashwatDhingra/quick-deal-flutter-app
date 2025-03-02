@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/constants/assets.dart';
@@ -123,27 +124,29 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     opacity: isScrolled ? 1.0 : 0.0,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: SizedBox(
-                        height: isScrolled ? 31.h : 80.h,
-                        child: TextFormField(
-                          onChanged: (value) {},
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(100),
-                                  borderSide: BorderSide.none),
-                              fillColor: Colors.grey.withOpacity(0.10),
-                              filled: true,
-                              suffixIcon: GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, Routes.searchScreen);
-                                  },
-                                  child: const Icon(Icons.filter_list)),
-                              prefixIcon: const Icon(Icons.search),
-                              hintText: "Search ",
-                              hintStyle: TextStyle(
-                                  fontSize: isScrolled ? 12.sp : 15.sp,
-                                  color: Colors.grey)),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.searchScreen);
+                        },
+                        child: SizedBox(
+                          height: isScrolled ? 31.h : 80.h,
+                          child: TextFormField(
+                            onChanged: (value) {},
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                    borderSide: BorderSide.none),
+                                fillColor: Colors.grey.withOpacity(0.10),
+                                filled: true,
+                                suffixIcon: GestureDetector(
+                                    onTap: () {},
+                                    child: const Icon(Icons.filter_list)),
+                                prefixIcon: const Icon(Icons.search),
+                                hintText: "Search ",
+                                hintStyle: TextStyle(
+                                    fontSize: isScrolled ? 12.sp : 15.sp,
+                                    color: Colors.grey)),
+                          ),
                         ),
                       ),
                     ),
@@ -151,7 +154,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
 
                 /// Notification Icon
-                const CustomIconButton(assetSt: AssetsConsts.icNotification),
+                CustomIconButton(
+                  assetSt: AssetsConsts.icNotification,
+                  onTap: () {
+                    context.pushNamed(Routes.notificationScreen);
+                  },
+                ),
                 SizedBox(width: 12.w),
               ],
             ),
@@ -264,9 +272,15 @@ class SinglePropertyCard extends StatelessWidget {
               width: 120,
               height: 120,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(imageUrl, fit: BoxFit.cover),
-              ),
+                  borderRadius: BorderRadius.circular(10),
+                  child: CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  )),
             ),
             const SizedBox(width: 12),
             Expanded(

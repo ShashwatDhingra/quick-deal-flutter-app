@@ -3,13 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/utils/ui_utils/loading_manager.dart';
 import '../../../../data/api_exception.dart';
-import '../../../../data/models/lead_model.dart';
+import '../../../../data/models/followup_model.dart';
+import '../../../../data/repository/followup_repository.dart';
 import '../../../../data/repository/lead_repository.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
 import '../../../global/user_provider.dart';
 
-class LeadState {
+class FollowupState {
   final TextEditingController nameController;
   final TextEditingController phoneController;
   final TextEditingController emalController;
@@ -18,9 +19,9 @@ class LeadState {
   String status;
   int page;
   int limit;
-  List<LeadModel> leadList;
+  List<FollowupModel> leadList;
 
-  LeadState({
+  FollowupState({
     TextEditingController? nameController,
     TextEditingController? phoneController,
     TextEditingController? emalController,
@@ -29,7 +30,7 @@ class LeadState {
     String? status,
     int? page,
     int? limit,
-    List<LeadModel>? leadList,
+    List<FollowupModel>? leadList,
   })  : nameController = nameController ?? TextEditingController(),
         phoneController = phoneController ?? TextEditingController(),
         emalController = emalController ?? TextEditingController(),
@@ -40,7 +41,7 @@ class LeadState {
         limit = limit ?? 10,
         leadList = leadList ?? [];
 
-  LeadState copyWith({
+  FollowupState copyWith({
     TextEditingController? nameController,
     TextEditingController? phoneController,
     TextEditingController? emalController,
@@ -49,9 +50,9 @@ class LeadState {
     String? status,
     int? page,
     int? limit,
-    List<LeadModel>? leadList,
+    List<FollowupModel>? leadList,
   }) {
-    return LeadState(
+    return FollowupState(
       nameController: nameController ?? this.nameController,
       phoneController: phoneController ?? this.phoneController,
       emalController: emalController ?? this.emalController,
@@ -65,9 +66,9 @@ class LeadState {
   }
 }
 
-class LeadStateNotifier extends StateNotifier<LeadState> {
+class FollowupStateNotifier extends StateNotifier<FollowupState> {
   final leadFormKey = GlobalKey<FormState>();
-  LeadStateNotifier() : super(LeadState());
+  FollowupStateNotifier() : super(FollowupState());
 
   void clearAllControllers() {
     state.nameController.clear();
@@ -81,10 +82,9 @@ class LeadStateNotifier extends StateNotifier<LeadState> {
   }
 
 //Create Lead
-  Future<bool> createLead(WidgetRef ref) async {
+  Future<bool> createFollowup(WidgetRef ref) async {
     LeadRepository leadRepo = LeadRepository();
 
-    LeadModel leadModel;
     try {
       if (!leadFormKey.currentState!.validate()) {
         return false;
@@ -116,20 +116,22 @@ class LeadStateNotifier extends StateNotifier<LeadState> {
   }
 
 // fetch Leads
-  Future<void> fetchLeads() async {
-    LeadRepository leadRepo = LeadRepository();
+  Future<void> fetchFollowup() async {
+    FollowupRepository followupRepo = FollowupRepository();
 
     try {
       LoadingManager.showLoading();
-      final response =
-          await leadRepo.fetchLead("?page=${state.page}&limit=${state.limit}");
+      final response = await followupRepo
+          .fetchFollowup("?page=${state.page}&limit=${state.limit}");
 
       if (response?.success ?? false) {
         var data = response?.data;
 
         if (data is List<dynamic>) {
-          state.leadList =
-              data.map((element) => LeadModel.fromJson(element)).toList();
+          state.copyWith(
+              leadList: data
+                  .map((element) => FollowupModel.fromJson(element))
+                  .toList());
         }
         response?.message?.showToast();
       }
@@ -142,5 +144,6 @@ class LeadStateNotifier extends StateNotifier<LeadState> {
 }
 
 // Provider for the same
-final leadStateProvider = StateNotifierProvider<LeadStateNotifier, LeadState>(
-    (ref) => LeadStateNotifier());
+final followupStateProvider =
+    StateNotifierProvider<FollowupStateNotifier, FollowupState>(
+        (ref) => FollowupStateNotifier());

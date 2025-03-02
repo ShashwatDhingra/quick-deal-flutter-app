@@ -45,7 +45,32 @@ class Routes {
   //Properties detail page
   static const String propertyDetailScreen = '/property-detail-view';
   // Lead  view page
-  static const String leadScreen = '/lead-lead-view';
+  static const String leadScreen = '/lead-view';
+
   // Create Lead Form page
   static const String createLeadFormScreen = '/create-lead-form-screen';
+
+  //Followup view page
+  static const String followupScreen = '/followup-view';
+  // Create follow form page
+  static const String createFollowupFormScreen = '/create-followup-form-screen';
+
+  // Show notification  page
+  static const String notificationScreen = '/show-notification-screen';
+  // tearm and condition view page
+  static const String termsAndConditionScreen = '/terms-and-condition-screen';
+
+  // FAQ view page
+  static const String faqScreen = '/faq-screen';
+
+  //feedback view page
+  static const String feedbackScreen = '/feedback-screen';
+
+  // Help and support view page
+  static const String helpAndSupportScreen = '/help-and-support-screen';
+  // report bug screen
+  static const String reportBugScreen = '/report-bug-screen';
+
+  // About us screen
+  static const String aboutUsScreen = '/about-us-screen';
 }

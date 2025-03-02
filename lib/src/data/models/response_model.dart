@@ -31,7 +31,7 @@ class ResponseModel {
         success: map['success'] ?? false,
         statusCode: map['statusCode'] ?? 500,
         message: map['message'],
-        error: map['error'],
+        error: map['error'] ?? "",
         data: map['data']);
   }
 

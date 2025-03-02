@@ -1,5 +1,6 @@
 import 'package:quickdeal/src/presentation/global/user_provider.dart';
 
+import '../../../../../core/router/routes.dart';
 import 'profile.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
@@ -96,6 +97,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               );
                             },
                           );
+                        } else if (iconAndTitle[index]["title"] ==
+                            "Notification") {
+                          context.pushNamed(Routes.notificationScreen);
+                        } else if (iconAndTitle[index]["title"] ==
+                            "Terms & Conditions") {
+                          context.pushNamed(Routes.termsAndConditionScreen);
+                        } else if (iconAndTitle[index]["title"] == "Help") {
+                          context.pushNamed(Routes.helpAndSupportScreen);
                         }
                       },
                       child: Row(

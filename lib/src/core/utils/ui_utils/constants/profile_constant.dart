@@ -7,7 +7,7 @@ List<Map<String, dynamic>> iconAndTitle = [
   },
   {
     "icon": Icons.privacy_tip_outlined, // Privacy Policy icon
-    "title": "Privacy Policy"
+    "title": "Help"
   },
   {
     "icon": Icons.color_lens_outlined, // Change Theme icon

@@ -61,17 +61,27 @@ class CustomDrawer extends ConsumerWidget {
                   context.pushNamed(Routes.addPropertyScreen);
                 }),
                 _buildListTile(Icons.business_outlined, 'Propeties', () {}),
-                _buildListTile(
-                    Icons.follow_the_signs_outlined, 'Followup', () {}),
+                _buildListTile(Icons.follow_the_signs_outlined, 'Followup', () {
+                  context.pushNamed(Routes.followupScreen);
+                }),
                 _buildListTile(Icons.analytics_outlined, 'CRM DashBoard', () {
                   Navigator.pushNamed(context, Routes.analyticScreen);
                 }),
-                _buildListTile(Icons.info_outline_rounded, 'About Us', () {}),
-                _buildListTile(Icons.info, 'Terms & Conditions', () {}),
-                _buildListTile(Icons.info, 'Help', () {}),
-                _buildListTile(Icons.question_answer, 'FAQ', () {}),
-                _buildListTile(Icons.feedback, 'Feedback', () {}),
-                _buildListTile(Icons.bug_report, 'Report a Bug', () {}),
+                _buildListTile(Icons.info_outline_rounded, 'About Us', () {
+                  context.pushNamed(Routes.aboutUsScreen);
+                }),
+                _buildListTile(Icons.info, 'Terms & Conditions', () {
+                  context.pushNamed(Routes.termsAndConditionScreen);
+                }),
+                _buildListTile(Icons.info, 'Help', () {
+                  context.pushNamed(Routes.helpAndSupportScreen);
+                }),
+                _buildListTile(Icons.question_answer, 'FAQ', () {
+                  context.pushNamed(Routes.faqScreen);
+                }),
+                _buildListTile(Icons.feedback, 'Feedback', () {
+                  context.pushNamed(Routes.feedbackScreen);
+                }),
               ],
             ),
           ),

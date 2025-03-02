@@ -22,14 +22,10 @@ class NetworkApiService extends BaseApiService {
         data: null);
     try {
       final apiResponse = await dioClient.dio.get(url);
-      final res = resolveResponse(apiResponse);
-      if (res.data != null || res.error != null || res.message != null) {
-        response.copyWithInstance(res);
-      }
+      return resolveResponse(apiResponse);
     } catch (e) {
       rethrow;
     }
-    return response;
   }
 
   Future<ResponseModel> post(String url, dynamic data) async {
