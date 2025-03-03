@@ -128,8 +128,9 @@ class LeadStateNotifier extends StateNotifier<LeadState> {
         var data = response?.data;
 
         if (data is List<dynamic>) {
-          state.leadList =
-              data.map((element) => LeadModel.fromJson(element)).toList();
+          state = state.copyWith(
+              leadList:
+                  data.map((element) => LeadModel.fromJson(element)).toList());
         }
         response?.message?.showToast();
       }

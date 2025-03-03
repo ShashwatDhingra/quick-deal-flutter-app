@@ -6,14 +6,23 @@ import '../../customs/custom_icon_button.dart';
 import 'states/followup_state.dart';
 import 'widgets/lead_filter.dart';
 
-class FollowupScreen extends ConsumerWidget {
+class FollowupScreen extends ConsumerStatefulWidget {
   const FollowupScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<FollowupScreen> createState() => _FollowupScreenState();
+}
+
+class _FollowupScreenState extends ConsumerState<FollowupScreen> {
+  @override
+  void initState() {
     Future.microtask(
         () => ref.read(followupStateProvider.notifier).fetchFollowup());
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     final followupState = ref.watch(followupStateProvider);
     var isDark = context.isDarkMode;
 

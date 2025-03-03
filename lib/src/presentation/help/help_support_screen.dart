@@ -12,7 +12,7 @@ class HelpSupportScreen extends ConsumerWidget {
     final helpState = ref.watch(helpSupportStateProvider);
     final helpNotifier = ref.read(helpSupportStateProvider.notifier);
     var isDark = context.isDarkMode;
- 
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Help & Support"),
@@ -69,6 +69,7 @@ class HelpSupportScreen extends ConsumerWidget {
               child: Column(
                 children: [
                   CustomTextformField(
+                    isEnabled: false,
                     cont: helpState.nameController,
                     labelText: "Your Name *",
                     validator: (value) {
@@ -80,6 +81,7 @@ class HelpSupportScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 16),
                   CustomTextformField(
+                    isEnabled: false,
                     cont: helpState.emailController,
                     labelText: "Your Email *",
                     keyboardType: TextInputType.emailAddress,

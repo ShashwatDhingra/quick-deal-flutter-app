@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/loading_manager.dart';
-import 'package:quickdeal/src/data/models/property_mode.dart';
+import 'package:quickdeal/src/data/models/property_model.dart';
 import 'package:quickdeal/src/data/repository/property_repository.dart';
 import 'package:quickdeal/src/presentation/features/property/states/first_page_state.dart';
 import 'package:quickdeal/src/presentation/features/property/states/fourth_page_state.dart';
@@ -138,7 +138,7 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
     final fourthPageState = ref.read(fourthPageStateProvider);
     try {
       LoadingManager.showLoading();
-      final response = await state.propertyRepository.addProperty(Property(
+      final response = await state.propertyRepository.addProperty(PropertyModel(
           title: firstPageState.propertyTitleController.text,
           category: firstPageState.propertyCategory,
           price: double.parse(firstPageState.priceController.text),

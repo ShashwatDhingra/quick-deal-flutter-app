@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quickdeal/src/presentation/global/user_provider.dart';
 
 class HelpSupportState {
   final TextEditingController nameController;
@@ -35,7 +36,13 @@ class HelpSupportState {
 class HelpSupportStateNotifier extends StateNotifier<HelpSupportState> {
   final helpFormKey = GlobalKey<FormState>();
 
-  HelpSupportStateNotifier() : super(HelpSupportState());
+  HelpSupportStateNotifier(Ref ref) : super(HelpSupportState()) {
+    state = state.copyWith(
+        nameController:
+            TextEditingController(text: ref.read(userProvider)!.name),
+        emailController:
+            TextEditingController(text: ref.read(userProvider)!.email));
+  }
 
   void clearAllControllers() {
     state.nameController.clear();
@@ -65,4 +72,4 @@ class HelpSupportStateNotifier extends StateNotifier<HelpSupportState> {
 
 final helpSupportStateProvider =
     StateNotifierProvider<HelpSupportStateNotifier, HelpSupportState>(
-        (ref) => HelpSupportStateNotifier());
+        (ref) => HelpSupportStateNotifier(ref));

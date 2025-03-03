@@ -32,5 +32,5 @@ class ApiEndpionts {
   static const resetPasswordUrl = '$_baseUrl/auth/reset-password';
 
   /// Add Property
-  static const addPropertyUrl = '$_baseUrl/property';
+  static const propertyUrl = '$_baseUrl/property';
 }

@@ -128,7 +128,7 @@ class FollowupStateNotifier extends StateNotifier<FollowupState> {
         var data = response?.data;
 
         if (data is List<dynamic>) {
-          state.copyWith(
+          state = state.copyWith(
               leadList: data
                   .map((element) => FollowupModel.fromJson(element))
                   .toList());

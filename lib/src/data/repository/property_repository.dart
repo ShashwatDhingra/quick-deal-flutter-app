@@ -1,4 +1,4 @@
-import 'package:quickdeal/src/data/models/property_mode.dart';
+import 'package:quickdeal/src/data/models/property_model.dart';
 
 import '../../core/utils/ui_utils/constants/api_endpoints.dart';
 import '../models/response_model.dart';
@@ -8,11 +8,19 @@ import '../network_service/network_api_services.dart';
 class PropertyRepository {
   final BaseApiService apiService = NetworkApiService();
 
-  Future<ResponseModel?> addProperty(Property property) async {
-   
+  Future<ResponseModel?> addProperty(PropertyModel property) async {
     try {
       ResponseModel response =
-          await apiService.post(ApiEndpionts.addPropertyUrl, property.toJson());
+          await apiService.post(ApiEndpionts.propertyUrl, property.toJson());
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ResponseModel?> fetchProperty() async {
+    try {
+      ResponseModel response = await apiService.get(ApiEndpionts.propertyUrl);
       return response;
     } catch (e) {
       rethrow;

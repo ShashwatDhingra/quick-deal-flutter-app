@@ -1,4 +1,4 @@
-class Property {
+class PropertyModel {
   final String title;
   final String? description;
   final String category;
@@ -27,7 +27,7 @@ class Property {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  Property({
+  PropertyModel({
     required this.title,
     this.description,
     required this.category,
@@ -59,8 +59,8 @@ class Property {
         updatedAt = updatedAt ?? DateTime.now();
 
   // Convert JSON to Property instance
-  factory Property.fromJson(Map<String, dynamic> json) {
-    return Property(
+  factory PropertyModel.fromJson(Map<String, dynamic> json) {
+    return PropertyModel(
       title: json['title'],
       description: json['description'],
       category: json['category'],
@@ -77,15 +77,20 @@ class Property {
       totalFloors: json['totalFloors'],
       constructionYear: json['constructionYear'],
       ownershipType: json['ownershipType'],
-      amenities: (json['amenities'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      images: (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      amenities: (json['amenities'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      images:
+          (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
       videoTour: json['videoTour'],
       propertyType: json['propertyType'],
       maintenanceCost: (json['maintenanceCost'] as num?)?.toDouble(),
       nearestLandmark: json['nearestLandmark'],
       facingDirection: json['facingDirection'],
       legalClearance: json['legalClearance'] ?? false,
-      availableFrom: json['availableFrom'] != null ? DateTime.parse(json['availableFrom']) : null,
+      availableFrom: json['availableFrom'] != null
+          ? DateTime.parse(json['availableFrom'])
+          : null,
       createdAt: DateTime.parse(json['createdAt']),
       updatedAt: DateTime.parse(json['updatedAt']),
     );
@@ -125,7 +130,7 @@ class Property {
   }
 
   // CopyWith method to update specific fields
-  Property copyWith({
+  PropertyModel copyWith({
     String? title,
     String? description,
     String? category,
@@ -154,7 +159,7 @@ class Property {
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
-    return Property(
+    return PropertyModel(
       title: title ?? this.title,
       description: description ?? this.description,
       category: category ?? this.category,
@@ -207,7 +212,9 @@ class Location {
       city: json['city'],
       state: json['state'],
       pincode: json['pincode'],
-      coordinates: json['coordinates'] != null ? Coordinates.fromJson(json['coordinates']) : null,
+      coordinates: json['coordinates'] != null
+          ? Coordinates.fromJson(json['coordinates'])
+          : null,
     );
   }
 

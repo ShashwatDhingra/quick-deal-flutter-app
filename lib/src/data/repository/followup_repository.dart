@@ -7,7 +7,7 @@ import '../network_service/network_api_services.dart';
 class FollowupRepository {
   final BaseApiService apiService = NetworkApiService();
 
-  Future<ResponseModel?> addLead(dynamic data) async {
+  Future<ResponseModel?> addFetch(dynamic data) async {
     try {
       ResponseModel response =
           await apiService.post(ApiEndpionts.createFollowupUrl, data);

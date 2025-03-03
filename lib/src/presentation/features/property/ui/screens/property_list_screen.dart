@@ -1,47 +1,32 @@
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
 import 'package:quickdeal/src/presentation/features/lead/states/lead_state.dart';
+import 'package:quickdeal/src/presentation/features/property/states/property_list_state.dart';
 
-import '../../../core/router/routes.dart';
-import '../../customs/custom_icon_button.dart';
-import 'widgets/lead_filter.dart';
+import '../../../../customs/custom_icon_button.dart';
+import '../../../lead/widgets/lead_filter.dart';
 
-class LeadScreen extends ConsumerStatefulWidget {
-  const LeadScreen({super.key});
+class PropertyListScreen extends ConsumerStatefulWidget {
+  const PropertyListScreen({super.key});
 
   @override
-  ConsumerState<LeadScreen> createState() => _LeadScreenState();
+  ConsumerState<PropertyListScreen> createState() => _LeadScreenState();
 }
 
-class _LeadScreenState extends ConsumerState<LeadScreen> {
+class _LeadScreenState extends ConsumerState<PropertyListScreen> {
   @override
   void initState() {
-    // TODO: implement initState
-    Future.microtask(() => ref.read(leadStateProvider.notifier).fetchLeads());
+    Future.microtask(() => ref.read(propertyStateProvider.notifier).fetchProperties());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final leadState = ref.watch(leadStateProvider);
+    final propertyState = ref.watch(propertyStateProvider);
     var isDark = context.isDarkMode;
 
     return Scaffold(
         appBar: AppBar(
           title: const Text("Lead"),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomIconButton(
-                width: 50.w,
-                height: 50.h,
-                assetSt: "",
-                onTap: () {
-                  context.pushNamed(Routes.createLeadFormScreen);
-                },
-                defaultIcon: Icons.add,
-              ),
-            ),
-          ],
         ),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: Sizes.sm),
@@ -96,9 +81,9 @@ class _LeadScreenState extends ConsumerState<LeadScreen> {
                         return 15.hBox;
                       },
                       shrinkWrap: true,
-                      itemCount: leadState.leadList.length,
+                      itemCount: propertyState.propertyList.length,
                       itemBuilder: (context, index) {
-                        if (index == leadState.leadList) {
+                        if (index == propertyState.propertyList) {
                           return Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: ElevatedButton(
