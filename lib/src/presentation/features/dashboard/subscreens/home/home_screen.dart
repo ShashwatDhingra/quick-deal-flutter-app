@@ -9,7 +9,9 @@ import 'package:quickdeal/src/presentation/features/dashboard/subscreens/home/wi
 
 import '../../../../../core/router/routes.dart';
 import '../../../../../core/utils/ui_utils/constants/colors.dart';
+import '../../../../../core/utils/ui_utils/helpers/helper_functions.dart';
 import '../../../../customs/drawer.dart';
+import '../../../../global/user_provider.dart';
 import 'widgets/body_tile2.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -50,6 +52,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var isDark = context.isDarkMode;
+    var user = ref.read(userProvider);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -82,36 +85,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 isScrolled
                     ? const SizedBox()
                     : Expanded(
+                        flex: 3,
                         child: AnimatedOpacity(
                           duration: const Duration(milliseconds: 300),
                           opacity: 1,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '  Current Location',
+                                '${HelperFunctions().getGreetingMessage()} ${user!.name} 👋',
                                 style: TextStyle(
+                                  overflow: TextOverflow.ellipsis,
                                   color: isDark ? Colors.white : Colors.black,
-                                  fontSize: 12.sp,
+                                  fontSize: 20.sp,
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  const Icon(Icons.location_on_outlined),
-                                  Text(
-                                    'Delhi',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(
-                                          color: isDark
-                                              ? Colors.white70
-                                              : Colors.black,
-                                        ),
-                                  )
-                                ],
-                              ),
+                              const Text("Organized, Optimized, Sold!")
                             ],
                           ),
                         ),

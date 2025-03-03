@@ -82,7 +82,7 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
           onTap: (s) {
             ref.read(intBottomNavBarIndex.notifier).state = s;
             _pageController
-                .jumpToPage(s); // Use jumpToPage instead of animateToPage
+                .jumpToPage(s); 
           },
           items: [
             _buildNavItem(
@@ -126,6 +126,7 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
         mainAxisSize: MainAxisSize.min,
         children: [
           AnimatedSwitcher(
+            
             duration: const Duration(milliseconds: 200),
             child: Icon(
               ref.read(intBottomNavBarIndex) == index
@@ -140,20 +141,19 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
           ),
           if (ref.read(intBottomNavBarIndex) == index)
             Container(
-              margin: const EdgeInsets.only(top: 4),
+              margin: const EdgeInsets.only(top: 0),
               width: 13,
-              height: 2,
               decoration: BoxDecoration(
                   color: CColors.primary,
                   borderRadius: BorderRadius.circular(12)),
             ),
           // Just to add space
-          if (ref.read(intBottomNavBarIndex) != index)
-            Container(
-              margin: const EdgeInsets.only(top: 4),
-              width: 13,
-              height: 2,
-            ),
+          // if (ref.read(intBottomNavBarIndex) != index)
+          //   Container(
+          //     margin: const EdgeInsets.only(top: 4),
+          //     width: 13,
+          //     height: 2,
+          //   ),
         ],
       ),
       label: '',
