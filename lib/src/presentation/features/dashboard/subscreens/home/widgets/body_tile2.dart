@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
 import '../../../../../../core/router/routes.dart';
+import '../../../../../customs/custom_single_property_card.dart';
 import '../../../../../customs/see_all.dart';
-import '../home_screen.dart';
 
 /// **2nd Tile - Horizontally Scrollable**
 class BodyTile2 extends ConsumerWidget {

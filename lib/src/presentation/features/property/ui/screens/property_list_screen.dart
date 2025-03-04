@@ -2,20 +2,24 @@ import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile
 import 'package:quickdeal/src/presentation/features/lead/states/lead_state.dart';
 import 'package:quickdeal/src/presentation/features/property/states/property_list_state.dart';
 
+import '../../../../../core/router/routes.dart';
 import '../../../../customs/custom_icon_button.dart';
+import '../../../../customs/custom_single_property_card.dart';
+import '../../../dashboard/subscreens/home/home_screen.dart';
 import '../../../lead/widgets/lead_filter.dart';
 
 class PropertyListScreen extends ConsumerStatefulWidget {
   const PropertyListScreen({super.key});
 
   @override
-  ConsumerState<PropertyListScreen> createState() => _LeadScreenState();
+  ConsumerState<PropertyListScreen> createState() => _PropertyScreenState();
 }
 
-class _LeadScreenState extends ConsumerState<PropertyListScreen> {
+class _PropertyScreenState extends ConsumerState<PropertyListScreen> {
   @override
   void initState() {
-    Future.microtask(() => ref.read(propertyStateProvider.notifier).fetchProperties());
+    Future.microtask(
+        () => ref.read(propertyStateProvider.notifier).fetchProperties());
     super.initState();
   }
 
@@ -26,7 +30,7 @@ class _LeadScreenState extends ConsumerState<PropertyListScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Lead"),
+          title: const Text("Property"),
         ),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: Sizes.sm),
@@ -73,7 +77,9 @@ class _LeadScreenState extends ConsumerState<PropertyListScreen> {
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: () {
-                      return ref.read(leadStateProvider.notifier).fetchLeads();
+                      return ref
+                          .read(propertyStateProvider.notifier)
+                          .fetchProperties();
                     },
                     color: isDark ? CColors.textWhite : CColors.primary,
                     child: ListView.separated(
@@ -94,137 +100,27 @@ class _LeadScreenState extends ConsumerState<PropertyListScreen> {
                             ),
                           );
                         }
-                        return Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: isDark
-                                ? CColors.grey.withOpacity(0.1)
-                                : CColors.white,
-                            borderRadius: BorderRadius.circular(10.sp),
-                            boxShadow: [
-                              BoxShadow(
-                                color: isDark
-                                    ? CColors.darkerGrey.withOpacity(0.2)
-                                    : CColors.grey,
-                                spreadRadius: 2,
-                                blurRadius: 1,
-                                offset: const Offset(1, 1),
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 15),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "John Flax",
-                                          style: TextStyle(
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          "Project No: 1232",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.w400),
-                                        )
-                                      ],
-                                    ),
-                                    Text(
-                                      "Open",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13.sp,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: Sizes.xl,
-                                ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                        child: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.phone,
-                                          color: CColors.success,
-                                        ),
-                                        const SizedBox(
-                                          width: Sizes.sm,
-                                        ),
-                                        Text(
-                                          "(7217370990)",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge,
-                                        )
-                                      ],
-                                    )),
-                                    Expanded(
-                                        child: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.email_outlined,
-                                          color: CColors.info,
-                                        ),
-                                        const SizedBox(
-                                          width: Sizes.sm,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            "ajju@extensioncrm.com",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge!
-                                                .copyWith(
-                                                    overflow:
-                                                        TextOverflow.ellipsis),
-                                          ),
-                                        )
-                                      ],
-                                    ))
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: Sizes.xl,
-                                ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.location_on_outlined,
-                                      color: CColors.error,
-                                    ),
-                                    const SizedBox(
-                                      width: Sizes.sm,
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        " Plot No.4, Third Floor, Near Metro Pillar No. 599 Milestone, Faridabad, Haryana 121003",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge,
-                                        overflow: TextOverflow
-                                            .visible, // Ensures the text is fully visible
-                                        maxLines:
-                                            null, // Allows unlimited lines
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
+                        return SinglePropertyCard(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, Routes.propertyDetailScreen);
+                          },
+                          imageUrl:
+                              "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
+                          title: propertyState.propertyList[index].title,
+                          type:
+                              propertyState.propertyList[index].propertyType ??
+                                  '',
+                          location:
+                              propertyState.propertyList[index].area ?? '',
+                          bedrooms:
+                              propertyState.propertyList[index].bedrooms ?? 0,
+                          bathrooms:
+                              propertyState.propertyList[index].bathrooms ?? 0,
+                          area: double.tryParse(
+                              propertyState.propertyList[index].area ?? ''),
+                          price: propertyState.propertyList[index].price
+                              .toString(),
                         );
                       },
                     ),

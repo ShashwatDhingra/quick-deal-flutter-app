@@ -13,14 +13,13 @@ class ApiEndpionts {
 
   /// Signup
   static const signupUrl = '$_baseUrl/auth/signup';
-  
+
   /// create Lead
   static const createLeadUrl = '$_baseUrl/lead';
-  
+
   /// create followup
-  
-  static const createFollowupUrl = '$_baseUrl/followup';
-  
+
+  static const followup = '$_baseUrl/followup';
 
   /// Forget Password
   static const forgetPasswordUrl = '$_baseUrl/auth/forget-password';

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:quickdeal/src/core/router/routes.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/search/search_screen.dart';
+import 'package:quickdeal/src/presentation/features/followup/followup_form_screen.dart';
 import 'package:quickdeal/src/presentation/features/followup/followup_screen.dart';
 import 'package:quickdeal/src/presentation/features/lead/lead_screen.dart';
+import 'package:quickdeal/src/presentation/features/property/ui/screens/property_list_screen.dart';
 import 'package:quickdeal/src/presentation/features/tearmConditon/tearm_condition_screen.dart';
 
 import '../../presentation/features/about/about_us_screen.dart';
@@ -10,7 +12,7 @@ import '../../presentation/features/analytics._screen.dart';
 import '../../presentation/features/auth/ui/screens/signin_screen.dart';
 import '../../presentation/features/auth/ui/screens/signup_screen.dart';
 import '../../presentation/features/dashboard/dashboard_screen.dart';
-import '../../presentation/features/dashboard/subscreens/detail/detail_screen.dart';
+import '../../presentation/features/dashboard/subscreens/detail/property_detail_screen.dart';
 import '../../presentation/features/faq/faq_screen.dart';
 import '../../presentation/features/feedback/feedback_screen.dart';
 import '../../presentation/features/lead/lead_form_screen.dart';
@@ -106,6 +108,11 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (context) => const AddPropertyScreen());
 
+      // Property List
+      case Routes.propertyListScreen:
+        return MaterialPageRoute(
+            builder: (context) => const PropertyListScreen());
+
       // Properties Detail
 
       case Routes.propertyDetailScreen:
@@ -119,6 +126,11 @@ class RouteGenerator {
       // Create Lead From Screen
       case Routes.createLeadFormScreen:
         return MaterialPageRoute(builder: (context) => const LeadFormScreen());
+
+      // Create Lead From Screen
+      case Routes.createFollowupFormScreen:
+        return MaterialPageRoute(
+            builder: (context) => const FollowupFormScreen());
 
       // List of followup
       case Routes.followupScreen:

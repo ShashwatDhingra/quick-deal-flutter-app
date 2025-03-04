@@ -1,3 +1,6 @@
+import 'package:quickdeal/src/presentation/customs/custom_checkbox.dart';
+import 'package:quickdeal/src/presentation/customs/custom_checkbox_field.dart';
+import 'package:quickdeal/src/presentation/customs/custom_date_picker.dart';
 import 'package:quickdeal/src/presentation/customs/custom_elevated_button.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
 
@@ -5,8 +8,8 @@ import '../../customs/custom_select_field.dart';
 import '../../customs/custom_textformfield.dart';
 import 'states/followup_state.dart';
 
-class LeadFormScreen extends ConsumerWidget {
-  const LeadFormScreen({super.key});
+class FollowupFormScreen extends ConsumerWidget {
+  const FollowupFormScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,7 +41,7 @@ class LeadFormScreen extends ConsumerWidget {
               child: CustomElevatedButton(
                 text: "Create",
                 onPress: () {
-                  followupNotifier.createFollowup(ref);
+                  followupNotifier.createFollowup(ref, '');
                 },
               ),
             ),
@@ -94,67 +97,38 @@ class LeadFormScreen extends ConsumerWidget {
                       cont: followupState.emalController,
                       labelText: 'Email *'),
 
-                  26.hBox,
-
-                  CustomSelectField(
-                    isMultiSelect: false,
-                    options: const [
-                      'Sale',
-                      'Rent',
-                    ],
-                    selectedValue: followupState.status,
-                    labelText: 'Status of Property',
-                    onChanged: (value) {
-                      followupState.status = value;
-                    },
-                    validator: (val) {
-                      if (val == null || val.isEmpty) {
-                        return 'Please select at least one Type';
-                      }
-                      return null;
-                    },
-                  ),
-                  26.hBox,
-                  CustomSelectField(
-                    isMultiSelect: false,
-                    options: const [
-                      'Commercial',
-                      'Office',
-                      'Shop',
-                      'Residential',
-                      'Apartment',
-                      'Studio',
-                      'Villa'
-                    ],
-                    selectedValue: followupState.propertyCategory,
-                    labelText: 'Type of Property',
-                    onChanged: (value) {
-                      followupState.propertyCategory = value;
-                    },
-                    validator: (val) {
-                      if (val == null || val.isEmpty) {
-                        return 'Please select at least one Type';
-                      }
-                      return null;
-                    },
-                  ),
+                  // 16.hBox,
+                  // const Align(
+                  //     alignment: Alignment.centerLeft, child: Text('Remarks')),
+                  // 10.hBox,
+                  // CustomTextformField(
+                  //     maxLines: 5,
+                  //     validator: (val) {
+                  //       if (val == null || val.isEmpty) {
+                  //         return 'Remarks cant be null';
+                  //       }
+                  //       return null;
+                  //     },
+                  //     cont: followupState.remarksController,
+                  //     labelText: 'Remarks *'),
 
                   16.hBox,
-                  const Align(
-                      alignment: Alignment.centerLeft, child: Text('Remarks')),
-                  10.hBox,
-                  CustomTextformField(
-                      maxLines: 5,
-                      validator: (val) {
-                        if (val == null || val.isEmpty) {
-                          return 'Remarks cant be null';
-                        }
-                        return null;
-                      },
-                      cont: followupState.remarksController,
-                      labelText: 'Remarks *'),
 
-                  //
+                  CustomCheckboxField(
+                    value: false,
+                    onChanged: (e) {},
+                    labelText: 'Remind',
+                  ),
+
+                  16.vBox,
+
+                  CustomDatePicker(
+                    dateController: TextEditingController(),
+                    getValue: (w) {},
+                    minimumDate: DateTime.now(),
+                    maximumDate: DateTime.now().add(const Duration(days: 365)),
+                    showTime: true,
+                  )
                 ],
               ),
             ),

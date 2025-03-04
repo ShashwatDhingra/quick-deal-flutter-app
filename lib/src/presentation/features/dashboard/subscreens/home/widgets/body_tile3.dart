@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
 import '../../../../../../core/router/routes.dart';
+import '../../../../../customs/custom_single_property_card.dart';
 import '../../../../../customs/see_all.dart';
-import '../home_screen.dart';
 
 /// **3rd Tile - Vertically Scrollable**
 class BodyTile3 extends StatelessWidget {

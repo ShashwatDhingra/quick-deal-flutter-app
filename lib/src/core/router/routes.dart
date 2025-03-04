@@ -42,8 +42,13 @@ class Routes {
 
   /// Drawer Router
   static const String addPropertyScreen = '/add-property-screen';
+
+  /// Property List Screen
+  static const String propertyListScreen = '/property-list-screen';
+
   //Properties detail page
   static const String propertyDetailScreen = '/property-detail-view';
+
   // Lead  view page
   static const String leadScreen = '/lead-view';
 
@@ -52,6 +57,7 @@ class Routes {
 
   //Followup view page
   static const String followupScreen = '/followup-view';
+  
   // Create follow form page
   static const String createFollowupFormScreen = '/create-followup-form-screen';
 

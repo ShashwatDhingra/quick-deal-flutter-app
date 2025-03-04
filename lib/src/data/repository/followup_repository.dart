@@ -10,7 +10,7 @@ class FollowupRepository {
   Future<ResponseModel?> addFetch(dynamic data) async {
     try {
       ResponseModel response =
-          await apiService.post(ApiEndpionts.createFollowupUrl, data);
+          await apiService.post(ApiEndpionts.followup, data);
 
       return response;
     } catch (e) {
@@ -22,7 +22,7 @@ class FollowupRepository {
   Future<ResponseModel?> fetchFollowup(url) async {
     try {
       var response = await apiService.get(
-        ApiEndpionts.createFollowupUrl + url,
+        ApiEndpionts.followup + url,
       );
       //  print("call fun" + response.statusCode.toString());
       return response;

@@ -3,6 +3,7 @@ import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/home/home_screen.dart';
 import '../../../../../core/router/routes.dart';
 import '../../../../customs/custom_icon_button.dart';
+import '../../../../customs/custom_single_property_card.dart';
 import '../../../followup/widgets/lead_filter.dart';
 import 'widgets/custom_searchbar.dart';
 

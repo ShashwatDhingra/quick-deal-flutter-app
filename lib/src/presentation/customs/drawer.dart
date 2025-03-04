@@ -60,7 +60,9 @@ class CustomDrawer extends ConsumerWidget {
                 _buildListTile(Icons.add, 'Add Property', () {
                   context.pushNamed(Routes.addPropertyScreen);
                 }),
-                _buildListTile(Icons.business_outlined, 'Propeties', () {}),
+                _buildListTile(Icons.business_outlined, 'Propeties', () {
+                  context.pushNamed(Routes.propertyListScreen);
+                }),
                 _buildListTile(Icons.follow_the_signs_outlined, 'Followup', () {
                   context.pushNamed(Routes.followupScreen);
                 }),

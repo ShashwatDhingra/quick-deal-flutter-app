@@ -1,27 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:intl/intl.dart';
 
-import '../../core/utils/ui_utils/constants/colors.dart';
-
-// ignore: must_be_immutable
 class CustomDatePicker extends StatefulWidget {
-  CustomDatePicker(
-      {super.key,
-      required this.getValue,
-      required this.dateController,
-      DateTime? minimumDate,
-      DateTime? maximumDate,
-      this.showTime = false})
-      : minimumDate = minimumDate ?? DateTime(1900),
-        maximumDate = maximumDate ?? DateTime.now();
+  CustomDatePicker({
+    super.key,
+    required this.getValue,
+    required this.dateController,
+    this.minimumDate,
+    this.maximumDate,
+    this.showTime = false,
+  }) {
+    // Assign default values if null
+    minimumDate ??= DateTime(1900);
+    maximumDate ??= DateTime.now();
+  }
 
   final TextEditingController dateController;
-  final Function(dynamic)? getValue;
+  final Function(String)? getValue;
   final bool showTime;
-  DateTime minimumDate;
-  DateTime maximumDate;
+  DateTime? minimumDate;
+  DateTime? maximumDate;
 
   @override
   State<StatefulWidget> createState() => _CustomDatePickerState();
@@ -29,40 +28,37 @@ class CustomDatePicker extends StatefulWidget {
 
 class _CustomDatePickerState extends State<CustomDatePicker> {
   Future<void> _showCupertinoDateTimePicker(BuildContext context) async {
-    var dark = context.isDarkMode;
+    var dark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     // Ensure initialDateTime is within range
-    DateTime selectedDateTime = DateTime.now();
-    if (selectedDateTime.isBefore(widget.minimumDate)) {
-      selectedDateTime = widget.minimumDate;
-    } else if (selectedDateTime.isAfter(widget.maximumDate)) {
-      selectedDateTime = widget.maximumDate;
-    }
+    DateTime now = DateTime.now();
+    DateTime initialDateTime = now.isBefore(widget.maximumDate!)
+        ? now
+        : widget.maximumDate!;
 
     await showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) => Container(
-        height: MediaQuery.of(context).size.height * 0.39,
-        color: dark ? Colors.grey.shade900 : CColors.white,
+        height: 300,
+        color: dark ? Colors.grey.shade900 : Colors.white,
         child: Column(
           children: [
-            SizedBox(
-              height: 260,
+            Expanded(
               child: CupertinoDatePicker(
-                initialDateTime: DateTime.now(),
                 mode: widget.showTime
                     ? CupertinoDatePickerMode.dateAndTime
                     : CupertinoDatePickerMode.date,
+                initialDateTime: initialDateTime,
                 minimumDate: widget.minimumDate,
                 maximumDate: widget.maximumDate,
-                use24hFormat: false,
+                use24hFormat: true,
                 onDateTimeChanged: (DateTime value) {
-                  selectedDateTime = value;
-                  widget.dateController.text = widget.showTime
-                      ? DateFormat(
-                              "yyyy-MM-dd hh:mm:ss                                                                                     ")
-                          .format(value)
+                  String formattedDate = widget.showTime
+                      ? DateFormat("yyyy-MM-dd HH:mm:ss").format(value)
                       : DateFormat("yyyy-MM-dd").format(value);
-                  widget.getValue?.call(widget.dateController.text);
+
+                  widget.dateController.text = formattedDate;
+                  widget.getValue?.call(formattedDate);
                   setState(() {});
                 },
               ),
@@ -70,25 +66,14 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             SizedBox(
               width: double.infinity,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50),
-                child: OutlinedButton(
-                  onPressed: () {
-                    widget.dateController.text.isEmpty
-                        ? widget.dateController.text = widget.showTime
-                            ? DateFormat("yyyy-MM-dd hh:mm:ss")
-                                .format(DateTime.now())
-                                .toString()
-                            : DateFormat("yyyy-MM-dd")
-                                .format(DateTime.now())
-                                .toString()
-                        : null;
-                    setState(() {});
-                   context.pop(context);
-                  },
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: CupertinoButton(
+                  color: dark ? Colors.grey.shade800 : Colors.blue,
+                  onPressed: () => Navigator.pop(context),
                   child: const Text("Done"),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -97,32 +82,26 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    var dark =context.isDarkMode;
+    var dark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return GestureDetector(
       onTap: () => _showCupertinoDateTimePicker(context),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.058,
+        height: 50,
         decoration: BoxDecoration(
-          border: Border.all(color: dark ? CColors.darkGrey : CColors.grey),
+          border: Border.all(color: dark ? Colors.grey.shade700 : Colors.grey),
           borderRadius: BorderRadius.circular(10),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            widget.dateController.text.isEmpty
-                ? widget.showTime
-                    ? 'Select Date and Time'
-                    : 'Select Date'
-                : widget.showTime
-                    ? widget.dateController.text.toString().substring(0, 16)
-                    : widget.dateController.text,
-            style: TextStyle(
-              color: dark ? CColors.darkGrey : CColors.textSecondary,
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-              fontFamily: 'Poppins',
-            ),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        alignment: Alignment.centerLeft,
+        child: Text(
+          widget.dateController.text.isEmpty
+              ? (widget.showTime ? 'Select Date & Time' : 'Select Date')
+              : widget.dateController.text,
+          style: TextStyle(
+            color: dark ? Colors.white70 : Colors.black87,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),

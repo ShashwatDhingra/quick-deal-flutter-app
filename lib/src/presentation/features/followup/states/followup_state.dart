@@ -46,8 +46,6 @@ class FollowupState {
     TextEditingController? phoneController,
     TextEditingController? emalController,
     TextEditingController? remarksController,
-    String? propertyCategory,
-    String? status,
     int? page,
     int? limit,
     List<FollowupModel>? leadList,
@@ -57,8 +55,6 @@ class FollowupState {
       phoneController: phoneController ?? this.phoneController,
       emalController: emalController ?? this.emalController,
       remarksController: remarksController ?? this.remarksController,
-      propertyCategory: propertyCategory ?? this.propertyCategory,
-      status: status ?? this.status,
       page: page ?? this.page,
       limit: limit ?? this.limit,
       leadList: leadList ?? this.leadList,
@@ -75,14 +71,10 @@ class FollowupStateNotifier extends StateNotifier<FollowupState> {
     state.phoneController.clear();
     state.emalController.clear();
     state.remarksController.clear();
-    state = state.copyWith(
-      propertyCategory: "",
-      status: "",
-    );
   }
 
 //Create Lead
-  Future<bool> createFollowup(WidgetRef ref) async {
+  Future<bool> createFollowup(WidgetRef ref, String propertyId) async {
     LeadRepository leadRepo = LeadRepository();
 
     try {
@@ -93,12 +85,20 @@ class FollowupStateNotifier extends StateNotifier<FollowupState> {
 
       LoadingManager.showLoading();
       final response = await leadRepo.addLead({
+
+        
+    "followUpBy": ref.read(userProvider)!.id,
+    "property": propertyId,
+    "comments":"Testing comments",
+    "priority":"High",
+    "followUpType":"Mobile App",
+    "reminder": false,
+    "reminderDate":"2024-02-22",
+
         "name": state.nameController.text,
         "phone": state.phoneController.text,
         "email": state.emalController.text,
         "assigned": user!.id ?? "",
-        "propertytype": state.propertyCategory,
-        "status": state.status,
         "remarks": state.remarksController.text,
       });
       if (response?.success ?? false) {

@@ -1,3 +1,4 @@
+import 'package:quickdeal/src/core/router/routes.dart';
 import 'package:quickdeal/src/presentation/customs/see_all.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/search/widgets/filter_button.dart';
@@ -88,6 +89,16 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
       //   ),
       // ),
 
+      appBar: AppBar(
+        title: const Text('Detail Screen'),
+        actions: [
+          TextButton(
+              onPressed: () {
+                context.pushNamed(Routes.createFollowupFormScreen);
+              },
+              child: const Text('Add FollowUp '))
+        ],
+      ),
       body: Column(
         children: [
           // Stack
