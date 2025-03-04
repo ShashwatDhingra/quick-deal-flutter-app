@@ -59,6 +59,9 @@ class _PropertyScreenState extends ConsumerState<PropertyListScreen> {
                         showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
+                          enableDrag: true,
+                          isDismissible: true,
+                          useSafeArea: true,
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                               top: Radius.circular(20),
@@ -103,7 +106,8 @@ class _PropertyScreenState extends ConsumerState<PropertyListScreen> {
                         return SinglePropertyCard(
                           onTap: () {
                             Navigator.pushNamed(
-                                context, Routes.propertyDetailScreen);
+                                context, Routes.propertyDetailScreen,
+                                arguments: propertyState.propertyList[index]);
                           },
                           imageUrl:
                               "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",

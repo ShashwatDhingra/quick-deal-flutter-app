@@ -7,7 +7,7 @@ import '../network_service/network_api_services.dart';
 class FollowupRepository {
   final BaseApiService apiService = NetworkApiService();
 
-  Future<ResponseModel?> addFetch(dynamic data) async {
+  Future<ResponseModel?> createFollowup(dynamic data) async {
     try {
       ResponseModel response =
           await apiService.post(ApiEndpionts.followup, data);
@@ -19,10 +19,10 @@ class FollowupRepository {
   }
 
 // Fetch Leads
-  Future<ResponseModel?> fetchFollowup(url) async {
+  Future<ResponseModel?> fetchFollowup(filter) async {
     try {
       var response = await apiService.get(
-        ApiEndpionts.followup + url,
+        ApiEndpionts.followup + filter,
       );
       //  print("call fun" + response.statusCode.toString());
       return response;

@@ -1,4 +1,5 @@
 class PropertyModel {
+  String id;
   final String title;
   final String? description;
   final String category;
@@ -28,6 +29,7 @@ class PropertyModel {
   final DateTime updatedAt;
 
   PropertyModel({
+    required this.id,
     required this.title,
     this.description,
     required this.category,
@@ -61,6 +63,7 @@ class PropertyModel {
   // Convert JSON to Property instance
   factory PropertyModel.fromJson(Map<String, dynamic> json) {
     return PropertyModel(
+      id: json['_id'],
       title: json['title'],
       description: json['description'],
       category: json['category'],
@@ -99,6 +102,7 @@ class PropertyModel {
   // Convert Property instance to JSON
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'title': title,
       'description': description,
       'category': category,
@@ -160,6 +164,7 @@ class PropertyModel {
     DateTime? updatedAt,
   }) {
     return PropertyModel(
+      id: id,
       title: title ?? this.title,
       description: description ?? this.description,
       category: category ?? this.category,

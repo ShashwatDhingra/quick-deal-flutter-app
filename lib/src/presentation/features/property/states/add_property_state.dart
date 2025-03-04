@@ -139,6 +139,7 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
     try {
       LoadingManager.showLoading();
       final response = await state.propertyRepository.addProperty(PropertyModel(
+        id: '',
           title: firstPageState.propertyTitleController.text,
           category: firstPageState.propertyCategory,
           price: double.parse(firstPageState.priceController.text),

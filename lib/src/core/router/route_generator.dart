@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:quickdeal/src/core/router/routes.dart';
+import 'package:quickdeal/src/data/models/property_model.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/search/search_screen.dart';
 import 'package:quickdeal/src/presentation/features/followup/followup_form_screen.dart';
-import 'package:quickdeal/src/presentation/features/followup/followup_screen.dart';
+import 'package:quickdeal/src/presentation/features/followup/followup_list_screen.dart';
 import 'package:quickdeal/src/presentation/features/lead/lead_screen.dart';
 import 'package:quickdeal/src/presentation/features/property/ui/screens/property_list_screen.dart';
 import 'package:quickdeal/src/presentation/features/tearmConditon/tearm_condition_screen.dart';
@@ -117,7 +119,8 @@ class RouteGenerator {
 
       case Routes.propertyDetailScreen:
         return MaterialPageRoute(
-            builder: (context) => const PropetyDetailScreen());
+            builder: (context) => PropetyDetailScreen(
+                property: settings.arguments as PropertyModel));
 
       // Lead List Screen
       case Routes.leadScreen:
@@ -129,12 +132,16 @@ class RouteGenerator {
 
       // Create Lead From Screen
       case Routes.createFollowupFormScreen:
-        return MaterialPageRoute(
-            builder: (context) => const FollowupFormScreen());
+        {
+          return MaterialPageRoute(
+              builder: (context) => FollowupFormScreen(
+                  propertyId: settings.arguments.toString()));
+        }
 
       // List of followup
       case Routes.followupScreen:
-        return MaterialPageRoute(builder: (context) => const FollowupScreen());
+        return MaterialPageRoute(
+            builder: (context) => const FollowupListScreen());
 
       // List of notifications
       case Routes.notificationScreen:

@@ -1,48 +1,35 @@
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
+import 'package:quickdeal/src/presentation/features/followup/states/followup_list_state.dart';
 import 'package:quickdeal/src/presentation/features/lead/states/lead_state.dart';
 
 import '../../../core/router/routes.dart';
 import '../../customs/custom_icon_button.dart';
-import 'states/followup_state.dart';
 import 'widgets/lead_filter.dart';
 
-class FollowupScreen extends ConsumerStatefulWidget {
-  const FollowupScreen({super.key});
+class FollowupListScreen extends ConsumerStatefulWidget {
+  const FollowupListScreen({super.key});
 
   @override
-  ConsumerState<FollowupScreen> createState() => _FollowupScreenState();
+  ConsumerState<FollowupListScreen> createState() => _FollowupScreenState();
 }
 
-class _FollowupScreenState extends ConsumerState<FollowupScreen> {
+class _FollowupScreenState extends ConsumerState<FollowupListScreen> {
   @override
   void initState() {
     Future.microtask(
-        () => ref.read(followupStateProvider.notifier).fetchFollowup());
+        () => ref.read(followupListStateProvider.notifier).fetchFollowup(null));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final followupState = ref.watch(followupStateProvider);
+    final followupState = ref.watch(followupListStateProvider);
+    final followupNotifier = ref.read(followupListStateProvider.notifier);
     var isDark = context.isDarkMode;
 
     return Scaffold(
         appBar: AppBar(
           title: const Text("Follow-Up"),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomIconButton(
-                width: 50.w,
-                height: 50.h,
-                assetSt: "",
-                onTap: () {
-                  context.pushNamed(Routes.searchScreen);
-                },
-                defaultIcon: Icons.add,
-              ),
-            ),
-          ],
         ),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: Sizes.sm),
@@ -89,7 +76,7 @@ class _FollowupScreenState extends ConsumerState<FollowupScreen> {
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: () {
-                      return ref.read(leadStateProvider.notifier).fetchLeads();
+                      return followupNotifier.fetchFollowup(null);
                     },
                     color: isDark ? CColors.textWhite : CColors.primary,
                     child: ListView.separated(
@@ -97,9 +84,9 @@ class _FollowupScreenState extends ConsumerState<FollowupScreen> {
                         return 15.hBox;
                       },
                       shrinkWrap: true,
-                      itemCount: followupState.leadList.length,
+                      itemCount: followupState.followupList.length,
                       itemBuilder: (context, index) {
-                        if (index == followupState.leadList[index]) {
+                        if (index == followupState.followupList[index]) {
                           return Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: ElevatedButton(

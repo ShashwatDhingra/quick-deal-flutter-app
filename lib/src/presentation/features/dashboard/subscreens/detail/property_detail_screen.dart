@@ -1,4 +1,5 @@
 import 'package:quickdeal/src/core/router/routes.dart';
+import 'package:quickdeal/src/data/models/property_model.dart';
 import 'package:quickdeal/src/presentation/customs/see_all.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/search/widgets/filter_button.dart';
@@ -6,7 +7,9 @@ import 'package:quickdeal/src/presentation/features/dashboard/subscreens/search/
 import '../../../../customs/custom_icon_button.dart';
 
 class PropetyDetailScreen extends StatefulWidget {
-  const PropetyDetailScreen({super.key});
+  PropetyDetailScreen({super.key, required this.property});
+
+  PropertyModel property;
 
   @override
   State<PropetyDetailScreen> createState() => _PropetyDetailScreenState();
@@ -94,7 +97,8 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
         actions: [
           TextButton(
               onPressed: () {
-                context.pushNamed(Routes.createFollowupFormScreen);
+                context.pushNamed(Routes.createFollowupFormScreen,
+                    arguments: widget.property.id);
               },
               child: const Text('Add FollowUp '))
         ],
@@ -127,7 +131,7 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                           ],
                         ),
                         Text(
-                          "OSM villa",
+                          widget.property.title,
                           style: TextStyle(
                               fontSize: 15.sp, fontWeight: FontWeight.bold),
                         ),
@@ -136,16 +140,17 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              child: const Padding(
+                              child: Padding(
                                 padding: EdgeInsets.all(8.0),
-                                child: Text("FOR Sale"),
+                                child: Text(
+                                    'For - ${widget.property.propertyType ?? 'Sale/Rent'}'),
                               ),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   color: Colors.grey.withOpacity(0.15)),
                             ),
                             Text(
-                              "57000",
+                              'Rs. ${widget.property.price.toString()}',
                               style: TextStyle(
                                   fontSize: 20.sp, fontWeight: FontWeight.bold),
                             ),

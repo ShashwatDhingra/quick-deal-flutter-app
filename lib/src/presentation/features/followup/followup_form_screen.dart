@@ -3,18 +3,19 @@ import 'package:quickdeal/src/presentation/customs/custom_checkbox_field.dart';
 import 'package:quickdeal/src/presentation/customs/custom_date_picker.dart';
 import 'package:quickdeal/src/presentation/customs/custom_elevated_button.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
+import 'package:quickdeal/src/presentation/features/followup/states/followup_form_state.dart';
 
 import '../../customs/custom_select_field.dart';
 import '../../customs/custom_textformfield.dart';
-import 'states/followup_state.dart';
 
 class FollowupFormScreen extends ConsumerWidget {
-  const FollowupFormScreen({super.key});
+  FollowupFormScreen({super.key, required this.propertyId});
+  String propertyId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final followupState = ref.watch(followupStateProvider);
-    final followupNotifier = ref.read(followupStateProvider.notifier);
+    final followupState = ref.watch(followupFormStateProvider);
+    final followupNotifier = ref.read(followupFormStateProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Follow-Up"),
@@ -40,8 +41,12 @@ class FollowupFormScreen extends ConsumerWidget {
               flex: 12,
               child: CustomElevatedButton(
                 text: "Create",
-                onPress: () {
-                  followupNotifier.createFollowup(ref, '');
+                onPress: () async {
+                  final result =
+                      await followupNotifier.createFollowup(ref, propertyId);
+                  if (result) {
+                    context.pop();
+                  }
                 },
               ),
             ),
@@ -83,47 +88,14 @@ class FollowupFormScreen extends ConsumerWidget {
                       cont: followupState.phoneController,
                       labelText: 'Phone *'),
                   16.hBox,
-                  const Align(
-                      alignment: Alignment.centerLeft, child: Text('Email')),
-                  10.hBox,
-                  CustomTextformField(
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (val) {
-                        if (val == null || val.isEmpty) {
-                          return 'Email cant be null';
-                        }
-                        return null;
-                      },
-                      cont: followupState.emalController,
-                      labelText: 'Email *'),
-
-                  // 16.hBox,
-                  // const Align(
-                  //     alignment: Alignment.centerLeft, child: Text('Remarks')),
-                  // 10.hBox,
-                  // CustomTextformField(
-                  //     maxLines: 5,
-                  //     validator: (val) {
-                  //       if (val == null || val.isEmpty) {
-                  //         return 'Remarks cant be null';
-                  //       }
-                  //       return null;
-                  //     },
-                  //     cont: followupState.remarksController,
-                  //     labelText: 'Remarks *'),
-
-                  16.hBox,
-
                   CustomCheckboxField(
                     value: false,
                     onChanged: (e) {},
                     labelText: 'Remind',
                   ),
-
-                  16.vBox,
-
+                  16.hBox,
                   CustomDatePicker(
-                    dateController: TextEditingController(),
+                    dateController: followupState.reminderDateController,
                     getValue: (w) {},
                     minimumDate: DateTime.now(),
                     maximumDate: DateTime.now().add(const Duration(days: 365)),
