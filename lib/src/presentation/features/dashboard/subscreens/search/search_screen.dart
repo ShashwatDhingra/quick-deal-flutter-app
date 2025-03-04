@@ -37,7 +37,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     children: [
                       CustomSearchBar(
                         onChanged: (value) {},
-                        onBackPressed: () {},
+                        onBackPressed: () {
+                          context.pop();
+                        },
                       ),
                       15.hBox,
                     ],
