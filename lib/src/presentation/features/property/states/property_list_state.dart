@@ -1,15 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/data/models/property_model.dart';
 import 'package:quickdeal/src/data/repository/property_repository.dart';
 
 import '../../../../core/utils/ui_utils/loading_manager.dart';
 import '../../../../data/api_exception.dart';
-import '../../../../data/models/lead_model.dart';
-import '../../../../data/repository/lead_repository.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
-import '../../../global/user_provider.dart';
 
 class PropertyListState {
   List<PropertyModel> propertyList;

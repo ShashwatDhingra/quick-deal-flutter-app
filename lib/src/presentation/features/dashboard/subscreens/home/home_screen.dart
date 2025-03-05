@@ -9,6 +9,7 @@ import 'package:quickdeal/src/presentation/features/dashboard/subscreens/home/wi
 
 import '../../../../../core/router/routes.dart';
 import '../../../../../core/utils/ui_utils/constants/colors.dart';
+import '../../../../../data/firebase/firebasekey.dart';
 import '../../../../../core/utils/ui_utils/helpers/helper_functions.dart';
 import '../../../../customs/drawer.dart';
 import '../../../../global/user_provider.dart';
@@ -146,7 +147,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 CustomIconButton(
                   assetSt: AssetsConsts.icNotification,
                   onTap: () {
-                    context.pushNamed(Routes.notificationScreen);
+                    GlobalServerKey().getServerKey();
+                    // context.pushNamed(Routes.notificationScreen);
                   },
                 ),
                 SizedBox(width: 12.w),

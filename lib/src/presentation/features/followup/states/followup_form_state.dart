@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/data/repository/followup_repository.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
 

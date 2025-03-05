@@ -1,11 +1,9 @@
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
-import 'package:quickdeal/src/presentation/features/lead/states/lead_state.dart';
 import 'package:quickdeal/src/presentation/features/property/states/property_list_state.dart';
 
 import '../../../../../core/router/routes.dart';
 import '../../../../customs/custom_icon_button.dart';
 import '../../../../customs/custom_single_property_card.dart';
-import '../../../dashboard/subscreens/home/home_screen.dart';
 import '../../../lead/widgets/lead_filter.dart';
 
 class PropertyListScreen extends ConsumerStatefulWidget {

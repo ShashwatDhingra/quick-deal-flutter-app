@@ -1,14 +1,23 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quickdeal/firebase_options.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/helper.dart';
 import 'src/core/injections/locator.dart';
 import 'src/core/router/route_generator.dart';
 import 'src/core/utils/ui_utils/display.dart';
 import 'src/core/utils/ui_utils/loading_manager.dart';
 import 'src/core/utils/ui_utils/theme/theme.dart';
+import 'src/data/firebase/notification_service.dart';
 
-void main() async {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await initInjections();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await NotificationServices.instance.initialize();
+
   runApp(const ProviderScope(child: HRNext()));
 }
 

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:quickdeal/src/core/router/routes.dart';
 import 'package:quickdeal/src/data/models/property_model.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/search/search_screen.dart';
