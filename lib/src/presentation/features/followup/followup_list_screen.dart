@@ -1,5 +1,6 @@
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
 import 'package:quickdeal/src/presentation/features/followup/states/followup_list_state.dart';
+import 'package:quickdeal/src/presentation/features/followup/widgets/followup_tile.dart';
 import 'package:quickdeal/src/presentation/features/lead/states/lead_state.dart';
 
 import '../../../core/router/routes.dart';
@@ -7,7 +8,8 @@ import '../../customs/custom_icon_button.dart';
 import 'widgets/lead_filter.dart';
 
 class FollowupListScreen extends ConsumerStatefulWidget {
-  const FollowupListScreen({super.key});
+  const FollowupListScreen({super.key, required this.propertyId});
+  final String? propertyId;
 
   @override
   ConsumerState<FollowupListScreen> createState() => _FollowupScreenState();
@@ -16,8 +18,9 @@ class FollowupListScreen extends ConsumerStatefulWidget {
 class _FollowupScreenState extends ConsumerState<FollowupListScreen> {
   @override
   void initState() {
-    Future.microtask(
-        () => ref.read(followupListStateProvider.notifier).fetchFollowup(null));
+    Future.microtask(() => ref
+        .read(followupListStateProvider.notifier)
+        .fetchFollowup(widget.propertyId));
     super.initState();
   }
 
@@ -76,164 +79,52 @@ class _FollowupScreenState extends ConsumerState<FollowupListScreen> {
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: () {
-                      return followupNotifier.fetchFollowup(null);
+                      return followupNotifier.fetchFollowup(widget.propertyId);
                     },
                     color: isDark ? CColors.textWhite : CColors.primary,
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) {
-                        return 15.hBox;
-                      },
-                      shrinkWrap: true,
-                      itemCount: followupState.followupList.length,
-                      itemBuilder: (context, index) {
-                        if (index == followupState.followupList[index]) {
-                          return Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child:
-                                  // isLoading ? CircularProgressIndicator() :
-                                  const Text('Load More'),
-                            ),
-                          );
-                        }
-                        return Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: isDark
-                                ? CColors.grey.withOpacity(0.1)
-                                : CColors.white,
-                            borderRadius: BorderRadius.circular(10.sp),
-                            boxShadow: [
-                              BoxShadow(
-                                color: isDark
-                                    ? CColors.darkerGrey.withOpacity(0.2)
-                                    : CColors.grey,
-                                spreadRadius: 2,
-                                blurRadius: 1,
-                                offset: const Offset(1, 1),
+                    child: followupState.isLoading
+                        ? const SizedBox()
+                        : followupState.followupList.isEmpty
+                            ? const Center(child: Text('No Follow-Up found.'))
+                            : ListView.separated(
+                                separatorBuilder: (context, index) {
+                                  return 15.hBox;
+                                },
+                                shrinkWrap: true,
+                                itemCount: followupState.followupList.length,
+                                itemBuilder: (context, index) {
+                                  final followupData =
+                                      followupState.followupList[index];
+                                  if (index ==
+                                      followupState.followupList[index]) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: ElevatedButton(
+                                        onPressed: () {},
+                                        child:
+                                            // isLoading ? CircularProgressIndicator() :
+                                            const Text('Load More'),
+                                      ),
+                                    );
+                                  }
+                                  return FollowupTile(
+                                    isDark: isDark,
+                                    name: followupData.name,
+                                    phone: followupData.phone.toString(),
+                                    completed: followupData.completed,
+                                  );
+                                },
                               ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 15),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "John Flax",
-                                          style: TextStyle(
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          "Project No: 1232",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.w400),
-                                        )
-                                      ],
-                                    ),
-                                    Text(
-                                      "Open",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13.sp,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: Sizes.xl,
-                                ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                        child: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.phone,
-                                          color: CColors.success,
-                                        ),
-                                        const SizedBox(
-                                          width: Sizes.sm,
-                                        ),
-                                        Text(
-                                          "(7217370990)",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge,
-                                        )
-                                      ],
-                                    )),
-                                    Expanded(
-                                        child: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.email_outlined,
-                                          color: CColors.info,
-                                        ),
-                                        const SizedBox(
-                                          width: Sizes.sm,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            "ajju@extensioncrm.com",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge!
-                                                .copyWith(
-                                                    overflow:
-                                                        TextOverflow.ellipsis),
-                                          ),
-                                        )
-                                      ],
-                                    ))
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: Sizes.xl,
-                                ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.location_on_outlined,
-                                      color: CColors.error,
-                                    ),
-                                    const SizedBox(
-                                      width: Sizes.sm,
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        " Plot No.4, Third Floor, Near Metro Pillar No. 599 Milestone, Faridabad, Haryana 121003",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge,
-                                        overflow: TextOverflow
-                                            .visible, // Ensures the text is fully visible
-                                        maxLines:
-                                            null, // Allows unlimited lines
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
                   ),
                 )
               ],
-            )));
+            )),
+        floatingActionButton: widget.propertyId != null
+            ? FloatingActionButton(
+                onPressed: () {
+                  context.pushNamed(Routes.followupFormScreen);
+                },
+                child: const Icon(Icons.add))
+            : const SizedBox());
   }
 }

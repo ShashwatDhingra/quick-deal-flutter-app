@@ -92,17 +92,17 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
       //   ),
       // ),
 
-      appBar: AppBar(
-        title: const Text('Detail Screen'),
-        actions: [
-          TextButton(
-              onPressed: () {
-                context.pushNamed(Routes.createFollowupFormScreen,
-                    arguments: widget.property.id);
-              },
-              child: const Text('Add FollowUp '))
-        ],
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Detail Screen'),
+      //   actions: [
+      //     TextButton(
+      //         onPressed: () {
+      //           context.pushNamed(Routes.createFollowupFormScreen,
+      //               arguments: widget.property.id);
+      //         },
+      //         child: const Text('FollowUp '))
+      //   ],
+      // ),
       body: Column(
         children: [
           // Stack
@@ -130,10 +130,21 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                             Expanded(child: SizedBox())
                           ],
                         ),
-                        Text(
-                          widget.property.title,
-                          style: TextStyle(
-                              fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              widget.property.title,
+                              style: TextStyle(
+                                  fontSize: 15.sp, fontWeight: FontWeight.bold),
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  context.pushNamed(Routes.followupScreen,
+                                      arguments: widget.property.id);
+                                },
+                                child: const Text('FollowUp '))
+                          ],
                         ),
                         10.hBox,
                         Row(

@@ -13,24 +13,29 @@ import '../../../global/user_provider.dart';
 class FollowupListState {
   int page;
   int limit;
+  bool isLoading;
   List<FollowupModel> followupList;
 
   FollowupListState({
     int? page,
     int? limit,
+    bool? isLoading,
     List<FollowupModel>? followupList,
   })  : page = page ?? 1,
         limit = limit ?? 10,
+        isLoading = isLoading ?? false,
         followupList = followupList ?? [];
 
   FollowupListState copyWith({
     int? page,
     int? limit,
+    bool? isLoading,
     List<FollowupModel>? followupList,
   }) {
     return FollowupListState(
       page: page ?? this.page,
       limit: limit ?? this.limit,
+      isLoading: isLoading ?? isLoading,
       followupList: followupList ?? this.followupList,
     );
   }
@@ -46,13 +51,14 @@ class FollowupStateNotifier extends StateNotifier<FollowupListState> {
 
     try {
       LoadingManager.showLoading();
+      state = state.copyWith(isLoading: true);
 
       String filter = "";
-      if (propertyId != null) {
+      if (propertyId == null) {
         filter = "?page=${state.page}&limit=${state.limit}";
       } else {
         filter =
-            "?page=${state.page}&limit=${state.limit}&filters={property: $propertyId}";
+            "?page=${state.page}&limit=${state.limit}&filters[property]=$propertyId";
       }
       final response = await followupRepo.fetchFollowup(filter);
 
@@ -63,7 +69,8 @@ class FollowupStateNotifier extends StateNotifier<FollowupListState> {
           state = state.copyWith(
               followupList: data
                   .map((element) => FollowupModel.fromJson(element))
-                  .toList());
+                  .toList(),
+              isLoading: false);
         }
         response?.message?.showToast();
       }

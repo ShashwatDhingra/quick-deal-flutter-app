@@ -131,7 +131,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => const LeadFormScreen());
 
       // Create Lead From Screen
-      case Routes.createFollowupFormScreen:
+      case Routes.followupFormScreen:
         {
           return MaterialPageRoute(
               builder: (context) => FollowupFormScreen(
@@ -140,8 +140,13 @@ class RouteGenerator {
 
       // List of followup
       case Routes.followupScreen:
-        return MaterialPageRoute(
-            builder: (context) => const FollowupListScreen());
+        {
+          return MaterialPageRoute(
+              builder: (context) => FollowupListScreen(
+                  propertyId: (settings.arguments.runtimeType == String)
+                      ? settings.arguments.toString()
+                      : null));
+        }
 
       // List of notifications
       case Routes.notificationScreen:

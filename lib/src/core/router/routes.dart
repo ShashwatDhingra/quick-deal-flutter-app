@@ -57,9 +57,9 @@ class Routes {
 
   //Followup view page
   static const String followupScreen = '/followup-view';
-  
+
   // Create follow form page
-  static const String createFollowupFormScreen = '/create-followup-form-screen';
+  static const String followupFormScreen = '/create-followup-form-screen';
 
   // Show notification  page
   static const String notificationScreen = '/show-notification-screen';
