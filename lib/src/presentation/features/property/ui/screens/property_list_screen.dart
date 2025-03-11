@@ -1,6 +1,7 @@
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
 import 'package:quickdeal/src/presentation/features/lead/states/lead_state.dart';
 import 'package:quickdeal/src/presentation/features/property/states/property_list_state.dart';
+import 'package:quickdeal/src/presentation/features/property/ui/widgets/property_list_filter.dart';
 
 import '../../../../../core/router/routes.dart';
 import '../../../../customs/custom_icon_button.dart';
@@ -67,7 +68,9 @@ class _PropertyScreenState extends ConsumerState<PropertyListScreen> {
                               top: Radius.circular(20),
                             ),
                           ),
-                          builder: (context) => const FilterBottomSheet(),
+                          builder: (context) {
+                            return const PropertyListFilter();
+                          },
                         );
                       },
                       defaultIcon: Icons.filter_alt_outlined,

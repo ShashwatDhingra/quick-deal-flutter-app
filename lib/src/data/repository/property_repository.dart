@@ -18,9 +18,9 @@ class PropertyRepository {
     }
   }
 
-  Future<ResponseModel?> fetchProperty() async {
+  Future<ResponseModel?> fetchProperty(String filter) async {
     try {
-      ResponseModel response = await apiService.get(ApiEndpionts.propertyUrl);
+      ResponseModel response = await apiService.get(ApiEndpionts.propertyUrl + filter);
       return response;
     } catch (e) {
       rethrow;

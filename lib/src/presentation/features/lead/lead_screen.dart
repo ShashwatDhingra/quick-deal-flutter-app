@@ -68,8 +68,12 @@ class _LeadScreenState extends ConsumerState<LeadScreen> {
                       assetSt: "",
                       onTap: () {
                         showModalBottomSheet(
+                          showDragHandle: true,
                           context: context,
                           isScrollControlled: true,
+                          enableDrag: true,
+                          isDismissible: true,
+                          useSafeArea: true,
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                               top: Radius.circular(20),

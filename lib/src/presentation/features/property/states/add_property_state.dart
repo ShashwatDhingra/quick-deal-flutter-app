@@ -129,7 +129,7 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
     thirdPageNotifier.clearAllControllers();
     fourthPageNotifier.clearAllControllers();
     state = state.copyWith(currentPage: 0, isFormCompleted: false);
-  }
+}
 
   Future<bool> addProperty() async {
     final firstPageState = ref.read(firstPageStateProvider);
@@ -139,7 +139,7 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
     try {
       LoadingManager.showLoading();
       final response = await state.propertyRepository.addProperty(PropertyModel(
-        id: '',
+          id: '',
           title: firstPageState.propertyTitleController.text,
           category: firstPageState.propertyCategory,
           price: double.parse(firstPageState.priceController.text),

@@ -1,30 +1,28 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quickdeal/src/data/models/filter_models/property_model.dart';
 import 'package:quickdeal/src/data/models/property_model.dart';
 import 'package:quickdeal/src/data/repository/property_repository.dart';
 
 import '../../../../core/utils/ui_utils/loading_manager.dart';
 import '../../../../data/api_exception.dart';
-import '../../../../data/models/lead_model.dart';
-import '../../../../data/repository/lead_repository.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
-
-import '../../../global/user_provider.dart';
 
 class PropertyListState {
   List<PropertyModel> propertyList;
+  PropertyFilterModel propertyFilter;
   PropertyRepository propertyRepo = PropertyRepository();
 
-  PropertyListState({List<PropertyModel>? propertyList})
-      : propertyList = propertyList ?? [];
+  PropertyListState(
+      {List<PropertyModel>? propertyList, PropertyFilterModel? propertyFilter})
+      : propertyList = propertyList ?? [],
+        propertyFilter = propertyFilter ?? PropertyFilterModel();
 
-    
-    PropertyListState copyWith({
-    List<PropertyModel>? propertyList
-  }) {
+  PropertyListState copyWith(
+      {List<PropertyModel>? propertyList,
+      PropertyFilterModel? propertyFilter}) {
     return PropertyListState(
-      propertyList: propertyList ?? this.propertyList
-    );
+        propertyList: propertyList ?? this.propertyList,
+        propertyFilter: propertyFilter ?? this.propertyFilter);
   }
 }
 
@@ -35,15 +33,17 @@ class LeadStateNotifier extends StateNotifier<PropertyListState> {
   Future<void> fetchProperties() async {
     try {
       LoadingManager.showLoading();
-      final response = await state.propertyRepo.fetchProperty();
+      final response = await state.propertyRepo
+          .fetchProperty(state.propertyFilter.toFilter());
 
       if (response?.success ?? false) {
         var data = response?.data;
 
         if (data is List<dynamic>) {
           state = state.copyWith(
-              propertyList:
-                  data.map((element) => PropertyModel.fromJson(element)).toList());
+              propertyList: data
+                  .map((element) => PropertyModel.fromJson(element))
+                  .toList());
         }
         response?.message?.showToast();
       }
@@ -52,6 +52,10 @@ class LeadStateNotifier extends StateNotifier<PropertyListState> {
     } finally {
       LoadingManager.hideLoading();
     }
+  }
+
+  void applyfilter(PropertyFilterModel newFilter) {
+    state.copyWith(propertyFilter: newFilter);
   }
 }
 
