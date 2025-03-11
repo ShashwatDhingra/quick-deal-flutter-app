@@ -31,10 +31,6 @@ class GlobalServerKey {
             "universe_domain": "googleapis.com"
           }),
           scopes);
-      var fCMToken = await FirebaseMessaging.instance.getToken();
-      if (kDebugMode) {
-        print("FCMToken: " + fCMToken.toString());
-      }
       log("client.credentials" + client.credentials.idToken.toString());
       final expiry = client.credentials.accessToken.expiry;
       log("expiry" + expiry.toString());
