@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "245367500759",
+    "project_id": "quick-deal-90601",
+    "storage_bucket": "quick-deal-90601.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245367500759:android:7f35a82bd9d1984083e592",
+        "android_client_info": {
+          "package_name": "com.example.quickdeal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnGlamY2Qz5UIQ-PmyCOjVdwX-eFzdMJc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

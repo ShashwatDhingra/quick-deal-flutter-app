@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 import '../dashboard/subscreens/profile/profile.dart';
 
@@ -30,7 +29,7 @@ class FAQScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isDark = context.isDarkMode;
+ 
 
     return Scaffold(
       appBar: AppBar(

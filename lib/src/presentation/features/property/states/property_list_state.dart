@@ -7,6 +7,7 @@ import '../../../../core/utils/ui_utils/loading_manager.dart';
 import '../../../../data/api_exception.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
+
 class PropertyListState {
   List<PropertyModel> propertyList;
   PropertyFilterModel propertyFilter;

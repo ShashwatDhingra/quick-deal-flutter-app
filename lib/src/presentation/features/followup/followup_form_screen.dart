@@ -1,13 +1,12 @@
-import 'package:quickdeal/src/presentation/customs/custom_checkbox.dart';
 import 'package:quickdeal/src/presentation/customs/custom_checkbox_field.dart';
 import 'package:quickdeal/src/presentation/customs/custom_date_picker.dart';
 import 'package:quickdeal/src/presentation/customs/custom_elevated_button.dart';
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
 import 'package:quickdeal/src/presentation/features/followup/states/followup_form_state.dart';
 
-import '../../customs/custom_select_field.dart';
 import '../../customs/custom_textformfield.dart';
 
+// ignore: must_be_immutable
 class FollowupFormScreen extends ConsumerWidget {
   FollowupFormScreen({super.key, required this.propertyId});
   String propertyId;
@@ -45,6 +44,7 @@ class FollowupFormScreen extends ConsumerWidget {
                   final result =
                       await followupNotifier.createFollowup(ref, propertyId);
                   if (result) {
+                    // ignore: use_build_context_synchronously
                     context.pop();
                   }
                 },

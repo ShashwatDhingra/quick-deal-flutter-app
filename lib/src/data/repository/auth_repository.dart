@@ -95,11 +95,22 @@ class AuthRepository {
   Future<ResponseModel> resetPassword(String email, String password) async {
     try {
       if (kDebugMode) {
-        print('${email}adsf');
+        print('${email}');
       }
       ResponseModel resopnse = await apiService.post(
           ApiEndpionts.resetPasswordUrl,
           {"email": email, "password": password});
+      return resopnse;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ResponseModel> sendFirebaseToken(String email, String firebaseToken)async{
+     try {
+      ResponseModel resopnse = await apiService.post(
+          ApiEndpionts.sendFirebaseToken,
+          {"email": email, "firebaseToken": firebaseToken});
       return resopnse;
     } catch (e) {
       rethrow;

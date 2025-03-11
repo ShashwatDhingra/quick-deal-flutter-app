@@ -30,6 +30,9 @@ class ApiEndpionts {
   /// Reset Password
   static const resetPasswordUrl = '$_baseUrl/auth/reset-password';
 
+  /// Send Firebase Token
+  static const sendFirebaseToken = "$_baseUrl/auth/send-firebase-token";
+
   /// Add Property
   static const propertyUrl = '$_baseUrl/property';
 }

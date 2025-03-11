@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/loading_manager.dart';
 import 'package:quickdeal/src/data/api_exception.dart';
@@ -70,6 +71,11 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
           email: state.emailController.text,
           password: state.passwordController.text);
       if (response?.success ?? false) {
+        // Sending Firebase Token to server.
+        var fcmToken = await FirebaseMessaging.instance.getToken();
+        await state.authRepo
+            .sendFirebaseToken(state.emailController.text, fcmToken ?? '');
+
         // Getting detail from jwt.
         final detail = JwtDecoder.decode(response?.data['token'] ?? '');
 
@@ -119,7 +125,7 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
       final response = await state.authRepo
           .verifyConfirmMailPin(state.emailController.text, generatePin());
       if (response.success ?? false) {
-       // final email = state.emailController.text;
+        // final email = state.emailController.text;
         state = state.copyWith(
           isEmailConfirmed: true,
         );
@@ -152,8 +158,8 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
     state.nameController.clear();
     state.cnfrmPassController.clear();
     for (var ctrls in state.pinControllers) {
-        ctrls.clear();
-      }
+      ctrls.clear();
+    }
   }
 }
 
