@@ -1,9 +1,10 @@
-import 'package:dio/dio.dart';
+import 'dart:io';
+
+import 'package:ease_x/ease_x.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:quickdeal/src/core/router/router.dart';
-import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/loading_manager.dart';
 import 'package:quickdeal/src/data/api_exception.dart';
 import 'package:quickdeal/src/data/repository/auth_repository.dart';
@@ -59,8 +60,12 @@ class SigninStateNotifier extends StateNotifier<SigninState> {
           .login(state.emailController.text, state.passwordController.text);
       if (response?.success ?? false) {
         // Sending Firebase Token to server.
+        if (Platform.isIOS) {
+          String? apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+        }
         var fcmToken = await FirebaseMessaging.instance.getToken();
-        await state.authRepo.sendFirebaseToken(state.emailController.text, fcmToken ?? '');
+        await state.authRepo
+            .sendFirebaseToken(state.emailController.text, fcmToken ?? '');
 
         // Getting detail from jwt.
         final detail = JwtDecoder.decode(response?.data['token'] ?? '');

@@ -1,8 +1,8 @@
 class PropertyFilterModel {
-  String? propertyType;
+  List<String>? propertyType;
   double? minPrice;
   double? maxPrice;
-  String? status;
+  List<String>? status;
   int? bedrooms;
   int? bathrooms;
   int? constructionYear;
@@ -24,10 +24,10 @@ class PropertyFilterModel {
   });
 
   PropertyFilterModel copyWith({
-    String? propertyType,
+    List<String>? propertyType,
     double? minPrice,
     double? maxPrice,
-    String? status,
+    List<String>? status,
     int? bedrooms,
     int? bathrooms,
     int? constructionYear,
@@ -51,16 +51,25 @@ class PropertyFilterModel {
 
   String toFilter() {
     String filter = "";
-    if (propertyType != null) filter += '&filters[propertyType]=$propertyType';
+    if (propertyType != null) {
+      for (var val in propertyType!) {
+        filter += '&filters[propertyType]=$val';
+      }
+    }
     if (minPrice != null) filter += '&filters[price][lte]=$minPrice';
     if (maxPrice != null) filter += '&filters[price][gte]=$maxPrice';
-    if (status != null) filter += '&filters[status]=$status';
+    if (status != null) {
+      for (var val in status!) {
+        filter += '&filters[status]=$val';
+      }
+    }
     if (bedrooms != null) filter += '&filters[bedrooms]=$bedrooms';
     if (bathrooms != null) filter += '&filters[bedrooms]=$bathrooms';
-    if (constructionYear != null) filter += '&filters[constructionYear]=$constructionYear';
+    if (constructionYear != null)
+      filter += '&filters[constructionYear]=$constructionYear';
     if (city != null) filter += '&filters[city]=$city';
     if (state != null) filter += '&filters[state]=$state';
-    if (pincode != null) filter += '&filters[pincode]=$pincode';
-    return filter;
+    if (pincode != null) filter += '&filters[location.pincode]=$pincode';
+    return '?page=1&limit=100' + filter;
   }
 }

@@ -1,3 +1,8 @@
+import 'dart:io';
+
+import 'package:cloudinary_api/uploader/cloudinary_uploader.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
@@ -129,7 +134,7 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
     thirdPageNotifier.clearAllControllers();
     fourthPageNotifier.clearAllControllers();
     state = state.copyWith(currentPage: 0, isFormCompleted: false);
-}
+  }
 
   Future<bool> addProperty() async {
     final firstPageState = ref.read(firstPageStateProvider);
@@ -138,16 +143,56 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
     final fourthPageState = ref.read(fourthPageStateProvider);
     try {
       LoadingManager.showLoading();
+
+      // Upload the images to cloudinary
+      const cloudName = 'dzbs9y14f';
+      const uploadPreset = 'quick-deal';
+      const url = 'https://api.cloudinary.com/v1_1/$cloudName/image/upload';
+      List<String> imageUrls = [];
+
+      for (final img in secondPageState.selectedImages) {
+        try {
+          FormData formData = FormData.fromMap({
+            'file': await MultipartFile.fromFile(img.path),
+            'upload_preset': uploadPreset,
+          });
+
+          final response = await Dio().post(url, data: formData);
+
+          if (response.statusCode == 200) {
+            final imageUrl = response.data['secure_url'];
+            imageUrls.add(imageUrl);
+          } else {
+            print('Error uploading image: ${response.data}');
+          }
+        } catch (e) {
+          print('Upload Error: $e');
+          return false;
+        }
+      }
+
       final response = await state.propertyRepository.addProperty(PropertyModel(
           id: '',
           title: firstPageState.propertyTitleController.text,
+          description: firstPageState.contentController.text,
           category: firstPageState.propertyCategory,
+          propertyType: firstPageState.propertyCategory,
+          status: firstPageState.statusList,
           price: double.parse(firstPageState.priceController.text),
+          images: imageUrls,
+          bedrooms: int.tryParse(thirdPageState.bedroomNoController.text) ?? 0,
+          bathrooms:
+              int.tryParse(thirdPageState.bathroomNoController.text) ?? 0,
+          area: thirdPageState.areaSizeController.text,
+          parking: thirdPageState.isParkingAvailable,
+          constructionYear:
+              int.tryParse(thirdPageState.yearBuildController.text) ?? 0,
+          amenities: thirdPageState.amenetiesList,
           location: Location(
               address: fourthPageState.addressController.text,
               city: fourthPageState.cityController.text,
               state: fourthPageState.stateController.text,
-              pincode: int.parse(fourthPageState.pinCodeController.text),
+              pincode: fourthPageState.pinCodeController.text,
               coordinates: Coordinates(
                   lat: double.parse(fourthPageState.latController.text),
                   lng: double.parse(fourthPageState.lngController.text)))));

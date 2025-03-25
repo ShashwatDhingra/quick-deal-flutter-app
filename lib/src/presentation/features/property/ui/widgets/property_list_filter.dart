@@ -61,6 +61,7 @@ class _PropertyListFilterState extends ConsumerState<PropertyListFilter> {
   @override
   Widget build(BuildContext context) {
     final propertyState = ref.read(propertyStateProvider);
+    final propertyStateNotifier = ref.read(propertyStateProvider.notifier);
 
     return StatefulBuilder(
       builder: (context, setState) {
@@ -81,7 +82,7 @@ class _PropertyListFilterState extends ConsumerState<PropertyListFilter> {
                     .centered(),
                 18.vBox,
                 CustomSelectField(
-                  options: [
+                  options: const [
                     'Commercial',
                     'Office',
                     'Shop',
@@ -91,10 +92,12 @@ class _PropertyListFilterState extends ConsumerState<PropertyListFilter> {
                     'Villa'
                   ],
                   selectedValue: propertyState.propertyFilter.propertyType,
-                  onChanged: (d) {
-                    propertyState.copyWith(
-                        propertyFilter: propertyState.propertyFilter
-                            .copyWith(propertyType: d));
+                  onChanged: (value) {
+                    print('value' + value.toString());
+                    propertyStateNotifier.applyfilter(
+                      propertyState.propertyFilter
+                          .copyWith(propertyType: value),
+                    );
                   },
                   labelText: 'Type of Property',
                   isMultiSelect: true,
@@ -109,11 +112,11 @@ class _PropertyListFilterState extends ConsumerState<PropertyListFilter> {
                         labelText: 'Min Price',
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
-                      ref.read(propertyStateProvider.notifier).applyfilter(
+                          propertyStateNotifier.applyfilter(
                             propertyState.propertyFilter.copyWith(
                                 minPrice: double.tryParse(value) ?? 0),
                           );
-                    },
+                        },
                       ),
                     ),
                     20.hBox,
@@ -128,9 +131,13 @@ class _PropertyListFilterState extends ConsumerState<PropertyListFilter> {
                 ),
                 12.vBox,
                 CustomSelectField(
-                  options: ['Sale', 'Rent'],
-                  selectedValue: [],
-                  onChanged: (d) {},
+                  options: const ['Sale', 'Rent'],
+                  selectedValue: propertyState.propertyFilter.status,
+                  onChanged: (val) {
+                    propertyStateNotifier.applyfilter(
+                      propertyState.propertyFilter.copyWith(status: val),
+                    );
+                  },
                   labelText: 'Status',
                   isMultiSelect: true,
                 ),
@@ -180,9 +187,13 @@ class _PropertyListFilterState extends ConsumerState<PropertyListFilter> {
                 ),
                 12.vBox,
                 CustomTextformField(
-                  cont: TextEditingController(),
+                  cont: pincodeController,
                   labelText: 'Pincode',
                   keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    propertyStateNotifier.applyfilter(
+                        propertyState.propertyFilter.copyWith(pincode: value));
+                  },
                 ),
                 12.vBox,
 
@@ -196,8 +207,8 @@ class _PropertyListFilterState extends ConsumerState<PropertyListFilter> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        // Apply filter
                         Navigator.pop(context);
+                        propertyStateNotifier.fetchProperties();
                       },
                       child: Text("Apply"),
                     ),

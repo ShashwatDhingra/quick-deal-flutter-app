@@ -5,7 +5,7 @@ class PropertyModel {
   final String category;
   final double price;
   final Location location;
-  final String status;
+  final List<dynamic> status;
   final String? area;
   final String? furnishing;
   final int? bedrooms;
@@ -35,7 +35,7 @@ class PropertyModel {
     required this.category,
     required this.price,
     required this.location,
-    this.status = 'draft',
+    this.status = const [],
     this.area,
     this.furnishing,
     this.bedrooms,
@@ -69,7 +69,7 @@ class PropertyModel {
       category: json['category'],
       price: (json['price'] as num).toDouble(),
       location: Location.fromJson(json['location']),
-      status: json['status'] ?? 'draft',
+      status: json['status'] ?? [],
       area: json['area'],
       furnishing: json['furnishing'],
       bedrooms: json['bedrooms'],
@@ -140,7 +140,7 @@ class PropertyModel {
     String? category,
     double? price,
     Location? location,
-    String? status,
+    List<dynamic>? status,
     String? area,
     String? furnishing,
     int? bedrooms,
@@ -200,7 +200,7 @@ class Location {
   final String address;
   final String city;
   final String state;
-  final int pincode;
+  final String pincode;
   final Coordinates? coordinates;
 
   Location({

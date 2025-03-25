@@ -22,7 +22,7 @@ import '../../presentation/features/onboarding/onboarding_screen.dart';
 import '../../presentation/features/property/ui/screens/add_property_screen.dart';
 
 import '../../presentation/features/splashScreen/ui/splash_screen.dart';
-import '../../presentation/help/help_support_screen.dart';
+import '../../presentation/features/help/help_support_screen.dart';
 import 'router.dart';
 
 class RouteGenerator {

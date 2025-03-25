@@ -147,8 +147,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 CustomIconButton(
                   assetSt: AssetsConsts.icNotification,
                   onTap: () {
-                    GlobalServerKey().getServerKey();
-                    // context.pushNamed(Routes.notificationScreen);
                   },
                 ),
                 SizedBox(width: 12.w),

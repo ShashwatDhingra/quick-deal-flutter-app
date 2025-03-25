@@ -1,12 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quickdeal/src/data/models/filter_models/property_model.dart';
+import 'package:quickdeal/src/data/models/filter_models/property_filter_model.dart';
 import 'package:quickdeal/src/data/models/property_model.dart';
 import 'package:quickdeal/src/data/repository/property_repository.dart';
 
 import '../../../../core/utils/ui_utils/loading_manager.dart';
 import '../../../../data/api_exception.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
-
 
 class PropertyListState {
   List<PropertyModel> propertyList;
@@ -34,6 +33,7 @@ class LeadStateNotifier extends StateNotifier<PropertyListState> {
   Future<void> fetchProperties() async {
     try {
       LoadingManager.showLoading();
+
       final response = await state.propertyRepo
           .fetchProperty(state.propertyFilter.toFilter());
 
@@ -56,7 +56,8 @@ class LeadStateNotifier extends StateNotifier<PropertyListState> {
   }
 
   void applyfilter(PropertyFilterModel newFilter) {
-    state.copyWith(propertyFilter: newFilter);
+    print('filter ' + newFilter.toFilter().toString());
+    state = state.copyWith(propertyFilter: newFilter);
   }
 }
 

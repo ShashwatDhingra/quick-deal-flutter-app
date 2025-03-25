@@ -78,6 +78,10 @@ class _PropertyScreenState extends ConsumerState<PropertyListScreen> {
                 const SizedBox(
                   height: Sizes.sm,
                 ),
+                if (propertyState.propertyList.isEmpty)
+                  Expanded(
+                      child:
+                          const Center(child: Text('No Property Available'))),
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: () {
@@ -93,7 +97,7 @@ class _PropertyScreenState extends ConsumerState<PropertyListScreen> {
                       shrinkWrap: true,
                       itemCount: propertyState.propertyList.length,
                       itemBuilder: (context, index) {
-                        if (index == propertyState.propertyList) {
+                        if (index == propertyState.propertyList.length) {
                           return Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: ElevatedButton(

@@ -67,6 +67,8 @@ dependencies:
   firebase_messaging: ^15.2.4
   googleapis_auth: ^1.6.0
   flutter_local_notifications: ^18.0.1
+  cloudinary_url_gen: ^1.7.0
+  cloudinary_api: ^1.1.0
 
 
 

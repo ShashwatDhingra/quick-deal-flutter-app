@@ -112,7 +112,10 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
                   width: double.infinity,
-                  "https://i.pinimg.com/736x/b2/9e/97/b29e9776d0c4448aab9d4df1a0962a43.jpg",
+                  (widget.property.images != null &&
+                          widget.property.images!.isNotEmpty)
+                      ? widget.property.images![0]
+                      : 'https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=',
                   fit: BoxFit.cover),
             ),
           ),
