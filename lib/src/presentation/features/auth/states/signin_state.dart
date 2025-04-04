@@ -60,13 +60,14 @@ class SigninStateNotifier extends StateNotifier<SigninState> {
           .login(state.emailController.text, state.passwordController.text);
       if (response?.success ?? false) {
         // Sending Firebase Token to server.
-        if (Platform.isIOS) {
-          String? apnsToken = await FirebaseMessaging.instance.getAPNSToken();
-        }
-        var fcmToken = await FirebaseMessaging.instance.getToken();
-        await state.authRepo
-            .sendFirebaseToken(state.emailController.text, fcmToken ?? '');
+        if (!Platform.isIOS) {
+          // String? apnsToken = await FirebaseMessaging.instance.getAPNSToken();
 
+          var fcmToken = await FirebaseMessaging.instance.getToken();
+          print(fcmToken.toString()+"FCMToken");
+          await state.authRepo
+              .sendFirebaseToken(state.emailController.text, fcmToken ?? '');
+        }
         // Getting detail from jwt.
         final detail = JwtDecoder.decode(response?.data['token'] ?? '');
         // Filling the User Global Provider

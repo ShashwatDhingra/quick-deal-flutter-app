@@ -31,8 +31,8 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
 
   final screens = [
     const HomeScreen(),
-    const SearchScreen(),
-    const ExpenseScreen(),
+    // const SearchScreen(),
+    // const ExpenseScreen(),
     const ProfileScreen()
     //const LeaveScreen(),
   ];
@@ -81,26 +81,25 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
           currentIndex: selectedIndex,
           onTap: (s) {
             ref.read(intBottomNavBarIndex.notifier).state = s;
-            _pageController
-                .jumpToPage(s); 
+            _pageController.jumpToPage(s);
           },
           items: [
             _buildNavItem(
                 selectedIcon: CupertinoIcons.house_fill,
                 unselectedIcon: CupertinoIcons.home,
                 index: 0),
-            _buildNavItem(
-                selectedIcon: CupertinoIcons.search_circle,
-                unselectedIcon: CupertinoIcons.search,
-                index: 1),
-            _buildNavItem(
-                selectedIcon: CupertinoIcons.archivebox_fill,
-                unselectedIcon: CupertinoIcons.archivebox,
-                index: 2),
+            // _buildNavItem(
+            //     selectedIcon: CupertinoIcons.search_circle,
+            //     unselectedIcon: CupertinoIcons.search,
+            //     index: 1),
+            // _buildNavItem(
+            //     selectedIcon: CupertinoIcons.archivebox_fill,
+            //     unselectedIcon: CupertinoIcons.archivebox,
+            //     index: 2),
             _buildNavItem(
                 selectedIcon: CupertinoIcons.profile_circled,
                 unselectedIcon: CupertinoIcons.person_crop_circle_fill,
-                index: 3),
+                index: 1),
           ],
         ),
         body: PageView(
@@ -126,7 +125,6 @@ class _NavigationMenuState extends ConsumerState<Dashboard> {
         mainAxisSize: MainAxisSize.min,
         children: [
           AnimatedSwitcher(
-            
             duration: const Duration(milliseconds: 200),
             child: Icon(
               ref.read(intBottomNavBarIndex) == index
