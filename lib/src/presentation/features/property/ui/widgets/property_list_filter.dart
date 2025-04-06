@@ -7,6 +7,8 @@ import 'package:quickdeal/src/presentation/customs/custom_select_field.dart';
 import 'package:quickdeal/src/presentation/customs/custom_textformfield.dart';
 import 'package:quickdeal/src/presentation/features/property/states/property_list_state.dart';
 
+import '../../../../../core/utils/ui_utils/constants/text_strings.dart';
+
 class PropertyListFilter extends ConsumerStatefulWidget {
   const PropertyListFilter({super.key});
 
@@ -206,14 +208,14 @@ class _PropertyListFilterState extends ConsumerState<PropertyListFilter> {
                   children: [
                     TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: const Text("Cancel"),
+                      child: const Text(Texts.cancel),
                     ),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
                         propertyStateNotifier.fetchProperties();
                       },
-                      child: const Text("Apply"),
+                      child: const Text(Texts.apply),
                     ),
                   ],
                 ),

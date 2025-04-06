@@ -31,7 +31,7 @@ class _FollowupScreenState extends ConsumerState<FollowupListScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Follow-Up"),
+          title:  const Text(Texts.followup),
         ),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: Sizes.sm),
@@ -44,7 +44,7 @@ class _FollowupScreenState extends ConsumerState<FollowupListScreen> {
                         height: 45,
                         child: TextFormField(
                           decoration: const InputDecoration(
-                            hintText: "Search",
+                            hintText: Texts.search,
                             prefixIcon: Icon(Icons.search),
                             suffixIcon: Icon(Icons.close),
                           ),

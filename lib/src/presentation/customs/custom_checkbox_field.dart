@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/constants/colors.dart';
+import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
 class CustomCheckboxField extends StatelessWidget {
   final bool value;
@@ -34,7 +35,7 @@ class CustomCheckboxField extends StatelessWidget {
             Text(
               labelText,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 16.sp,
                 color: isEnabled ? Colors.black : Colors.grey,
               ),
             ),

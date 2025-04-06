@@ -44,10 +44,10 @@ class CustomDrawer extends ConsumerWidget {
                 fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
               ),
-            ),
+            )
           ),
 
-          SizedBox(height: 20.h), // Space
+        20.hBox,// Space
 
           // List of Features with Icons
           Expanded(

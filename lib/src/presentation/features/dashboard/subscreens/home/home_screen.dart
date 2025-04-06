@@ -8,6 +8,7 @@ import 'package:quickdeal/src/presentation/features/dashboard/subscreens/home/wi
 
 import '../../../../../core/router/routes.dart';
 import '../../../../../core/utils/ui_utils/constants/colors.dart';
+import '../../../../../core/utils/ui_utils/constants/text_strings.dart';
 import '../../../../../core/utils/ui_utils/helpers/helper_functions.dart';
 import '../../../../customs/drawer.dart';
 import '../../../../global/user_provider.dart';
@@ -130,7 +131,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                     onTap: () {},
                                     child: const Icon(Icons.filter_list)),
                                 prefixIcon: const Icon(Icons.search),
-                                hintText: "Search ",
+                                hintText: Texts.search,
                                 hintStyle: TextStyle(
                                     fontSize: isScrolled ? 12.sp : 15.sp,
                                     color: Colors.grey)),
@@ -181,7 +182,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 },
                                 child: const Icon(Icons.filter_list)),
                             prefixIcon: const Icon(Icons.search),
-                            hintText: "Search ",
+                            hintText: Texts.search,
                             hintStyle:
                                 TextStyle(fontSize: 15.sp, color: Colors.grey)),
                       ),

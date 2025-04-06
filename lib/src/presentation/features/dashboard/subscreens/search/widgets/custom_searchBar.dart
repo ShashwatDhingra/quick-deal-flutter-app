@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
 import '../../../../../../core/utils/ui_utils/constants/colors.dart';
+import '../../../../../../core/utils/ui_utils/constants/text_strings.dart';
 
 class CustomSearchBar extends StatelessWidget {
   final Function(String) onChanged;
@@ -51,7 +52,7 @@ class CustomSearchBar extends StatelessWidget {
             ],
           ),
         ),
-        hintText: "Search",
+        hintText: Texts.search,
         hintStyle: TextStyle(fontSize: 15.sp, color: Colors.grey),
       ),
     );

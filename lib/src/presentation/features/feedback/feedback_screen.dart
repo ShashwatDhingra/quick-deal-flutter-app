@@ -25,7 +25,7 @@ class FeedbackFormScreen extends ConsumerWidget {
               flex: 12,
               child: CustomElevatedButton(
                 buttonColor: CColors.transparent,
-                text: "Reset",
+                text: Texts.res,
                 onPress: () {
                   feedbackNotifier.clearAllControllers();
                 },
@@ -37,7 +37,7 @@ class FeedbackFormScreen extends ConsumerWidget {
             Expanded(
               flex: 12,
               child: CustomElevatedButton(
-                text: "Submit",
+                text: Texts.submit,
                 onPress: () {
                   feedbackNotifier.submitFeedback(ref);
                 },

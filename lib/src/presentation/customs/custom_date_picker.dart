@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../core/utils/ui_utils/constants/text_strings.dart';
+
 // ignore: must_be_immutable
 class CustomDatePicker extends StatefulWidget {
   CustomDatePicker({
@@ -71,7 +73,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 child: CupertinoButton(
                   color: dark ? Colors.grey.shade800 : Colors.blue,
                   onPressed: () => Navigator.pop(context),
-                  child: const Text("Done"),
+                  child: const Text(Texts.done),
                 ),
               ),
             ),

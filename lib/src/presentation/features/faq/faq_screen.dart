@@ -34,7 +34,7 @@ class FAQScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'FAQs',
+          Texts.faqs,
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: CColors.primary,
@@ -46,15 +46,15 @@ class FAQScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Frequently Asked Questions',
+             Text(
+            Texts.frequentlyAskedQuestions,
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
                 color: CColors.primary,
               ),
             ),
-            const SizedBox(height: 20),
+           20.hBox,
             ...faqItems.map((item) => FAQWidget(item: item)),
           ],
         ),
@@ -83,7 +83,7 @@ class FAQWidget extends StatelessWidget {
       title: Text(
         item.question,
         style: TextStyle(
-          fontSize: 18,
+          fontSize: 18.sp,
           fontWeight: FontWeight.bold,
           color: isDark ? CColors.textWhite : CColors.primary,
         ),

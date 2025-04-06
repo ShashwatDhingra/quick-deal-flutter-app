@@ -28,7 +28,7 @@ class _PropertyScreenState extends ConsumerState<PropertyListScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Property"),
+          title: const Text(Texts.property),
         ),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: Sizes.sm),
@@ -41,7 +41,7 @@ class _PropertyScreenState extends ConsumerState<PropertyListScreen> {
                         height: 45,
                         child: TextFormField(
                           decoration: const InputDecoration(
-                            hintText: "Search",
+                            hintText: Texts.search,
                             prefixIcon: Icon(Icons.search),
                             suffixIcon: Icon(Icons.close),
                           ),
@@ -103,7 +103,7 @@ class _PropertyScreenState extends ConsumerState<PropertyListScreen> {
                               onPressed: () {},
                               child:
                                   // isLoading ? CircularProgressIndicator() :
-                                  const Text('Load More'),
+                                  const Text(Texts.loadMore),
                             ),
                           );
                         }

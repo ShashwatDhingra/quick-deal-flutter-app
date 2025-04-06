@@ -1,5 +1,7 @@
 import 'package:riverpod/riverpod.dart';
 
+import '../../../core/utils/ui_utils/constants/text_strings.dart';
+
 // This State class made to defines states/variable of State class.
 class OnboardingState {
   final int currentIndex;
@@ -9,16 +11,16 @@ class OnboardingState {
   OnboardingState(
       {this.currentIndex = 0,
       this.onBoardingMessageTitle = const [
-        'Welcome to QuickDeal!',
-        'Manage Stress Effectively',
-        'Plan for Success',
-        'Navigate Your Work Journey Efficient & Easy'
+        Texts.onBoardingTitle1,
+        Texts.onBoardingTitle2,
+        Texts.onBoardingTitle3,
+        Texts.onBoardingTitle4
       ],
       this.onBoardingMessageSubtitles = const [
-        'Make Smart Decisions! Set clear timelines for projects and celebrate your achievements!',
-        'Stay Balanced! Track your workload and maintain a healthy stress level with ease.',
-        'Your Journey Starts Here! Earn achievement badges as you conquer your tasks. Let’s get started!',
-        'Increase your work management & careerdevelopment radically'
+        Texts.onBoardingSubTitle1,
+        Texts.onBoardingSubTitle2,
+        Texts.onBoardingSubTitle3,
+        Texts.onBoardingSubTitle4
       ]});
 
   // Method to copy the state with update version

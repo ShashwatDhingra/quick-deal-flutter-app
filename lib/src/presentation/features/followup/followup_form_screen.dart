@@ -39,7 +39,7 @@ class FollowupFormScreen extends ConsumerWidget {
             Expanded(
               flex: 12,
               child: CustomElevatedButton(
-                text: "Create",
+                text: Texts.create,
                 onPress: () async {
                   final result =
                       await followupNotifier.createFollowup(ref, propertyId);
