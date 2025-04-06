@@ -5,7 +5,7 @@ import '../../../../../core/router/routes.dart';
 import '../../../../customs/custom_icon_button.dart';
 import '../../../../customs/custom_single_property_card.dart';
 import '../../../followup/widgets/lead_filter.dart';
-import 'widgets/custom_searchbar.dart';
+import 'widgets/custom_searchBar.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

@@ -86,7 +86,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                 SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 14.0),
-                    child: Align(
+                    child: 
+                    Align(
                         alignment: Alignment.topRight,
                         child: GestureDetector(
                           onTap: () {
@@ -99,7 +100,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                                   .copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold)),
-                        )),
+                        )).showIf(onboardingState.currentIndex!= 3)
+                 
+                
                   ),
                 )
               ],
