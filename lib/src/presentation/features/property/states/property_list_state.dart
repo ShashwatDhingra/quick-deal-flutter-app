@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/data/models/filter_models/property_filter_model.dart';
 import 'package:quickdeal/src/data/models/property_model.dart';
@@ -56,7 +57,9 @@ class LeadStateNotifier extends StateNotifier<PropertyListState> {
   }
 
   void applyfilter(PropertyFilterModel newFilter) {
-    print('filter ' + newFilter.toFilter().toString());
+    if (kDebugMode) {
+      print('filter ${newFilter.toFilter()}');
+    }
     state = state.copyWith(propertyFilter: newFilter);
   }
 }

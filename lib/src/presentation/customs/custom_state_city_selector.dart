@@ -7,9 +7,10 @@ import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 class StateCityDropdown extends StatefulWidget {
   final void Function(Map<String, String>) onChanged;
 
-  const StateCityDropdown({Key? key, required this.onChanged}) : super(key: key);
+  const StateCityDropdown({super.key, required this.onChanged});
 
   @override
+  // ignore: library_private_types_in_public_api
   _StateCityDropdownState createState() => _StateCityDropdownState();
 }
 
@@ -73,7 +74,6 @@ class _StateCityDropdownState extends State<StateCityDropdown> {
                   Expanded(
                     child: ListView(
                       children: options.map((option) {
-                        bool isSelected = tempSelected == option;
                         return ListTile(
                           title: Text(option),
                           leading: Radio<String>(

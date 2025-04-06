@@ -5,7 +5,6 @@ import 'package:quickdeal/src/presentation/features/property/ui/widgets/property
 import '../../../../../core/router/routes.dart';
 import '../../../../customs/custom_icon_button.dart';
 import '../../../../customs/custom_single_property_card.dart';
-import '../../../lead/widgets/lead_filter.dart';
 
 class PropertyListScreen extends ConsumerStatefulWidget {
   const PropertyListScreen({super.key});
@@ -79,9 +78,9 @@ class _PropertyScreenState extends ConsumerState<PropertyListScreen> {
                   height: Sizes.sm,
                 ),
                 if (propertyState.propertyList.isEmpty)
-                  Expanded(
+                  const Expanded(
                       child:
-                          const Center(child: Text('No Property Available'))),
+                          Center(child: Text('No Property Available'))),
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: () {

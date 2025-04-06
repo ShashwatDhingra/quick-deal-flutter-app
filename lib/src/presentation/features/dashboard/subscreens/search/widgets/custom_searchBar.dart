@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 

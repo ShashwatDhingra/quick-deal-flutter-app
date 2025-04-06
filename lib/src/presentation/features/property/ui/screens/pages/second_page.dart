@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/presentation/features/property/states/second_page_state.dart';
 
@@ -13,7 +12,6 @@ class SecondPage extends ConsumerStatefulWidget {
 }
 
 class _SecondPageState extends ConsumerState<SecondPage> {
-  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {

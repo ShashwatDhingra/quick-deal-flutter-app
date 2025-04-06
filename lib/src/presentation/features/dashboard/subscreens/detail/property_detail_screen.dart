@@ -6,6 +6,7 @@ import 'package:quickdeal/src/presentation/features/dashboard/subscreens/search/
 
 import '../../../../customs/custom_icon_button.dart';
 
+// ignore: must_be_immutable
 class PropetyDetailScreen extends StatefulWidget {
   PropetyDetailScreen({super.key, required this.property});
 
@@ -154,14 +155,14 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                    'For - ${widget.property.propertyType ?? 'Sale/Rent'}'),
-                              ),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   color: Colors.grey.withOpacity(0.15)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                    'For - ${widget.property.propertyType ?? 'Sale/Rent'}'),
+                              ),
                             ),
                             Text(
                               'Rs. ${widget.property.price.toString()}',

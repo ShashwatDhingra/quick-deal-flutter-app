@@ -111,7 +111,7 @@ class NotificationServices {
         notification.hashCode,
         notification.title,
         notification.body,
-        NotificationDetails(
+        const NotificationDetails(
           android: AndroidNotificationDetails(
             generalNotificationChannelId,
             generalNotificationChannelName,

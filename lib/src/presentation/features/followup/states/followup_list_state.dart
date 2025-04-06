@@ -5,10 +5,8 @@ import '../../../../core/utils/ui_utils/loading_manager.dart';
 import '../../../../data/api_exception.dart';
 import '../../../../data/models/followup_model.dart';
 import '../../../../data/repository/followup_repository.dart';
-import '../../../../data/repository/lead_repository.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
-import '../../../global/user_provider.dart';
 
 class FollowupListState {
   int page;

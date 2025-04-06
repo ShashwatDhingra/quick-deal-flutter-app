@@ -15,7 +15,7 @@ class LeadScreen extends ConsumerStatefulWidget {
 class _LeadScreenState extends ConsumerState<LeadScreen> {
   @override
   void initState() {
-    // TODO: implement initState
+  
     Future.microtask(() => ref.read(leadStateProvider.notifier).fetchLeads());
     super.initState();
   }
@@ -102,6 +102,7 @@ class _LeadScreenState extends ConsumerState<LeadScreen> {
                       shrinkWrap: true,
                       itemCount: leadState.leadList.length,
                       itemBuilder: (context, index) {
+                        // ignore: unrelated_type_equality_checks
                         if (index == leadState.leadList) {
                           return Padding(
                             padding: const EdgeInsets.all(16.0),

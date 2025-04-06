@@ -1,7 +1,6 @@
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
 import 'package:quickdeal/src/presentation/features/followup/states/followup_list_state.dart';
 import 'package:quickdeal/src/presentation/features/followup/widgets/followup_tile.dart';
-import 'package:quickdeal/src/presentation/features/lead/states/lead_state.dart';
 
 import '../../../core/router/routes.dart';
 import '../../customs/custom_icon_button.dart';
@@ -99,6 +98,7 @@ class _FollowupScreenState extends ConsumerState<FollowupListScreen> {
                                 itemBuilder: (context, index) {
                                   final followupData =
                                       followupState.followupList[index];
+                                  // ignore: unrelated_type_equality_checks
                                   if (index ==
                                       followupState.followupList[index]) {
                                     return Padding(

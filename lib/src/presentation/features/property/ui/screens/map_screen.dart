@@ -15,6 +15,7 @@ class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _MapScreenState createState() => _MapScreenState();
 }
 
@@ -143,9 +144,9 @@ class _MapScreenState extends State<MapScreen> {
                             child: FlutterMap(
                               mapController: mapController,
                               options: MapOptions(
-                                center: _selectedLocation ??
+                                initialCenter: _selectedLocation ??
                                     const LatLng(28.7041, 77.1025),
-                                zoom: 14,
+                                initialZoom: 14,
                                 onPositionChanged: (position, hasGesture) {
                                   if (hasGesture) {
                                     _debounce

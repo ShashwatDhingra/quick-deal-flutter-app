@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:ease_x/ease_x.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:quickdeal/src/core/router/router.dart';
@@ -64,7 +65,9 @@ class SigninStateNotifier extends StateNotifier<SigninState> {
           // String? apnsToken = await FirebaseMessaging.instance.getAPNSToken();
 
           var fcmToken = await FirebaseMessaging.instance.getToken();
-          print(fcmToken.toString()+"FCMToken");
+          if (kDebugMode) {
+            print("${fcmToken}FCMToken");
+          }
           await state.authRepo
               .sendFirebaseToken(state.emailController.text, fcmToken ?? '');
         }

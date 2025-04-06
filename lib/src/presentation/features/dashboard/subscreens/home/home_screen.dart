@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/constants/assets.dart';
@@ -9,7 +8,6 @@ import 'package:quickdeal/src/presentation/features/dashboard/subscreens/home/wi
 
 import '../../../../../core/router/routes.dart';
 import '../../../../../core/utils/ui_utils/constants/colors.dart';
-import '../../../../../data/firebase/firebasekey.dart';
 import '../../../../../core/utils/ui_utils/helpers/helper_functions.dart';
 import '../../../../customs/drawer.dart';
 import '../../../../global/user_provider.dart';

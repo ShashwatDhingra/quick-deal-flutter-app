@@ -1,4 +1,5 @@
 import 'package:ease_x/ease_x.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -93,7 +94,9 @@ class _PropertyListFilterState extends ConsumerState<PropertyListFilter> {
                   ],
                   selectedValue: propertyState.propertyFilter.propertyType,
                   onChanged: (value) {
-                    print('value' + value.toString());
+                    if (kDebugMode) {
+                      print('value$value');
+                    }
                     propertyStateNotifier.applyfilter(
                       propertyState.propertyFilter
                           .copyWith(propertyType: value),
@@ -203,14 +206,14 @@ class _PropertyListFilterState extends ConsumerState<PropertyListFilter> {
                   children: [
                     TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text("Cancel"),
+                      child: const Text("Cancel"),
                     ),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
                         propertyStateNotifier.fetchProperties();
                       },
-                      child: Text("Apply"),
+                      child: const Text("Apply"),
                     ),
                   ],
                 ),

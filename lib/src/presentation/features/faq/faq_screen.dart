@@ -73,7 +73,7 @@ class FAQItem {
 class FAQWidget extends StatelessWidget {
   final FAQItem item;
 
-  FAQWidget({required this.item});
+  const FAQWidget({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
