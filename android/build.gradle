@@ -1,3 +1,13 @@
+subprojects {
+    project.plugins.withType(JavaPlugin) {
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(17)
+            }
+        }
+    }
+}
+
 allprojects {
     repositories {
         google()
