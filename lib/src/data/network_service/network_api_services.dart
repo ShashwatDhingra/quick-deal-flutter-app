@@ -14,12 +14,6 @@ class NetworkApiService extends BaseApiService {
 
   @override
   Future<ResponseModel> get(String url) async {
-    ResponseModel response = ResponseModel(
-        success: false,
-        statusCode: 500,
-        message: null,
-        error: null,
-        data: null);
     try {
       final apiResponse = await dioClient.dio.get(url);
       return resolveResponse(apiResponse);
@@ -28,13 +22,8 @@ class NetworkApiService extends BaseApiService {
     }
   }
 
+  @override
   Future<ResponseModel> post(String url, dynamic data) async {
-    ResponseModel response = ResponseModel(
-        success: false,
-        statusCode: 500,
-        message: null,
-        error: null,
-        data: null);
 
     try {
       final apiResponse =

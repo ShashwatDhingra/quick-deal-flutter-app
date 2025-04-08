@@ -9,7 +9,7 @@ class AboutUsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("About Us"),
+        title: const Text(Texts.aboutUs),
         centerTitle: true,
       ),
       body: SingleChildScrollView(

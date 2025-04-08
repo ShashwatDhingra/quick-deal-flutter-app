@@ -15,7 +15,7 @@ class LeadScreen extends ConsumerStatefulWidget {
 class _LeadScreenState extends ConsumerState<LeadScreen> {
   @override
   void initState() {
-    // TODO: implement initState
+  
     Future.microtask(() => ref.read(leadStateProvider.notifier).fetchLeads());
     super.initState();
   }
@@ -27,7 +27,7 @@ class _LeadScreenState extends ConsumerState<LeadScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Lead"),
+          title: const Text(Texts.lead),
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -54,7 +54,7 @@ class _LeadScreenState extends ConsumerState<LeadScreen> {
                         height: 45,
                         child: TextFormField(
                           decoration: const InputDecoration(
-                            hintText: "Search",
+                            hintText: Texts.search,
                             prefixIcon: Icon(Icons.search),
                             suffixIcon: Icon(Icons.close),
                           ),
@@ -102,6 +102,7 @@ class _LeadScreenState extends ConsumerState<LeadScreen> {
                       shrinkWrap: true,
                       itemCount: leadState.leadList.length,
                       itemBuilder: (context, index) {
+                        // ignore: unrelated_type_equality_checks
                         if (index == leadState.leadList) {
                           return Padding(
                             padding: const EdgeInsets.all(16.0),
@@ -109,7 +110,7 @@ class _LeadScreenState extends ConsumerState<LeadScreen> {
                               onPressed: () {},
                               child:
                                   // isLoading ? CircularProgressIndicator() :
-                                  const Text('Load More'),
+                                  const Text(Texts.loadMore),
                             ),
                           );
                         }

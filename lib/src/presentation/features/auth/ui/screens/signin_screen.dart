@@ -50,7 +50,7 @@ class _SigninScreenState extends ConsumerState<SigninScreen>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "Sign In",
+                            Texts.signIn,
                             style: Theme.of(context).textTheme.headlineLarge,
                           ),
                           Text(
@@ -100,7 +100,7 @@ class _SigninScreenState extends ConsumerState<SigninScreen>
                                   );
                                 },
                                 child: const Text(
-                                  "Forgot Password?",
+                                  "${Texts.forgetPassword}?",
                                 ),
                               )
                             ],
@@ -109,7 +109,7 @@ class _SigninScreenState extends ConsumerState<SigninScreen>
                             height: Sizes.lg,
                           ),
                           CustomElevatedButton(
-                            text: "Sign In",
+                            text: Texts.signIn,
                             onPress: () async {
                               final response = await signinNotifier.login(ref);
                               if (response) {
@@ -120,9 +120,7 @@ class _SigninScreenState extends ConsumerState<SigninScreen>
                               }
                             },
                           ),
-                          const SizedBox(
-                            height: Sizes.xxl,
-                          ),
+                          Sizes.xxl.hBox,
                           Row(
                             children: [
                               Expanded(
@@ -194,7 +192,7 @@ class _SigninScreenState extends ConsumerState<SigninScreen>
                                     );
                                   },
                                   child: const Text(
-                                    "Sign Up Here",
+                                    Texts.signUp,
                                     style: TextStyle(color: CColors.primary),
                                   ))
                             ],

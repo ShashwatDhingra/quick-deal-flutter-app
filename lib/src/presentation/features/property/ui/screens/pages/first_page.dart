@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:quickdeal/src/presentation/features/property/states/first_page_state.dart';
 
+import '../../../../../../core/utils/ui_utils/constants/text_strings.dart';
 import '../../../../../customs/custom_select_field.dart';
 import '../../../../../customs/custom_textformfield.dart';
 
@@ -20,7 +21,7 @@ class FirstPage extends ConsumerWidget {
         child: SingleChildScrollView(
           child: Column(children: [
             const Align(
-                alignment: Alignment.centerLeft, child: Text('Description')),
+                alignment: Alignment.centerLeft, child: Text(Texts.desc)),
             16.hBox,
             CustomTextformField(
                 validator: (val) {

@@ -35,7 +35,7 @@ class LeadFormScreen extends ConsumerWidget {
             Expanded(
               flex: 12,
               child: CustomElevatedButton(
-                text: "Create",
+                text: Texts.create,
                 onPress: () {
                   leadPageNotifier.createLead(ref);
                 },

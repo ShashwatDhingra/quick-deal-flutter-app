@@ -70,8 +70,8 @@ class SinglePropertyCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(title,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                      style:  TextStyle(
+                          fontSize: 16.sp, fontWeight: FontWeight.bold),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis),
                   const SizedBox(height: 4),
@@ -104,8 +104,8 @@ class SinglePropertyCard extends StatelessWidget {
                         const Text("Price",
                             style: TextStyle(fontSize: 12, color: Colors.blue)),
                         Text(price,
-                            style: const TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.bold)),
+                            style:  TextStyle(
+                                fontSize: 12.sp, fontWeight: FontWeight.bold)),
                       ]),
                 ],
               ),

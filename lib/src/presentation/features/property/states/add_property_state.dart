@@ -1,8 +1,6 @@
-import 'dart:io';
 
-import 'package:cloudinary_api/uploader/cloudinary_uploader.dart';
-import 'package:cloudinary_url_gen/cloudinary.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
@@ -163,10 +161,14 @@ class AddPropertyStateNotifier extends StateNotifier<AddPropertyState> {
             final imageUrl = response.data['secure_url'];
             imageUrls.add(imageUrl);
           } else {
-            print('Error uploading image: ${response.data}');
+            if (kDebugMode) {
+              print('Error uploading image: ${response.data}');
+            }
           }
         } catch (e) {
-          print('Upload Error: $e');
+          if (kDebugMode) {
+            print('Upload Error: $e');
+          }
           return false;
         }
       }

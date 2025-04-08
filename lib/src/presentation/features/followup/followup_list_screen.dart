@@ -1,7 +1,6 @@
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile/profile.dart';
 import 'package:quickdeal/src/presentation/features/followup/states/followup_list_state.dart';
 import 'package:quickdeal/src/presentation/features/followup/widgets/followup_tile.dart';
-import 'package:quickdeal/src/presentation/features/lead/states/lead_state.dart';
 
 import '../../../core/router/routes.dart';
 import '../../customs/custom_icon_button.dart';
@@ -32,7 +31,7 @@ class _FollowupScreenState extends ConsumerState<FollowupListScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Follow-Up"),
+          title:  const Text(Texts.followup),
         ),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: Sizes.sm),
@@ -45,7 +44,7 @@ class _FollowupScreenState extends ConsumerState<FollowupListScreen> {
                         height: 45,
                         child: TextFormField(
                           decoration: const InputDecoration(
-                            hintText: "Search",
+                            hintText: Texts.search,
                             prefixIcon: Icon(Icons.search),
                             suffixIcon: Icon(Icons.close),
                           ),
@@ -99,6 +98,7 @@ class _FollowupScreenState extends ConsumerState<FollowupListScreen> {
                                 itemBuilder: (context, index) {
                                   final followupData =
                                       followupState.followupList[index];
+                                  // ignore: unrelated_type_equality_checks
                                   if (index ==
                                       followupState.followupList[index]) {
                                     return Padding(

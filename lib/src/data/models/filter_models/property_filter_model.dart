@@ -65,11 +65,12 @@ class PropertyFilterModel {
     }
     if (bedrooms != null) filter += '&filters[bedrooms]=$bedrooms';
     if (bathrooms != null) filter += '&filters[bedrooms]=$bathrooms';
-    if (constructionYear != null)
+    if (constructionYear != null) {
       filter += '&filters[constructionYear]=$constructionYear';
+    }
     if (city != null) filter += '&filters[city]=$city';
     if (state != null) filter += '&filters[state]=$state';
     if (pincode != null) filter += '&filters[location.pincode]=$pincode';
-    return '?page=1&limit=100' + filter;
+    return '?page=1&limit=100$filter';
   }
 }

@@ -84,7 +84,7 @@ class LeadStateNotifier extends StateNotifier<LeadState> {
   Future<bool> createLead(WidgetRef ref) async {
     LeadRepository leadRepo = LeadRepository();
 
-    LeadModel leadModel;
+    
     try {
       if (!leadFormKey.currentState!.validate()) {
         return false;
@@ -96,7 +96,7 @@ class LeadStateNotifier extends StateNotifier<LeadState> {
         "name": state.nameController.text,
         "phone": state.phoneController.text,
         "email": state.emalController.text,
-        "assigned": user!.id ?? "",
+        "assigned": user?.id ?? "",
         "propertytype": state.propertyCategory,
         "status": state.status,
         "remarks": state.remarksController.text,

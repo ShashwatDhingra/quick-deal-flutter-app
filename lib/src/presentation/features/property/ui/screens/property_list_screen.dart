@@ -5,7 +5,6 @@ import 'package:quickdeal/src/presentation/features/property/ui/widgets/property
 import '../../../../../core/router/routes.dart';
 import '../../../../customs/custom_icon_button.dart';
 import '../../../../customs/custom_single_property_card.dart';
-import '../../../lead/widgets/lead_filter.dart';
 
 class PropertyListScreen extends ConsumerStatefulWidget {
   const PropertyListScreen({super.key});
@@ -29,7 +28,7 @@ class _PropertyScreenState extends ConsumerState<PropertyListScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Property"),
+          title: const Text(Texts.property),
         ),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: Sizes.sm),
@@ -42,7 +41,7 @@ class _PropertyScreenState extends ConsumerState<PropertyListScreen> {
                         height: 45,
                         child: TextFormField(
                           decoration: const InputDecoration(
-                            hintText: "Search",
+                            hintText: Texts.search,
                             prefixIcon: Icon(Icons.search),
                             suffixIcon: Icon(Icons.close),
                           ),
@@ -79,9 +78,9 @@ class _PropertyScreenState extends ConsumerState<PropertyListScreen> {
                   height: Sizes.sm,
                 ),
                 if (propertyState.propertyList.isEmpty)
-                  Expanded(
+                  const Expanded(
                       child:
-                          const Center(child: Text('No Property Available'))),
+                          Center(child: Text('No Property Available'))),
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: () {
@@ -104,7 +103,7 @@ class _PropertyScreenState extends ConsumerState<PropertyListScreen> {
                               onPressed: () {},
                               child:
                                   // isLoading ? CircularProgressIndicator() :
-                                  const Text('Load More'),
+                                  const Text(Texts.loadMore),
                             ),
                           );
                         }

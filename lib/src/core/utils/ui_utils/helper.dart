@@ -58,7 +58,7 @@ class AuthPrefHelper {
   }
 
   static Future<String?> getUserToken() async {
-    return PrefHelper.getString(PrefHelper.token) ?? null;
+    return PrefHelper.getString(PrefHelper.token) ?? "";
   }
 
   static Future<bool> isUserLogin() async {

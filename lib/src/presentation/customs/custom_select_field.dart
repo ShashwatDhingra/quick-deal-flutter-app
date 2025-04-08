@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/constants/colors.dart';
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 
+import '../../core/utils/ui_utils/constants/text_strings.dart';
+
 class CustomSelectField extends StatefulWidget {
   final List<String> options;
   final dynamic selectedValue;
@@ -23,6 +25,7 @@ class CustomSelectField extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _CustomSelectFieldState createState() => _CustomSelectFieldState();
 }
 
@@ -129,7 +132,7 @@ class _CustomSelectFieldState extends State<CustomSelectField> {
                             state.didChange(selectedItems);
                             Navigator.pop(context);
                           },
-                          child: const Text("OK"),
+                          child:  const Text(Texts.ok),
                         ),
                       ],
                     ),

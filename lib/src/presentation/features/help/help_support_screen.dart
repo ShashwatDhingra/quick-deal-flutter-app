@@ -26,33 +26,33 @@ class HelpSupportScreen extends ConsumerWidget {
             Text(
               "Contact Us",
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 22.sp,
                 fontWeight: FontWeight.bold,
                 color: isDark ? CColors.textWhite : CColors.primary,
               ),
             ),
-            const SizedBox(height: 16),
+                        16.hBox,
             _buildContactInfo(
               isDark: isDark,
               icon: Icons.phone,
               title: "Phone",
               value: "+1 (123) 456-7890",
             ),
-            const SizedBox(height: 12),
+                       12.hBox,
             _buildContactInfo(
               isDark: isDark,
               icon: Icons.email,
               title: "Email",
               value: "support@quickdeal.com",
             ),
-            const SizedBox(height: 12),
+            12.hBox,
             _buildContactInfo(
               isDark: isDark,
               icon: Icons.location_on,
               title: "Address",
               value: "123 Main St, City, Country",
             ),
-            const SizedBox(height: 24),
+            24.hBox,
 
             // Help Request Form
             Text(
@@ -63,7 +63,7 @@ class HelpSupportScreen extends ConsumerWidget {
                 color: isDark ? CColors.textWhite : CColors.primary,
               ),
             ),
-            const SizedBox(height: 16),
+            16.hBox,
             Form(
               key: helpNotifier.helpFormKey,
               child: Column(
@@ -79,7 +79,7 @@ class HelpSupportScreen extends ConsumerWidget {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16),
+                 16.hBox,
                   CustomTextformField(
                     isEnabled: false,
                     cont: helpState.emailController,
@@ -95,7 +95,7 @@ class HelpSupportScreen extends ConsumerWidget {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16),
+                  16.hBox,
                   CustomTextformField(
                     cont: helpState.subjectController,
                     labelText: "Subject *",
@@ -106,7 +106,7 @@ class HelpSupportScreen extends ConsumerWidget {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16),
+                   16.hBox,
                   CustomTextformField(
                     cont: helpState.messageController,
                     labelText: "Message *",
@@ -120,7 +120,7 @@ class HelpSupportScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 24),
                   CustomElevatedButton(
-                    text: "Submit Request",
+                    text: Texts.submit,
                     onPress: () {
                       helpNotifier.submitHelpRequest(ref);
                     },
@@ -158,7 +158,7 @@ class HelpSupportScreen extends ConsumerWidget {
             Text(
               value,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 14.sp,
                 color: isDark ? CColors.textWhite : Colors.black54,
               ),
             ),
