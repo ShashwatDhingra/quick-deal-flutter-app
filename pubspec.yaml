@@ -56,7 +56,7 @@ dependencies:
   animations: ^2.0.11
   flutter_map: ^6.1.0
   latlong2: ^0.9.1
-  cached_network_image: ^3.4.0
+  cached_network_image: ^3.4.1
   shimmer: ^3.0.0
   jwt_decoder: ^2.0.1
   image_picker: ^1.1.2
