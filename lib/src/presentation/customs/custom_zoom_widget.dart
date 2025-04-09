@@ -21,7 +21,7 @@ class ZoomWidget extends StatelessWidget {
       minScale: minScale,
       maxScale: maxScale,
       panEnabled: panEnabled,
-      
+
       boundaryMargin: const EdgeInsets.all(double.infinity),
       child: child,
     );
@@ -68,7 +68,7 @@ class ZoomImg extends StatelessWidget {
                 ],
               ),
             )
-          : Center(
+          : const Center(
               child: Text("No data found"),
             ),
     );

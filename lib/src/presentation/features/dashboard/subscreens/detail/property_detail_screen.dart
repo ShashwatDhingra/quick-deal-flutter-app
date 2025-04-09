@@ -115,8 +115,7 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
               borderRadius: BorderRadius.circular(10),
               child: GestureDetector(
                 onTap: () {
-                  print("widget.property" +
-                      widget.property.images![0].toString());
+                 
                   context.push(ZoomImg(
                     itemList: widget.property.images ?? [],
                   ));
@@ -130,7 +129,7 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
                   fit: BoxFit.cover,
                   placeholder: (context, url) =>
                       Container(color: Colors.grey[200]),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),
