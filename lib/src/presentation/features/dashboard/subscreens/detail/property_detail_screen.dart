@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:quickdeal/src/core/router/routes.dart';
 import 'package:quickdeal/src/data/models/property_model.dart';
 import 'package:quickdeal/src/presentation/customs/see_all.dart';
@@ -5,6 +6,7 @@ import 'package:quickdeal/src/presentation/features/dashboard/subscreens/profile
 import 'package:quickdeal/src/presentation/features/dashboard/subscreens/search/widgets/filter_button.dart';
 
 import '../../../../customs/custom_icon_button.dart';
+import '../../../../customs/custom_zoom_widget.dart';
 
 // ignore: must_be_immutable
 class PropetyDetailScreen extends StatefulWidget {
@@ -111,13 +113,26 @@ class _PropetyDetailScreenState extends State<PropetyDetailScreen> {
             flex: 4,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
+              child: GestureDetector(
+                onTap: () {
+                  print("widget.property" +
+                      widget.property.images![0].toString());
+                  context.push(ZoomImg(
+                    itemList: widget.property.images ?? [],
+                  ));
+                },
+                child: CachedNetworkImage(
                   width: double.infinity,
-                  (widget.property.images != null &&
+                  imageUrl: (widget.property.images != null &&
                           widget.property.images!.isNotEmpty)
                       ? widget.property.images![0]
                       : 'https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=',
-                  fit: BoxFit.cover),
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) =>
+                      Container(color: Colors.grey[200]),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+              ),
             ),
           ),
           Expanded(
