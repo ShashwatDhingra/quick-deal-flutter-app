@@ -12,6 +12,7 @@ import '../../../../../core/utils/ui_utils/constants/text_strings.dart';
 import '../../../../../core/utils/ui_utils/helpers/helper_functions.dart';
 import '../../../../customs/drawer.dart';
 import '../../../../global/user_provider.dart';
+import '../../states/home_state.dart';
 import 'widgets/body_tile2.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -40,6 +41,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         }
       });
     });
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        // Call New Property api
+        final homeStateNotifier = ref.read(homeStateProvider.notifier);
+        homeStateNotifier.fetchProperties();
+      },
+    );
   }
 
   @override

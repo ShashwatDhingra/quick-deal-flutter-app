@@ -95,7 +95,8 @@ class SinglePropertyCard extends StatelessWidget {
                     _buildIconText(Icons.bed_rounded, bedrooms.toString()),
                     _buildIconText(
                         Icons.bathtub_outlined, bathrooms.toString()),
-                    _buildIconText(Icons.aspect_ratio_sharp, "${area ?? '--'} SQ Ft"),
+                    _buildIconText(
+                        Icons.aspect_ratio_sharp, "${area ?? '--'} SQ Ft"),
                   ]),
                   const SizedBox(height: 8),
                   Row(
@@ -123,5 +124,41 @@ class SinglePropertyCard extends StatelessWidget {
       Text(text, style: const TextStyle(fontSize: 12)),
       const SizedBox(width: 8)
     ]);
+  }
+}
+
+class SinglePropertyCardShimmer extends StatelessWidget {
+  const SinglePropertyCardShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade500,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: CColors.black.withOpacity(0.2),
+            blurRadius: 10,
+            spreadRadius: 0,
+          ),
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 120,
+            height: 120,
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: const SizedBox()),
+          ),
+          const SizedBox(width: 12),
+        ],
+      ),
+    );
   }
 }
