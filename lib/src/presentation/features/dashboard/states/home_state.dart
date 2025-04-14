@@ -1,33 +1,27 @@
-
 import 'package:quickdeal/src/core/utils/ui_utils/extensions.dart';
 import 'package:riverpod/riverpod.dart';
 
+import '../../../../core/utils/ui_utils/loading_manager.dart';
+import '../../../../data/api_exception.dart';
+import '../../../../data/models/property_model.dart';
+import '../../../../data/repository/property_repository.dart';
+
 class HomeState {
-  final List<Map<String, dynamic>> appointmentList;
-  final List<String> taskList;
-  final bool isAppointmentListLoading;
-  final bool isTaskListLoading;
+  List<PropertyModel> propertyList;
+  PropertyRepository propertyRepo = PropertyRepository();
+  bool bodyTile2Loading = false;
 
   // In constructor we generally initialize with default value of variables.
-  HomeState(
-      {this.appointmentList = const [],
-      this.taskList = const [],
-      this.isAppointmentListLoading = false,
-      this.isTaskListLoading = false});
+  HomeState({List<PropertyModel>? propertyList, bool? bodyTile2Loading})
+      : propertyList = propertyList ?? [],
+        bodyTile2Loading = false;
 
   // Method to copy the state with update version
-  HomeState copyWith({
-    List<Map<String, dynamic>>? appointmentList,
-    List<String>? taskList,
-    bool? isAppointmentListLoading,
-    bool? isTaskListLoading,
-  }) {
+  HomeState copyWith(
+      {List<PropertyModel>? propertyList, bool? bodyTile2Loading}) {
     return HomeState(
-        appointmentList: appointmentList ?? this.appointmentList,
-        taskList: taskList ?? this.taskList,
-        isAppointmentListLoading:
-            isAppointmentListLoading ?? this.isAppointmentListLoading,
-        isTaskListLoading: isTaskListLoading ?? this.isTaskListLoading);
+        propertyList: propertyList ?? this.propertyList,
+        bodyTile2Loading: bodyTile2Loading ?? this.bodyTile2Loading);
   }
 }
 
@@ -35,38 +29,28 @@ class HomeStateNotifier extends StateNotifier<HomeState> {
   // Initialize the HomeState in super method of HomeStateNotifier
   HomeStateNotifier() : super(HomeState());
 
-  Future<void> fetchAppointmentList() async {
-    toogleAppointmentLoading(true);
+  /// fetch Properties
+  Future<void> fetchProperties() async {
     try {
-      await Future.delayed(2.seconds);
-      state = state.copyWith(appointmentList: [
-        {"name": "Delhi Meet", "in_time": "11:00 AM", "out_time": "1:00 PM"},
-        {"name": "Delhi Meet", "in_time": "11:00 AM", "out_time": "1:00 PM"},
-        {"name": "Delhi Meet", "in_time": "11:00 AM", "out_time": "1:00 PM"},
-        {"name": "Delhi Meet", "in_time": "11:00 AM", "out_time": "1:00 PM"},
-        {"name": "Delhi Meet", "in_time": "11:00 AM", "out_time": "1:00 PM"}
-      ]);
+      state = state.copyWith(bodyTile2Loading: true);
+      final response = await state.propertyRepo.fetchProperty('');
+
+      if (response?.success ?? false) {
+        var data = response?.data;
+
+        if (data is List<dynamic>) {
+          state = state.copyWith(
+              propertyList: data
+                  .map((element) => PropertyModel.fromJson(element))
+                  .toList());
+        }
+        response?.message?.showToast();
+      }
+    } catch (e) {
+      handleError(e);
     } finally {
-      toogleAppointmentLoading(false);
+      LoadingManager.hideLoading();
     }
-  }
-
-  Future<void> fetchTaskList() async {
-    toogleTaskLoading(true);
-    try {
-      await Future.delayed(2.seconds);
-      state = state.copyWith(taskList: state.taskList);
-    } finally {
-      toogleTaskLoading(false);
-    }
-  }
-
-  void toogleAppointmentLoading(bool status) {
-    state = state.copyWith(isAppointmentListLoading: status);
-  }
-
-  void toogleTaskLoading(bool status) {
-    state = state.copyWith(isTaskListLoading: status);
   }
 }
 

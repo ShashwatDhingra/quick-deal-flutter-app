@@ -69,7 +69,7 @@ class PropertyModel {
       category: json['category'],
       price: (json['price'] as num).toDouble(),
       location: Location.fromJson(json['location']),
-      status: json['status'] ?? [],
+      status: json['status'][0] ?? 'draft',
       area: json['area'],
       furnishing: json['furnishing'],
       bedrooms: json['bedrooms'],
@@ -216,7 +216,7 @@ class Location {
       address: json['address'],
       city: json['city'],
       state: json['state'],
-      pincode: json['pincode'],
+      pincode: json['pincode'] ?? '',
       coordinates: json['coordinates'] != null
           ? Coordinates.fromJson(json['coordinates'])
           : null,

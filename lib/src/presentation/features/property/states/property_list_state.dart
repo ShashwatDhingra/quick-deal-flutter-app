@@ -30,7 +30,7 @@ class PropertyListState {
 class LeadStateNotifier extends StateNotifier<PropertyListState> {
   LeadStateNotifier() : super(PropertyListState());
 
-  /// fetch Leads
+  /// fetch Properties
   Future<void> fetchProperties() async {
     try {
       LoadingManager.showLoading();
